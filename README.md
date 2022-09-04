@@ -2,7 +2,7 @@ enemy, player, character, equipment, fight
 
 
 
-docker run --rm -v ${PWD}:/app -it php:7.4-cli bash
+docker run --rm -v ${PWD}:/app -it php:8.1-cli bash
 
 curl -sS https://getcomposer.org/installer | php \
 && mv composer.phar /usr/local/bin/ \

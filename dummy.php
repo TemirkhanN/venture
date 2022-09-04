@@ -3,7 +3,8 @@
 declare(strict_types=1);
 
 use TemirkhanN\Venture\Battle;
-use TemirkhanN\Venture\Character\Stats;
+use TemirkhanN\Venture\Character;
+use TemirkhanN\Venture\Item;
 use TemirkhanN\Venture\Npc;
 use TemirkhanN\Venture\Player;
 
@@ -16,13 +17,17 @@ ob_start();
 $battle = restoreBattleInfoFromMemory();
 
 if ($battle === null) {
-    $morlok = new Npc\Npc('Morlok', Stats::lowestStats());
+    $morlok = new Npc\Npc('Morlok', Character\Stats::lowestStats());
 
     $battle = new Battle\Battle($morlok);
 
-    $player = new Player\Player('Wilheim', new Stats(2, 0, 5));
+    $player = new Player\Player('Wilheim', new Character\Stats(2, 0, 5));
+    $sword = new Item\Weapon('Broadsword', 2);
+    $armor = new Item\Armor('Chain mail', 1, 3);
+    $player->equip(Character\Equipment\EquipmentItem::weapon($sword));
+    $player->equip(Character\Equipment\EquipmentItem::bodyArmor($armor));
 
-    $battle->applyAction((new Player\Action\EngageBattle($player)));
+    $battle->applyAction(new Player\Action\EngageBattle($player));
 }
 
 if (!$battle->isOver()) {
@@ -46,20 +51,20 @@ function renderBattle(Battle\Battle $battle): void
     printf(
         '%s: HP %d/%d|ATT%d|DEF%d',
         $player->name(),
-        $player->stats()->currentHealth,
-        $player->stats()->maxHealth,
-        $player->stats()->attack,
-        $player->stats()->defence
+        $player->stats()->currentHealth(),
+        $player->stats()->maxHealth(),
+        $player->stats()->attack(),
+        $player->stats()->defence()
     );
 
     $enemy = $battle->enemy();
     printf(
         '      %s: HP %d/%d|ATT%d|DEF%d',
         $enemy->name(),
-        $enemy->stats()->currentHealth,
-        $enemy->stats()->maxHealth,
-        $enemy->stats()->attack,
-        $enemy->stats()->defence
+        $enemy->stats()->currentHealth(),
+        $enemy->stats()->maxHealth(),
+        $enemy->stats()->attack(),
+        $enemy->stats()->defence()
     );
 
     echo PHP_EOL . '____________________________' . PHP_EOL;

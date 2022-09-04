@@ -25,11 +25,11 @@ class Attack implements Battle\ActionInterface
             throw new \DomainException('The battle should be already over');
         }
 
-        $damage = $player->stats()->attack - $target->stats()->defence;
+        $damage = $player->stats()->attack() - $target->stats()->defence();
         if ($damage < 0) {
             $damage = 0;
         }
-        $target->stats()->currentHealth -= $damage;
+        $target->stats()->decreaseHealth($damage);
 
         $at->addLog(sprintf('%s dealt %d damage to %s', $player->name(), $damage, $target->name()));
 

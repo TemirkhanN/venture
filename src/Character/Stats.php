@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Character;
 
-class Stats
+class Stats implements StatsInterface
 {
-    public int $currentHealth;
+    private int $currentHealth;
 
     public function __construct(
-        public readonly int $attack,
-        public readonly int $defence,
-        public readonly int $maxHealth,
-        public readonly int $attackSpeed = 1
+        private readonly int $attack,
+        private readonly int $defence,
+        private readonly int $maxHealth
     ) {
         $this->currentHealth = $this->maxHealth;
     }
@@ -22,8 +21,32 @@ class Stats
         return new self(1, 0, 5);
     }
 
+    public function attack(): int
+    {
+        return $this->attack;
+    }
+
+    public function defence(): int
+    {
+        return $this->defence;
+    }
+
+    public function maxHealth(): int
+    {
+        return $this->maxHealth;
+    }
+
+    public function currentHealth(): int
+    {
+        return $this->currentHealth;
+    }
+
     public function decreaseHealth(int $amount): void
     {
+        if ($amount < 0) {
+            throw new \UnexpectedValueException('Can not decrease health by negative amount');
+        }
+
         $this->currentHealth -= $amount;
     }
 }

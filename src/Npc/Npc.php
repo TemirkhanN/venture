@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Npc;
 
 use TemirkhanN\Venture\Battle\TargetInterface;
-use TemirkhanN\Venture\Character\Stats;
+use TemirkhanN\Venture\Character\StatsInterface;
 
 class Npc implements TargetInterface
 {
     private string $name;
 
-    private Stats $stats;
+    private StatsInterface $stats;
 
-    public function __construct(string $name, Stats $stats)
+    public function __construct(string $name, StatsInterface $stats)
     {
         $this->name  = $name;
         $this->stats = $stats;
@@ -24,13 +24,13 @@ class Npc implements TargetInterface
         return $this->name;
     }
 
-    public function stats(): Stats
+    public function stats(): StatsInterface
     {
         return $this->stats;
     }
 
     public function isAlive(): bool
     {
-        return $this->stats->currentHealth > 0;
+        return $this->stats->currentHealth() > 0;
     }
 }
