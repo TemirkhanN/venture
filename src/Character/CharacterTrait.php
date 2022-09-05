@@ -29,4 +29,12 @@ trait CharacterTrait
     {
         $this->equipment->equip($item);
     }
+
+    /**
+     * @return iterable<Equipment\EquipmentItem>
+     */
+    public function equipment(): iterable
+    {
+        return $this->equipment->list();
+    }
 }

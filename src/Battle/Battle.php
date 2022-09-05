@@ -5,18 +5,22 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Battle;
 
 use SplStack;
+use TemirkhanN\Venture\Npc\Drop;
+use TemirkhanN\Venture\Npc\GenerateDrop;
 use TemirkhanN\Venture\Npc\Npc;
 use TemirkhanN\Venture\Player\Player;
 
 class Battle
 {
-    private ?Player $player;
+    private ?Player $player = null;
 
     private Npc $enemy;
 
     private int $turn = 0;
 
     private SplStack $logs;
+
+    private bool $rewardsIssued = false;
 
     public function __construct(Npc $enemy)
     {
@@ -26,7 +30,7 @@ class Battle
 
     public function start(Player $with): void
     {
-        if ($this->isStarted()) {
+        if ($this->isStarted() || $this->isOver()) {
             throw new \DomainException('Battle has already started');
         }
 
@@ -67,6 +71,10 @@ class Battle
 
     public function isOver(): bool
     {
+        if (!$this->isStarted()) {
+            return false;
+        }
+
         return !$this->player->isAlive() || !$this->enemy->isAlive();
     }
 
@@ -81,5 +89,20 @@ class Battle
     public function logs(): iterable
     {
         yield from $this->logs;
+    }
+
+    /**
+     * @return iterable<Drop>
+     */
+    public function issueRewards(): iterable
+    {
+        $rewards = [];
+        if (!$this->rewardsIssued) {
+            $rewards = (new GenerateDrop())->execute($this->enemy);
+        }
+
+        $this->rewardsIssued = true;
+
+        return $rewards;
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Item;
 
-class Weapon
+class Weapon implements ItemInterface
 {
     public function __construct(
         public readonly string $name,
@@ -12,5 +12,10 @@ class Weapon
     )
     {
 
+    }
+
+    public function name(): string
+    {
+        return $this->name;
     }
 }
