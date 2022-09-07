@@ -17,12 +17,12 @@ class Inventory
 
     public function __construct()
     {
-        $this->putItem(new Item\Gold(), 0);
+        $this->putItem(Item\Currency::gold(), 0);
     }
 
     public function putItem(Item\ItemInterface $item, int $amount)
     {
-        if ($item->name() === 'Gold') {
+        if ($item == Item\Currency::gold()) {
             $currentGoldAmount = $this->slots[0]->amountOfItems ?? 0;
 
             $this->slots[0] = new Slot(1, $item, $currentGoldAmount + $amount);

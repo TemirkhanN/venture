@@ -6,7 +6,7 @@ namespace TemirkhanN\Venture\Player;
 
 use TemirkhanN\Venture\Battle;
 use TemirkhanN\Venture\Character;
-use TemirkhanN\Venture\Npc\Drop;
+use TemirkhanN\Venture\Drop\Drop;
 use TemirkhanN\Venture\Player\Inventory\Slot;
 
 class Player implements Battle\TargetInterface

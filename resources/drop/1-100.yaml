@@ -1,0 +1,9 @@
+1:
+  -
+    id: 1
+    amount: 100
+    chance: 1
+  -
+    id: 2002
+    amount: 1
+    chance: 0.33

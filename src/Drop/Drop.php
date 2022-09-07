@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Npc;
+namespace TemirkhanN\Venture\Drop;
 
 use TemirkhanN\Venture\Item\ItemInterface;
 

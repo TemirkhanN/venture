@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Npc;
 
 use TemirkhanN\Venture\Character\Stats;
-use TemirkhanN\Venture\Db\Table;
+use TemirkhanN\Venture\Utils\Db\Table;
 
 class NpcRepository
 {
@@ -24,7 +24,7 @@ class NpcRepository
             return null;
         }
 
-        return $this->hydrateToObject($data);
+        return $this->hydrateToObject($data + ['id' => $id]);
     }
 
     public function getById(int $id): Npc
@@ -40,6 +40,7 @@ class NpcRepository
     private function hydrateToObject(array $npcData): Npc
     {
         return new Npc(
+            $npcData['id'],
             $npcData['name'],
             new Stats($npcData['attack'], $npcData['defence'], $npcData['health'])
         );

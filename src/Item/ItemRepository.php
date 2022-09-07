@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Item;
 
-use TemirkhanN\Venture\Db\Table;
+use TemirkhanN\Venture\Utils\Db\Table;
 
 class ItemRepository implements ItemRepositoryInterface
 {
@@ -42,6 +42,8 @@ class ItemRepository implements ItemRepositoryInterface
                 return new Armor($itemData['name'], $itemData['defence'], $itemData['health']);
             case Weapon::ITEM_TYPE:
                 return new Weapon($itemData['name'], $itemData['attack']);
+            case Currency::ITEM_TYPE:
+                return new Currency($itemData['name']);
             default:
                 throw new \UnexpectedValueException(sprintf('Unknown type %s', $itemData['type']));
         }

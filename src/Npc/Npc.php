@@ -9,12 +9,15 @@ use TemirkhanN\Venture\Character\StatsInterface;
 
 class Npc implements TargetInterface
 {
+    public readonly int $id;
+
     private string $name;
 
     private StatsInterface $stats;
 
-    public function __construct(string $name, StatsInterface $stats)
+    public function __construct(int $id, string $name, StatsInterface $stats)
     {
+        $this->id = $id;
         $this->name  = $name;
         $this->stats = $stats;
     }

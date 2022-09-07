@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Db;
+namespace TemirkhanN\Venture\Utils\Db;
 
 use DirectoryIterator;
 use Symfony\Component\Yaml\Yaml;
