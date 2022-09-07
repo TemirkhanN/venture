@@ -3,8 +3,7 @@
 declare(strict_types=1);
 
 use TemirkhanN\Venture\Battle\Battle;
-use TemirkhanN\Venture\Character\Stats;
-use TemirkhanN\Venture\Npc\Npc;
+use TemirkhanN\Venture\Npc\NpcRepository;
 use TemirkhanN\Venture\Player\Action\EngageBattle;
 use TemirkhanN\Venture\Player\Player;
 
@@ -17,7 +16,8 @@ if ($player === null) {
     fatalError('Player is not created. Call according script first.');
 }
 
-$enemy = new Npc('Morlok', Stats::lowestStats());
+$npcRepository = new NpcRepository();
+$enemy = $npcRepository->getById(1);
 
 $battle = new Battle($enemy);
 $battle->applyAction(new EngageBattle($player));
