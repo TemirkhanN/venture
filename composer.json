@@ -3,5 +3,9 @@
         "psr-4": {
             "TemirkhanN\\Venture\\": "src/"
         }
+    },
+    "require": {
+        "symfony/yaml": "^6.1",
+        "php": "~8.1.0"
     }
 }

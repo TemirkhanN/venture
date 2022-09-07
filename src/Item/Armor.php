@@ -6,6 +6,10 @@ namespace TemirkhanN\Venture\Item;
 
 class Armor implements ItemInterface
 {
+    use TypeCasterTrait;
+
+    public const ITEM_TYPE = 'armor';
+
     public function __construct(
         public readonly string $name,
         public readonly int $defence,
@@ -13,6 +17,11 @@ class Armor implements ItemInterface
     )
     {
 
+    }
+
+    public function type(): string
+    {
+        return self::ITEM_TYPE;
     }
 
     public function name(): string

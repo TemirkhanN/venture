@@ -6,5 +6,6 @@ namespace TemirkhanN\Venture\Item;
 
 interface ItemInterface
 {
+    public function type(): string;
     public function name(): string;
 }

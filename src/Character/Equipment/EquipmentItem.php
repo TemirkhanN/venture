@@ -21,7 +21,7 @@ class EquipmentItem
 
     public static function weapon(Weapon $weapon): self
     {
-        return new self($weapon->name(), $weapon->damage, 0, 0, EquipmentItemSlot::MAIN_HAND);
+        return new self($weapon->name(), $weapon->attack, 0, 0, EquipmentItemSlot::MAIN_HAND);
     }
 
     public static function bodyArmor(Armor $armor): self

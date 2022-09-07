@@ -1,0 +1,8 @@
+2001:
+  type: weapon
+  name: Broadsword
+  attack: 2
+2002:
+  type: weapon
+  name: Dagger
+  attack: 1
