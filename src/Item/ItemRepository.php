@@ -4,24 +4,25 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Item;
 
-use Symfony\Component\Yaml\Yaml;
+use TemirkhanN\Venture\Db\Table;
 
 class ItemRepository implements ItemRepositoryInterface
 {
-    /**
-     * @var array<ItemInterface>
-     */
-    private array $items = [];
+    private Table $tableGateway;
 
     public function __construct()
     {
-        $this->loadItems(RESOURCE_DIR . '/items/armors.yaml');
-        $this->loadItems(RESOURCE_DIR . '/items/weapons.yaml');
+        $this->tableGateway = new Table('items');
     }
 
     public function findById(int $id): ?ItemInterface
     {
-        return $this->items[$id] ?? null;
+        $data = $this->tableGateway->findById($id);
+        if ($data === null) {
+            return null;
+        }
+
+        return $this->hydrateToObject($data);
     }
 
     public function getById(int $id): ItemInterface
@@ -34,25 +35,15 @@ class ItemRepository implements ItemRepositoryInterface
         return $item;
     }
 
-    private function loadItems(string $fromFile): void
+    private function hydrateToObject(array $itemData): ItemInterface
     {
-        foreach (Yaml::parseFile($fromFile) as $itemId => $itemData) {
-            if (isset($this->items[$itemId])) {
-                throw new \UnexpectedValueException('Multiple items with the same id.');
-            }
-
-            switch ($itemData['type']) {
-                case Armor::ITEM_TYPE:
-                    $item = new Armor($itemData['name'], $itemData['defence'], $itemData['health']);
-                    break;
-                case Weapon::ITEM_TYPE:
-                    $item = new Weapon($itemData['name'], $itemData['attack']);
-                    break;
-                default:
-                    throw new \UnexpectedValueException(sprintf('Unknown type %s', $itemData['type']));
-            }
-
-            $this->items[$itemId] = $item;
+        switch ($itemData['type']) {
+            case Armor::ITEM_TYPE:
+                return new Armor($itemData['name'], $itemData['defence'], $itemData['health']);
+            case Weapon::ITEM_TYPE:
+                return new Weapon($itemData['name'], $itemData['attack']);
+            default:
+                throw new \UnexpectedValueException(sprintf('Unknown type %s', $itemData['type']));
         }
     }
 }
