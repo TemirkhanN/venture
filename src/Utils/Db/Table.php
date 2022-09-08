@@ -28,6 +28,13 @@ class Table
         return $this->rows[$id] ?? null;
     }
 
+    public function getRandom(): ?array
+    {
+        $pos = array_rand($this->rows);
+
+        return $this->rows[$pos] ?? null;
+    }
+
     private function loadData(string $fromFile): void
     {
         foreach (Yaml::parseFile($fromFile) as $identifier => $details) {
@@ -35,7 +42,7 @@ class Table
                 throw new \UnexpectedValueException('Multiple rows with the same id found.');
             }
 
-            $this->rows[$identifier] = $details;
+            $this->rows[$identifier] = $details + ['id' => $identifier];
         }
     }
 }

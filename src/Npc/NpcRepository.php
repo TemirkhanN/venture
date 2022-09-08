@@ -24,7 +24,7 @@ class NpcRepository
             return null;
         }
 
-        return $this->hydrateToObject($data + ['id' => $id]);
+        return $this->hydrateToObject($data);
     }
 
     public function getById(int $id): Npc
@@ -35,6 +35,16 @@ class NpcRepository
         }
 
         return $npc;
+    }
+
+    public function getRandom(): Npc
+    {
+        $data = $this->tableGateway->getRandom();
+        if ($data === null) {
+            throw new \RuntimeException('Looks like there are no NPCs at all.');
+        }
+
+        return $this->hydrateToObject($data);
     }
 
     private function hydrateToObject(array $npcData): Npc
