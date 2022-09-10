@@ -8,7 +8,7 @@ use TemirkhanN\Venture\Player;
 require_once __DIR__ .'/bootstrap.php';
 
 /** @var Battle|null $battle */
-$battle = getDataFromMemory('started-battle');
+$battle = getCache()->get('started-battle');
 if ($battle === null) {
     fatalError('Battle is not created. Call according script first.');
 }
@@ -26,4 +26,4 @@ $battle->applyAction(new Player\Action\Attack());
 renderPlayer($battle->player());
 renderBattle($battle);
 
-saveDataIntoMemory('started-battle', $battle);
+getCache()->save('started-battle', $battle);

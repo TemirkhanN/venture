@@ -5,6 +5,7 @@ declare(strict_types=1);
 use TemirkhanN\Venture\Dungeon\DungeonGenerator;
 use TemirkhanN\Venture\Dungeon\StageBuilder;
 use TemirkhanN\Venture\Npc\NpcRepository;
+use TemirkhanN\Venture\Utils\Cache;
 
 require_once __DIR__ .'/bootstrap.php';
 
@@ -14,6 +15,6 @@ $dungeonGenerator = new DungeonGenerator(
 
 $dungeon = $dungeonGenerator->generate(3, 4);
 
-saveDataIntoMemory('new-dungeon', $dungeon);
+getCache()->save('new-dungeon', $dungeon);
 
 renderDungeon($dungeon);

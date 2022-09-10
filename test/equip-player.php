@@ -12,7 +12,7 @@ require_once __DIR__ .'/bootstrap.php';
 
 
 /** @var Player|null $player */
-$player = getDataFromMemory('new-player');
+$player = getCache()->get('new-player');
 
 if ($player === null) {
     fatalError('Player is not created. Call according script first.');
@@ -28,4 +28,4 @@ $player->equip(EquipmentItem::bodyArmor($armor));
 
 renderPlayer($player);
 
-saveDataIntoMemory('equipped-player', $player);
+getCache()->save('equipped-player', $player);

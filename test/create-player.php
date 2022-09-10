@@ -11,4 +11,4 @@ $player = new Player('Wilheim', new Stats(2, 0, 5));
 
 renderPlayer($player);
 
-saveDataIntoMemory('new-player', $player);
+getCache()->save('new-player', $player);

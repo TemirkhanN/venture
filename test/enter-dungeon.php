@@ -8,14 +8,14 @@ use TemirkhanN\Venture\Player\Player;
 require_once __DIR__ .'/bootstrap.php';
 
 /** @var Player|null $player */
-$player = getDataFromMemory('equipped-player');
+$player = getCache()->get('equipped-player');
 
 if ($player === null) {
     fatalError('Player is not created/equipped. Call according script firsts.');
 }
 
 /** @var Dungeon|null $dungeon */
-$dungeon = getDataFromMemory('new-dungeon');
+$dungeon = getCache()->get('new-dungeon');
 
 if ($dungeon === null) {
     fatalError('Dungeon is not generated. Call according script first.');
@@ -23,6 +23,6 @@ if ($dungeon === null) {
 
 $dungeon->enter($player);
 
-saveDataIntoMemory('active-dungeon', $dungeon);
+getCache()->save('active-dungeon', $dungeon);
 
 renderDungeon($dungeon);
