@@ -16,7 +16,7 @@ class Cache
             throw new \RuntimeException('Inappropriate section.');
         }
 
-        $this->memoryDir = ROOT_DIR . sprintf('/var/%s/', $section);
+        $this->memoryDir = preg_replace('#/{2,}#', '/', ROOT_DIR . sprintf('/var/%s', $section));
     }
 
     public function save(string $key, mixed $data): void

@@ -16,9 +16,13 @@ class Stats implements StatsInterface
         $this->currentHealth = $this->maxHealth;
     }
 
-    public static function lowestStats(): self
+    public static function lowestStats(int $multiply = 1): self
     {
-        return new self(1, 0, 5);
+        if ($multiply < 1) {
+            throw new \LogicException('Stats can not be negative');
+        }
+
+        return new self(1 * $multiply, 0 * $multiply, 5 * $multiply);
     }
 
     public function attack(): int
