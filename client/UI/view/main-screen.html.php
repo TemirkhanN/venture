@@ -5,8 +5,14 @@
     td {
         border:1px solid gray;
         padding: 5px;
+        vertical-align: baseline;
     }
 </style>
+<script>
+    function equipItem(inventorySlotPosition) {
+        sendPost({action: 'EquipItem', fromSlot: inventorySlotPosition});
+    }
+</script>
 <div>
     <h1><?=$player->name()?></h1>
     <table>
@@ -34,7 +40,7 @@
             <td>
                 <table>
                     <tr>
-                        <td>Inventory</td>
+                        <td colspan="8">Inventory</td>
                     </tr>
                     <tr>
                         <?php
@@ -46,7 +52,11 @@
                                print('<tr>');
                             }
 
-                            printf('<td>%s(%d)</td>', $slot->item->name(), $slot->amountOfItems);
+                            if (\TemirkhanN\Venture\Character\Equipment\EquipmentItem::isEquipmentItem($slot->item)) {
+                                printf('<td onclick="equipItem(%d)">%s</td>', $slot->position, $slot->item->name());
+                            } else {
+                                printf('<td>%s(%d)</td>', $slot->item->name(), $slot->amountOfItems);
+                            }
 
                             if ($cols % 8 === 0) {
                                 $cols = 0;

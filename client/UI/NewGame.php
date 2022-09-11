@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Game\UI;
 
 use League\Event\EventDispatcher;
+use TemirkhanN\Venture\Character\Equipment\EquipmentItem;
 use TemirkhanN\Venture\Character\Stats;
+use TemirkhanN\Venture\Drop\Drop;
 use TemirkhanN\Venture\Game\IO\InputInterface;
 use TemirkhanN\Venture\Game\IO\OutputInterface;
 use TemirkhanN\Venture\Game\UI\Event\Transition;
+use TemirkhanN\Venture\Item\ItemRepository;
 use TemirkhanN\Venture\Player\Player;
 use TemirkhanN\Venture\Utils\Cache;
 
@@ -18,7 +21,8 @@ class NewGame implements GUIInterface
 
     public function __construct(
         private readonly Cache $cache,
-        private readonly EventDispatcher $eventDispatcher
+        private readonly EventDispatcher $eventDispatcher,
+        private readonly ItemRepository $itemRepository
     ) {
     }
 
@@ -27,6 +31,9 @@ class NewGame implements GUIInterface
         $playerName = $input->getString('name');
         if ($this->isValidPlayerName($playerName)) {
             $player = new Player($playerName, Stats::lowestStats(2));
+
+            $player->loot(new Drop($this->itemRepository->getById(2001), 1));
+            $player->loot(new Drop($this->itemRepository->getById(2002), 1));
 
             $this->cache->save('player', $player);
 

@@ -23,4 +23,25 @@ class HttpInput implements InputInterface
 
         return $value;
     }
+
+    public function getInt(string $key): int
+    {
+        $value = $this->raw[$key] ?? 0;
+
+        if (!is_numeric($value)) {
+            throw new \RuntimeException(sprintf('%s expected to be numeric %s given', $key, $value));
+        }
+
+        return (int) $value;
+    }
+
+    public function getAction(): string
+    {
+        return $this->getString('action');
+    }
+
+    public function hasAction(): bool
+    {
+        return $this->getAction() !== '';
+    }
 }

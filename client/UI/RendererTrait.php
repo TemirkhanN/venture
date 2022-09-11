@@ -6,12 +6,20 @@ namespace TemirkhanN\Venture\Game\UI;
 
 trait RendererTrait
 {
+    private array $errors = [];
+
     final protected function render(string $template, array $data = []): string
     {
         return $this->renderTemplate('main-template', [
             'title' => $data['windowTitle'] ?? null,
             'content' => $this->renderTemplate($template, $data),
+            'errors' => $this->errors,
         ]);
+    }
+
+    protected function error(string $error): void
+    {
+        $this->errors[] = $error;
     }
 
     private function renderTemplate(string $template, array $data = []): string

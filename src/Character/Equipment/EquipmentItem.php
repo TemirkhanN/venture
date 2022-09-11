@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Character\Equipment;
 
 use TemirkhanN\Venture\Item\Armor;
+use TemirkhanN\Venture\Item\ItemInterface;
 use TemirkhanN\Venture\Item\Weapon;
 
 class EquipmentItem
@@ -17,6 +18,27 @@ class EquipmentItem
         public readonly EquipmentItemSlot $slot
     ) {
 
+    }
+
+    public static function isEquipmentItem(ItemInterface $item): bool
+    {
+        return in_array($item->type(), [Armor::ITEM_TYPE, Weapon::ITEM_TYPE]);
+    }
+
+    public static function autoDetect(ItemInterface $item): self
+    {
+        if ($item instanceof Armor) {
+            return self::bodyArmor($item);
+        }
+
+
+        if ($item instanceof Weapon) {
+            return self::weapon($item);
+        }
+
+        throw new \InvalidArgumentException(
+            sprintf('%s is neither armor or weapon but %s', $item->name(), $item->type())
+        );
     }
 
     public static function weapon(Weapon $weapon): self
