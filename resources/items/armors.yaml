@@ -3,3 +3,8 @@
   name: Chain mail
   defence: 1
   health: 3
+1002:
+  type: armor
+  name: Leather armor
+  defence: 1
+  health: 1

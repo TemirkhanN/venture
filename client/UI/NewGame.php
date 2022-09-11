@@ -32,8 +32,10 @@ class NewGame implements GUIInterface
         if ($this->isValidPlayerName($playerName)) {
             $player = new Player($playerName, Stats::lowestStats(2));
 
+            $player->loot(new Drop($this->itemRepository->getById(1), 10));
             $player->loot(new Drop($this->itemRepository->getById(2001), 1));
             $player->loot(new Drop($this->itemRepository->getById(2002), 1));
+            $player->loot(new Drop($this->itemRepository->getById(1002), 1));
 
             $this->cache->save('player', $player);
 
