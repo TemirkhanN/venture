@@ -1,0 +1,59 @@
+{% extends "main-template.html.twig" %}
+
+{% block header %}
+<style>
+    td {
+        border:1px solid gray;
+        padding: 5px;
+        vertical-align: baseline;
+    }
+</style>
+<script>
+    function equipItem(inventorySlotPosition) {
+        sendPost({action: 'EquipItem', fromSlot: inventorySlotPosition});
+    }
+</script>
+{% endblock %}
+{% block content %}
+    <h1>{{ player.name }}</h1>
+    <table>
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td>HP</td>
+                        <td>{{ player.stats.currentHealth }}/{{ player.stats.currentHealth }}</td>
+                    </tr>
+                    <tr>
+                        <td>Attack</td>
+                        <td>{{ player.stats.attack }}</td>
+                    </tr>
+                    <tr>
+                        <td>Defence</td>
+                        <td>{{ player.stats.defence }}</td>
+                    </tr>
+                    <tr>
+                        <td>Gold</td>
+                        <td>{{ player.gold }}</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td colspan="8">Inventory</td>
+                    </tr>
+                    <tr>
+                        {% for slot in player.showInventory %}
+                            {% if player.canEquip(slot.item) %}
+                                <td onclick="equipItem({{ slot.position }})">{{ slot.item.name }}</td>
+                            {% else %}
+                                <td>{{ slot.item.name }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

@@ -7,12 +7,20 @@ use League\Container\Container;
 use League\Container\ReflectionContainer;
 use League\Event\EventDispatcher;
 use TemirkhanN\Venture\Game;
+use TemirkhanN\Venture\Game\UI\Renderer\RendererInterface;
+use TemirkhanN\Venture\Game\UI\Renderer\TwigRenderer;
 use TemirkhanN\Venture\Utils\Cache;
+use Twig\Loader\FilesystemLoader;
+use Twig\Loader\LoaderInterface;
 
 return (function () {
     $di = new Container();
     $di->defaultToShared(true);
     $di->delegate(new ReflectionContainer(true));
+
+    $di->add(TwigRenderer::class)
+        ->setAlias(RendererInterface::class)
+        ->addArgument(ROOT_DIR . '/client/UI/view');
 
     $di->add(Cache::class)->addArgument('stable');
 

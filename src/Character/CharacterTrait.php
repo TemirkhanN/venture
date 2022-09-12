@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Character;
 
+use TemirkhanN\Venture\Character\Equipment\EquipmentItem;
+use TemirkhanN\Venture\Item\ItemInterface;
+
 trait CharacterTrait
 {
     private string $name;
@@ -28,6 +31,11 @@ trait CharacterTrait
     public function equip(Equipment\EquipmentItem $item): void
     {
         $this->equipment->equip($item);
+    }
+
+    public function canEquip(ItemInterface $item): bool
+    {
+        return EquipmentItem::isEquipmentItem($item);
     }
 
     /**

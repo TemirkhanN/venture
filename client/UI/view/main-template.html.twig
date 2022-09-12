@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><?=$title ?? 'Venture'?></title>
+    <title>{% if title is defined %}{{ title }}{% else %}Venture{% endif %}</title>
+
     <script>
         function sendPost(data) {
-            const formData  = new FormData();
+            const formData = new FormData();
 
-            for(const name in data) {
+            for (const name in data) {
                 formData.append(name, data[name]);
             }
 
@@ -21,9 +22,12 @@
             })
         }
     </script>
+    {% block header %}
+    {% endblock %}
 </head>
 <body>
-    <?=implode('<br/>', $errors)?>
-    <?=$content ?? ''?>
+<div>
+    {% block content %}{% endblock %}
+</div>
 </body>
 </html>

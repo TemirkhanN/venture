@@ -5,24 +5,23 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Game\UI;
 
 use League\Event\EventDispatcher;
-use TemirkhanN\Venture\Character\Equipment\EquipmentItem;
 use TemirkhanN\Venture\Character\Stats;
 use TemirkhanN\Venture\Drop\Drop;
 use TemirkhanN\Venture\Game\IO\InputInterface;
 use TemirkhanN\Venture\Game\IO\OutputInterface;
 use TemirkhanN\Venture\Game\UI\Event\Transition;
+use TemirkhanN\Venture\Game\UI\Renderer\RendererInterface;
 use TemirkhanN\Venture\Item\ItemRepository;
 use TemirkhanN\Venture\Player\Player;
 use TemirkhanN\Venture\Utils\Cache;
 
 class NewGame implements GUIInterface
 {
-    use RendererTrait;
-
     public function __construct(
         private readonly Cache $cache,
         private readonly EventDispatcher $eventDispatcher,
-        private readonly ItemRepository $itemRepository
+        private readonly ItemRepository $itemRepository,
+        private readonly RendererInterface $renderer
     ) {
     }
 
@@ -44,7 +43,7 @@ class NewGame implements GUIInterface
             return;
         }
 
-        $output->write($this->render('player-creation', ['windowTitle' => 'Player creation']));
+        $output->write($this->renderer->render('player-creation', ['title' => 'Player creation']));
     }
 
     private function isValidPlayerName(string $playerName): bool

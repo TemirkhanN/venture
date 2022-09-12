@@ -9,18 +9,18 @@ use TemirkhanN\Venture\Character\Equipment\EquipmentItem;
 use TemirkhanN\Venture\Game\IO\InputInterface;
 use TemirkhanN\Venture\Game\IO\OutputInterface;
 use TemirkhanN\Venture\Game\UI\Event\Transition;
+use TemirkhanN\Venture\Game\UI\Renderer\RendererInterface;
 use TemirkhanN\Venture\Player\Player;
 use TemirkhanN\Venture\Utils\Cache;
 
 class MainScreen implements GUIInterface
 {
-    use RendererTrait;
-
     public const EQUIP_ITEM = 'EquipItem';
 
     public function __construct(
         private readonly Cache $cache,
-        private readonly EventDispatcher $eventDispatcher
+        private readonly EventDispatcher $eventDispatcher,
+        private readonly RendererInterface $renderer
     ) {
     }
 
@@ -40,9 +40,9 @@ class MainScreen implements GUIInterface
         }
 
         $output->write(
-            $this->render('main-screen', [
-                'player'      => $player,
-                'windowTitle' => 'Main screen',
+            $this->renderer->render('main-screen', [
+                'player' => $player,
+                'title'  => 'Main screen',
             ])
         );
     }
@@ -64,8 +64,6 @@ class MainScreen implements GUIInterface
                         $item = $slot->item;
 
                         if (!EquipmentItem::isEquipmentItem($item)) {
-                            $this->error(sprintf('You can not equip %s', $item->name()));
-
                             return;
                         }
 
