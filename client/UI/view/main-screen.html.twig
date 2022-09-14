@@ -19,40 +19,10 @@
     <table>
         <tr>
             <td>
-                <table>
-                    <tr>
-                        <td>HP</td>
-                        <td>{{ player.stats.currentHealth }}/{{ player.stats.currentHealth }}</td>
-                    </tr>
-                    <tr>
-                        <td>Attack</td>
-                        <td>{{ player.stats.attack }}</td>
-                    </tr>
-                    <tr>
-                        <td>Defence</td>
-                        <td>{{ player.stats.defence }}</td>
-                    </tr>
-                    <tr>
-                        <td>Gold</td>
-                        <td>{{ player.gold }}</td>
-                    </tr>
-                </table>
+                {{ include('character-stats.html.twig', {character: player}, with_context=false) }}
             </td>
             <td>
-                <table>
-                    <tr>
-                        <td colspan="8">Inventory</td>
-                    </tr>
-                    <tr>
-                        {% for slot in player.showInventory %}
-                            {% if player.canEquip(slot.item) %}
-                                <td onclick="equipItem({{ slot.position }})">{{ slot.item.name }}</td>
-                            {% else %}
-                                <td>{{ slot.item.name }}</td>
-                            {% endif %}
-                        {% endfor %}
-                    </tr>
-                </table>
+                {{ include('player/inventory.html.twig', {player: player}, with_context=false) }}
             </td>
         </tr>
     </table>

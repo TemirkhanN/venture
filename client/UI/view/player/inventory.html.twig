@@ -1,0 +1,29 @@
+<table>
+    <tr>
+        <td colspan="8">Inventory</td>
+    </tr>
+    <tr>
+        {% set column = 0 %}
+        {% for slot in player.showInventory %}
+            {% set hasItems = true %}
+            {% if column == 0 %}
+                <div>
+            {% endif %}
+            {% set column = column + 1 %}
+
+            {% if player.canEquip(slot.item) %}
+                <td onclick="equipItem({{ slot.position }})">{{ slot.item.name }}</td>
+            {% else %}
+                <td>{{ slot.item.name }}{% if slot.amountOfItems > 1 %}({{ slot.amountOfItems }}){% endif %}</td>
+            {% endif %}
+
+            {% if column == 4 %}
+                {% set column = 0 %}
+                </div>
+            {% endif %}
+        {% endfor %}
+        {% if column > 0 and column < 4 and hasItems is defined %}
+            </div>
+        {% endif %}
+    </tr>
+</table>
