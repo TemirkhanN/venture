@@ -10,7 +10,5 @@ interface InputInterface
 
     public function getInt(string $key): int;
 
-    public function getAction(): string;
-
-    public function hasAction(): bool;
+    public function get(string $key): mixed;
 }

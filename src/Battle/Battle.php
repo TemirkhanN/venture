@@ -9,6 +9,7 @@ use TemirkhanN\Venture\Drop\GenerateDrop;
 use TemirkhanN\Venture\Drop\Drop;
 use TemirkhanN\Venture\Npc\Npc;
 use TemirkhanN\Venture\Player\Player;
+use TemirkhanN\Venture\Player\PlayerState;
 
 class Battle
 {
@@ -30,11 +31,12 @@ class Battle
 
     public function start(Player $with): void
     {
-        if ($this->isStarted() || $this->isOver()) {
+        if ($this->isStarted() || $this->isOver() || $with->isInFight()) {
             throw new \DomainException('Battle has already started');
         }
 
         $this->player = $with;
+        $this->player->state = PlayerState::InFight;
     }
 
     public function applyAction(ActionInterface $action): void

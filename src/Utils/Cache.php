@@ -10,6 +10,9 @@ class Cache
 
     private string $memoryDir;
 
+    /** @var array<string, mixed> */
+    private array $refs = [];
+
     public function __construct(string $section)
     {
         if (preg_match('#[^\w]#', $section)) {
@@ -19,6 +22,14 @@ class Cache
         $this->memoryDir = preg_replace('#/{2,}#', '/', ROOT_DIR . sprintf('/var/%s', $section));
     }
 
+    public function __destruct()
+    {
+        $refs = $this->refs;
+        foreach ($refs as $key => $data) {
+            $this->save($key, $data);
+        }
+    }
+
     public function save(string $key, mixed $data): void
     {
         if (is_resource($data)) {
@@ -26,11 +37,20 @@ class Cache
         }
 
         file_put_contents($this->generateFilePath($key), serialize($data));
+
+        if (is_object($data)) {
+            $this->refs[$key] = $data;
+        }
     }
 
-    public function get(string $id): mixed
+    public function get(string $key): mixed
     {
-        $memFile = $this->generateFilePath($id);
+        $preSaved = $this->refs[$key] ?? null;
+        if (is_object($preSaved)) {
+            return $preSaved;
+        }
+
+        $memFile = $this->generateFilePath($key);
 
         if (!file_exists($memFile)) {
             return null;
@@ -41,7 +61,13 @@ class Cache
             return null;
         }
 
-        return @unserialize($contents);
+        $data = @unserialize($contents);
+
+        if (is_object($data)) {
+            $this->refs[$key] = $data;
+        }
+
+        return $data;
     }
 
     private function generateFilePath(string $cacheKey): string

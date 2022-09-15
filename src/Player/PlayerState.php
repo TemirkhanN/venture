@@ -9,14 +9,4 @@ enum PlayerState: string
     case Idle = 'idle';
     case InDungeon = 'in_dungeon';
     case InFight = 'in fight';
-
-    public function isIdle(): bool
-    {
-        return $this == self::Idle;
-    }
-
-    public function isInDungeon(): bool
-    {
-        return $this == self::InDungeon;
-    }
 }

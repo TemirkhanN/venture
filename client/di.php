@@ -6,12 +6,12 @@ use League\Container\Argument\Literal\StringArgument;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
 use League\Event\EventDispatcher;
+use Psr\Container\ContainerInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TemirkhanN\Venture\Game;
 use TemirkhanN\Venture\Game\UI\Renderer\RendererInterface;
 use TemirkhanN\Venture\Game\UI\Renderer\TwigRenderer;
 use TemirkhanN\Venture\Utils\Cache;
-use Twig\Loader\FilesystemLoader;
-use Twig\Loader\LoaderInterface;
 
 return (function () {
     $di = new Container();
@@ -24,18 +24,15 @@ return (function () {
 
     $di->add(Cache::class)->addArgument('stable');
 
-    $di->add(Game\IO\InputInterface::class, Game\IO\HttpInput::class)
-       ->addArgument($_POST !== [] ? $_POST : $_GET);
-
     $di->add(Game\IO\OutputInterface::class, Game\IO\Printer::class);
 
-    $di->add(EventDispatcher::class)
+    $di->add(EventDispatcherInterface::class, EventDispatcher::class)
        ->addMethodCall('subscribeTo', [
            new StringArgument(Game\UI\Event\Transition::class),
            Game\UI\Event\PerformGUITransition::class
        ]);
 
-    $di->add(Game\App::class)->addArgument($di);
+    $di->add(ContainerInterface::class, $di);
 
 return $di;
 })();

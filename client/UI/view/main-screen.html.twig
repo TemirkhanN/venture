@@ -10,11 +10,11 @@
     </style>
     <script>
         function equipItem(inventorySlotPosition) {
-            sendPost({action: 'EquipItem', fromSlot: inventorySlotPosition});
+            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\EquipItem::ACTION_NAME') }}', {fromSlot: inventorySlotPosition});
         }
 
         function enterDungeon() {
-            sendPost({action: 'EnterDungeon'});
+            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\EnterDungeon::ACTION_NAME') }}');
         }
     </script>
 {% endblock %}
@@ -30,16 +30,7 @@
                 {{ include('player/inventory.html.twig', {player: player}, with_context=false) }}
             </td>
             <td>
-                <table>
-                    <tr>
-                        <td>Actions</td>
-                    </tr>
-                    <tr>
-                        <td onclick="enterDungeon()">
-                            Step into the dungeon
-                        </td>
-                    </tr>
-                </table>
+                {{ include('player/actions.html.twig', {player: player}, with_context=false) }}
             </td>
         </tr>
         </tbody>

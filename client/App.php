@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Game;
 
 use Psr\Container\ContainerInterface;
+use TemirkhanN\Venture\Game\Action\ActionInput;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerBus;
 use TemirkhanN\Venture\Game\IO\InputInterface;
 use TemirkhanN\Venture\Game\IO\OutputInterface;
@@ -22,22 +23,23 @@ class App
 
     public function __construct(ContainerInterface $serviceLocator)
     {
-        $this->input = $serviceLocator->get(InputInterface::class);
-        $this->output = $serviceLocator->get(OutputInterface::class);
         $this->playerActionHandler = $serviceLocator->get(PlayerActionHandlerBus::class);
 
         $this->serviceLocator = $serviceLocator;
     }
 
-    public function run(): void
+    public function run(InputInterface $input, OutputInterface $output): void
     {
         if ($this->isRunning) {
             throw new \RuntimeException('Application is already running');
         }
 
+        $this->input = $input;
+        $this->output = $output;
+
         $this->isRunning = true;
 
-        $this->playerActionHandler->tryToPerformAction($this->input);
+        $this->tryToPerformAction($input);
 
         $this->switchToWindow(MainScreen::class);
     }
@@ -56,5 +58,15 @@ class App
         }
 
         $gui->run($this->input, $this->output);
+    }
+
+    private function tryToPerformAction(InputInterface $input): void
+    {
+        $action = ActionInput::fromInput($input);
+        if ($action === null) {
+            return;
+        }
+
+        $this->playerActionHandler->performAction($action);
     }
 }

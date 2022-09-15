@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Dungeon;
 
 use TemirkhanN\Venture\Player\Player;
+use TemirkhanN\Venture\Player\PlayerState;
 
 class Dungeon
 {
@@ -30,7 +31,12 @@ class Dungeon
             throw new \LogicException('This dungeon was already visited by player');
         }
 
+        if ($player->isInDungeon()) {
+            throw new \LogicException('Player is already in another dungeon');
+        }
+
         $this->player = $player;
+        $this->player->state = PlayerState::InDungeon;
     }
 
     public function player(): ?Player

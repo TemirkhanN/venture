@@ -8,14 +8,26 @@ class HttpInput implements InputInterface
 {
     private array $raw;
 
-    public function __construct(array $rawInput)
+    public function __construct(array $rawInput = [])
     {
         $this->raw = $rawInput;
     }
 
+    public static function json(): self
+    {
+        $phpInput = file_get_contents('php://input');
+        $input = json_decode($phpInput, true);
+
+        if (!is_array($input)) {
+            $input = [];
+        }
+
+        return new self($input);
+    }
+
     public function getString(string $key): string
     {
-        $value = $this->raw[$key] ?? '';
+        $value = $this->get($key) ?? '';
 
         if (!is_string($value)) {
             throw new \RuntimeException(sprintf('%s expected to be string %s given', $key, gettype($value)));
@@ -26,7 +38,7 @@ class HttpInput implements InputInterface
 
     public function getInt(string $key): int
     {
-        $value = $this->raw[$key] ?? 0;
+        $value = $this->get($key) ?? 0;
 
         if (!is_numeric($value)) {
             throw new \RuntimeException(sprintf('%s expected to be numeric %s given', $key, $value));
@@ -35,13 +47,8 @@ class HttpInput implements InputInterface
         return (int) $value;
     }
 
-    public function getAction(): string
+    public function get(string $key): mixed
     {
-        return $this->getString('action');
-    }
-
-    public function hasAction(): bool
-    {
-        return $this->getAction() !== '';
+        return $this->raw[$key] ?? null;
     }
 }

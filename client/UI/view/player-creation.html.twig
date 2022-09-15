@@ -1,11 +1,26 @@
 {% extends "main-template.html.twig" %}
 
+{% block header %}
+<script>
+    function createPlayer() {
+        const playerName = document.getElementById('player-name').value;
+        if (playerName === '') {
+            alert('Player name is empty');
+
+            return;
+        }
+
+        sendPost({name: playerName});
+    }
+</script>
+{% endblock %}
+
 {% block content %}
-    <form method="post">
+    <div>
         <label>
-            <input type="text" name="name" placeholder="Enter player name">
+            <input id="player-name" type="text" placeholder="Enter player name">
         </label>
         <br/><br/>
-        <input type="submit">
-    </form>
+        <button onclick="createPlayer()">Create</button>
+    </div>
 {% endblock %}

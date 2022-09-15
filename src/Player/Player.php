@@ -17,7 +17,7 @@ class Player implements Battle\TargetInterface
     private Character\Stats $stats;
     private Inventory\Inventory $inventory;
 
-    private PlayerState $state;
+    public PlayerState $state;
 
     public function __construct(string $name, Character\Stats $stats)
     {
@@ -57,8 +57,13 @@ class Player implements Battle\TargetInterface
         return $this->inventory->list();
     }
 
-    public function state(): PlayerState
+    public function isInDungeon(): bool
     {
-        return $this->state;
+        return $this->state == PlayerState::InDungeon;
+    }
+
+    public function isInFight(): bool
+    {
+        return $this->state == PlayerState::InFight;
     }
 }

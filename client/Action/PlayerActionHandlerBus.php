@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Game\Action;
 
+use Psr\Container\ContainerInterface;
 use TemirkhanN\Venture\Game\IO\InputInterface;
+use TemirkhanN\Venture\Game\Storage\PlayerRepository;
 use TemirkhanN\Venture\Player\Player;
 use TemirkhanN\Venture\Utils\Cache;
 
@@ -15,51 +17,30 @@ class PlayerActionHandlerBus
      */
     private array $handlers = [];
 
-    /**
-     * @param Cache $cache
-     */
-    public function __construct(private readonly Cache $cache)
-    {
+    public function __construct(
+        private readonly PlayerRepository $playerRepository,
+        ContainerInterface $container
+    ) {
         $this->handlers = [
-            EquipItem::ACTION_NAME => new EquipItem(),
+            EquipItem::ACTION_NAME => $container->get(EquipItem::class),
+            EnterDungeon::ACTION_NAME => $container->get(EnterDungeon::class),
+            ProceedDungeon::ACTION_NAME => $container->get(ProceedDungeon::class),
+            LeaveDungeon::ACTION_NAME => $container->get(LeaveDungeon::class),
         ];
     }
 
-    public function tryToPerformAction(InputInterface $input): void
+    public function performAction(ActionInput $action): void
     {
-        $action = $input->getAction();
-        if ($action === '') {
-            return;
-        }
-
-        $handler = $this->handlers[$action] ?? null;
+        $handler = $this->handlers[$action->name()] ?? null;
         if ($handler === null) {
             return;
         }
 
-        $player = $this->getPlayer();
+        $player = $this->playerRepository->find();
         if ($player === null) {
             return;
         }
 
-        $handler->handle($player, $input);
-
-        $this->cache->save('player', $player);
-    }
-
-    private function getPlayer(): ?Player
-    {
-        /** @var Player|null $player */
-        $player = $this->cache->get('player');
-
-        if ($player === null) {
-            return null;
-        }
-
-        if (!$player instanceof Player) {
-            throw new \RuntimeException(sprintf('%s expected to be %s instance', gettype($player), Player::class));
-        }
-
-        return $player;
+        $handler->handle($player, $action);
     }
 }

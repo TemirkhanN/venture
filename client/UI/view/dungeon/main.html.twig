@@ -1,0 +1,18 @@
+{% extends "main-template.html.twig" %}
+
+{% block header %}
+    <script>
+        function proceedDungeon() {
+            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\ProceedDungeon::ACTION_NAME') }}');
+        }
+
+        function leaveDungeon() {
+            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\LeaveDungeon::ACTION_NAME') }}');
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+<button onclick="proceedDungeon()">Move</button>
+<button onclick="leaveDungeon()">Leave</button>
+{% endblock %}

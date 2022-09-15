@@ -4,33 +4,39 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Game\UI;
 
-use League\Event\EventDispatcher;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TemirkhanN\Venture\Game\IO\InputInterface;
 use TemirkhanN\Venture\Game\IO\OutputInterface;
+use TemirkhanN\Venture\Game\Storage\PlayerRepository;
 use TemirkhanN\Venture\Game\UI\Event\Transition;
 use TemirkhanN\Venture\Game\UI\Renderer\RendererInterface;
-use TemirkhanN\Venture\Player\Player;
-use TemirkhanN\Venture\Utils\Cache;
 
 class MainScreen implements GUIInterface
 {
-    public const ACTION_EQUIP_ITEM = 'EquipItem';
-    public const ACTION_ENTER_DUNGEON = 'EnterDungeon';
-
     public function __construct(
-        private readonly Cache $cache,
-        private readonly EventDispatcher $eventDispatcher,
+        private readonly PlayerRepository $playerRepository,
+        private readonly EventDispatcherInterface $eventDispatcher,
         private readonly RendererInterface $renderer
     ) {
     }
 
     public function run(InputInterface $input, OutputInterface $output): void
     {
-        /** @var Player $player */
-        $player = $this->cache->get('player');
-
+        $player = $this->playerRepository->find();
         if ($player === null) {
             $this->eventDispatcher->dispatch(new Transition(NewGame::class));
+
+            return;
+        }
+
+        if ($player->isInDungeon()) {
+            $this->eventDispatcher->dispatch(new Transition(DungeonScreen::class));
+
+            return;
+        }
+
+        if ($player->isInFight()) {
+            $this->eventDispatcher->dispatch(new Transition(BattleScreen::class));
 
             return;
         }

@@ -6,20 +6,26 @@
 
     <script>
         function sendPost(data) {
-            const formData = new FormData();
-
-            for (const name in data) {
-                formData.append(name, data[name]);
-            }
-
             fetch('/', {
                 method: 'POST',
-                body: formData
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             }).then(async (response) => {
                 document.open();
                 document.write(await response.text());
                 document.close();
             })
+        }
+
+        function performAction(name, payload) {
+            if (payload === undefined || payload === null) {
+                payload = {};
+            }
+
+            payload.name = name;
+            sendPost({action: payload})
         }
     </script>
     {% block header %}
