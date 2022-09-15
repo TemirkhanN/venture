@@ -14,4 +14,9 @@ enum PlayerState: string
     {
         return $this == self::Idle;
     }
+
+    public function isInDungeon(): bool
+    {
+        return $this == self::InDungeon;
+    }
 }

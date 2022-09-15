@@ -1,22 +1,27 @@
 {% extends "main-template.html.twig" %}
 
 {% block header %}
-<style>
-    td {
-        border:1px solid gray;
-        padding: 5px;
-        vertical-align: baseline;
-    }
-</style>
-<script>
-    function equipItem(inventorySlotPosition) {
-        sendPost({action: 'EquipItem', fromSlot: inventorySlotPosition});
-    }
-</script>
+    <style>
+        td {
+            border: 1px solid gray;
+            padding: 5px;
+            vertical-align: baseline;
+        }
+    </style>
+    <script>
+        function equipItem(inventorySlotPosition) {
+            sendPost({action: 'EquipItem', fromSlot: inventorySlotPosition});
+        }
+
+        function enterDungeon() {
+            sendPost({action: 'EnterDungeon'});
+        }
+    </script>
 {% endblock %}
 {% block content %}
     <h1>{{ player.name }}</h1>
     <table>
+        <tbody>
         <tr>
             <td>
                 {{ include('character-stats.html.twig', {character: player}, with_context=false) }}
@@ -24,6 +29,19 @@
             <td>
                 {{ include('player/inventory.html.twig', {player: player}, with_context=false) }}
             </td>
+            <td>
+                <table>
+                    <tr>
+                        <td>Actions</td>
+                    </tr>
+                    <tr>
+                        <td onclick="enterDungeon()">
+                            Step into the dungeon
+                        </td>
+                    </tr>
+                </table>
+            </td>
         </tr>
+        </tbody>
     </table>
 {% endblock %}
