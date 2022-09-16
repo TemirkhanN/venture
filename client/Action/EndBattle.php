@@ -6,10 +6,11 @@ namespace TemirkhanN\Venture\Game\Action;
 
 use TemirkhanN\Venture\Game\Storage\BattleRepository;
 use TemirkhanN\Venture\Player\Player;
+use TemirkhanN\Venture\Player\PlayerState;
 
-class Attack implements PlayerActionHandlerInterface
+class EndBattle implements PlayerActionHandlerInterface
 {
-    public const ACTION_NAME = 'AttackEnemy';
+    public const ACTION_NAME = 'EndBattle';
 
     public function __construct(
         private readonly BattleRepository $battleRepository
@@ -26,8 +27,17 @@ class Attack implements PlayerActionHandlerInterface
             return;
         }
 
-        $battle->applyAction(new \TemirkhanN\Venture\Player\Action\Attack());
 
-        $this->battleRepository->save($battle);
+        if (!$battle->isOver()) {
+            return;
+        }
+
+        if ($battle->player()->isAlive() && !$battle->enemy()->isAlive()) {
+            $player->receiveReward($battle);
+        }
+
+        $player->state = PlayerState::InDungeon;
+
+        $this->battleRepository->end($battle);
     }
 }

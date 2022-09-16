@@ -10,7 +10,7 @@ class Attack implements Battle\ActionInterface
 {
     public function perform(Battle\Battle $at): void
     {
-        if (!$at->isStarted()) {
+        if (!$at->isStarted() || $at->isOver()) {
             throw new \DomainException('Can not perform actions in inactive battle.');
         }
 

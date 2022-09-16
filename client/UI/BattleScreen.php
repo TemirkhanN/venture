@@ -27,7 +27,7 @@ class BattleScreen implements GUIInterface
             return;
         }
 
-        $battle = $this->battleRepository->find();
+        $battle = $this->battleRepository->find($player);
         if ($battle === null) {
             return;
         }

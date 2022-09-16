@@ -31,7 +31,7 @@ class GenerateDrop
         $drops = $this->tableGateway->findById($npc->id) ?? [];
 
         foreach ($drops as $dropDetails) {
-            if (Chance::raw($dropDetails['chance'])->roll()) {
+            if (Chance::raw((float) $dropDetails['chance'])->roll()) {
                 $item = $this->itemRepository->getById($dropDetails['id']);
 
                 yield new Drop($item, $dropDetails['amount']);

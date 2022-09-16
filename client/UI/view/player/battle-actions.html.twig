@@ -2,8 +2,26 @@
 {% block header %}
     <script>
         function attackEnemy() {
-            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\Attack::ACTION_NAME') }}')
+            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\Attack::ACTION_NAME') }}');
+        }
+
+        function nextTurn() {
+            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\NextTurn::ACTION_NAME') }}');
+        }
+
+        function endBattle() {
+            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\EndBattle::ACTION_NAME') }}');
         }
     </script>
 {% endblock %}
-<button onclick="attackEnemy()"{% if not battle.doesCurrentTurnBelongToPlayer %} disabled{% endif %}>Attack</button>
+
+{% if not battle.isOver %}
+    <button onclick="attackEnemy()"{% if not battle.doesCurrentTurnBelongToPlayer %} disabled{% endif %}>Attack</button><br/>
+    <button onclick="nextTurn()"{% if battle.doesCurrentTurnBelongToPlayer %} disabled{% endif %}>Next turn</button><br/>
+{% else %}
+    {% if battle.player.isAlive %}
+        <button onclick="endBattle()">Receive rewards</button><br/>
+    {% else %}
+        <button onclick="endBattle()">Retreat!</button><br/>
+    {% endif %}
+{% endif %}

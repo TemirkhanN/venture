@@ -24,7 +24,7 @@ class NpcRepository
             return null;
         }
 
-        return $this->hydrateToObject($data);
+        return $this->hydrateToObject($id, $data);
     }
 
     public function getById(int $id): Npc
@@ -39,18 +39,18 @@ class NpcRepository
 
     public function getRandom(): Npc
     {
-        $data = $this->tableGateway->getRandom();
-        if ($data === null) {
+        $random = $this->tableGateway->getRandom();
+        if ($random === null) {
             throw new \RuntimeException('Looks like there are no NPCs at all.');
         }
 
-        return $this->hydrateToObject($data);
+        return $this->hydrateToObject($random['id'], $random['data']);
     }
 
-    private function hydrateToObject(array $npcData): Npc
+    private function hydrateToObject(int $id, array $npcData): Npc
     {
         return new Npc(
-            $npcData['id'],
+            $id,
             $npcData['name'],
             new Stats($npcData['attack'], $npcData['defence'], $npcData['health'])
         );

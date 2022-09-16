@@ -25,14 +25,32 @@ class Table
 
     public function findById(int $id): ?array
     {
-        return $this->rows[$id] ?? null;
+        $data = $this->rows[$id] ?? null;
+        if ($data === null) {
+            return null;
+        }
+        unset($data['id']);
+
+        return $data;
     }
 
     public function getRandom(): ?array
     {
         $pos = array_rand($this->rows);
 
-        return $this->rows[$pos] ?? null;
+        $data = $this->rows[$pos] ?? null;
+
+        if ($data === null) {
+            return null;
+        }
+
+        $id = $data['id'];
+        unset($data['id']);
+
+        return [
+            'id' => $id,
+            'data' => $data,
+        ];
     }
 
     private function loadData(string $fromFile): void

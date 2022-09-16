@@ -20,7 +20,7 @@ trait CharacterTrait
 
     public function isAlive(): bool
     {
-        return $this->stats()->currentHealth() !== 0;
+        return $this->stats()->currentHealth() > 0;
     }
 
     public function stats(): StatsInterface

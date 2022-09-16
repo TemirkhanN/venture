@@ -28,7 +28,7 @@ class ProceedDungeon implements PlayerActionHandlerInterface
             return;
         }
 
-        $dungeon = $this->dungeonRepository->find();
+        $dungeon = $this->dungeonRepository->find($player);
         if ($dungeon === null) {
             $player->state = PlayerState::Idle;
 

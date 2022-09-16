@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Game\Action;
 
 use TemirkhanN\Venture\Game\Storage\BattleRepository;
+use TemirkhanN\Venture\Npc\Action\AttackPlayer;
 use TemirkhanN\Venture\Player\Player;
 
-class Attack implements PlayerActionHandlerInterface
+class NextTurn implements PlayerActionHandlerInterface
 {
-    public const ACTION_NAME = 'AttackEnemy';
+    public const ACTION_NAME = 'WaitForANextTurn';
 
     public function __construct(
         private readonly BattleRepository $battleRepository
@@ -26,7 +27,7 @@ class Attack implements PlayerActionHandlerInterface
             return;
         }
 
-        $battle->applyAction(new \TemirkhanN\Venture\Player\Action\Attack());
+        $battle->applyAction(new AttackPlayer());
 
         $this->battleRepository->save($battle);
     }

@@ -70,6 +70,17 @@ class Cache
         return $data;
     }
 
+    public function remove(string $key): void
+    {
+        if (isset($this->refs[$key])) {
+            unset($this->refs[$key]);
+        }
+
+        $memFile = $this->generateFilePath($key);
+
+        file_exists($memFile) && unlink($memFile);
+    }
+
     private function generateFilePath(string $cacheKey): string
     {
         return sprintf(self::STORAGE_PATTERN, $this->memoryDir, $cacheKey);

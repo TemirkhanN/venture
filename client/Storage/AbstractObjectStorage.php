@@ -9,6 +9,9 @@ use TemirkhanN\Venture\Utils\Cache;
 
 abstract class AbstractObjectStorage
 {
+    /** @var array<string, string> */
+    private array $traces = [];
+
     public function __construct(private readonly Cache $cache)
     {
 
@@ -30,11 +33,27 @@ abstract class AbstractObjectStorage
             throw new RuntimeException(sprintf('%s expected to be %s instance', get_class($object), $instanceClass));
         }
 
+        $this->traces[$this->generateObjectId($object)] = $key;
+
         return $object;
     }
 
     protected function saveObject(string $key, object $object): void
     {
         $this->cache->save($key, $object);
+
+        $this->traces[$this->generateObjectId($object)] = $key;
+    }
+
+    protected function deleteObject(object $object): void
+    {
+        if (isset($this->traces[$this->generateObjectId($object)])) {
+            $this->cache->remove($this->traces[$this->generateObjectId($object)]);
+        }
+    }
+
+    private function generateObjectId(object $object): string
+    {
+        return spl_object_hash($object);
     }
 }
