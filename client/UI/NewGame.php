@@ -29,8 +29,6 @@ class NewGame implements GUIInterface
     {
         $player = $this->playerRepository->find();
         if ($player !== null) {
-            $this->eventDispatcher->dispatch(new Transition(MainScreen::class));
-
             return;
         }
 

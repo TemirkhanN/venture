@@ -1,0 +1,9 @@
+
+{% block header %}
+    <script>
+        function attackEnemy() {
+            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\Attack::ACTION_NAME') }}')
+        }
+    </script>
+{% endblock %}
+<button onclick="attackEnemy()"{% if not battle.doesCurrentTurnBelongToPlayer %} disabled{% endif %}>Attack</button>

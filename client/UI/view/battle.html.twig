@@ -1,0 +1,23 @@
+{% extends "main-template.html.twig" %}
+
+{% block content %}
+    <table style="width: 100%;">
+        <tbody>
+        <tr>
+            <td>
+                <img src="/assets/player/base.png" title="{{ battle.player.name }}"/>
+                {{ include('character-stats.html.twig', {character: battle.player}, with_context=false) }}
+            </td>
+            <td>
+                <img src="/assets/enemies/{{ battle.enemy.name|lower }}.png" title="{{ battle.enemy.name }}"/>
+                {{ include('character-stats.html.twig', {character: battle.enemy}, with_context=false) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ include('player/battle-actions.html.twig', {battle: battle}, with_context=false) }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

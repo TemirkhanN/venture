@@ -26,6 +26,7 @@ class PlayerActionHandlerBus
             EnterDungeon::ACTION_NAME => $container->get(EnterDungeon::class),
             ProceedDungeon::ACTION_NAME => $container->get(ProceedDungeon::class),
             LeaveDungeon::ACTION_NAME => $container->get(LeaveDungeon::class),
+            Attack::ACTION_NAME => $container->get(Attack::class),
         ];
     }
 

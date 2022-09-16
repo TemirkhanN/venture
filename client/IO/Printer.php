@@ -6,8 +6,15 @@ namespace TemirkhanN\Venture\Game\IO;
 
 class Printer implements OutputInterface
 {
+    private string $buffer = '';
+
     public function write(string $content): void
     {
-        echo $content;
+        $this->buffer .= $content;
+    }
+
+    public function __destruct()
+    {
+        echo $this->buffer;
     }
 }
