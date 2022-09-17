@@ -11,6 +11,8 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 use TemirkhanN\Venture\Game;
 use TemirkhanN\Venture\Game\UI\Renderer\RendererInterface;
 use TemirkhanN\Venture\Game\UI\Renderer\TwigRenderer;
+use TemirkhanN\Venture\Item\ItemRepository;
+use TemirkhanN\Venture\Item\ItemRepositoryInterface;
 use TemirkhanN\Venture\Utils\Cache;
 
 return (function () {
@@ -31,6 +33,8 @@ return (function () {
            new StringArgument(Game\UI\Event\Transition::class),
            Game\UI\Event\PerformGUITransition::class
        ]);
+
+    $di->add(ItemRepositoryInterface::class, ItemRepository::class);
 
     $di->add(ContainerInterface::class, $di);
 

@@ -1,0 +1,4 @@
+1:
+  name: HP Restoration
+  type: fastHeal
+  description: Immediately restores HP

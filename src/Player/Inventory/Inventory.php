@@ -9,7 +9,7 @@ use TemirkhanN\Venture\Item;
 class Inventory
 {
     /**
-     * @var iterable<Slot>
+     * @var array<Slot>
      */
     private array $slots = [];
 
@@ -33,6 +33,33 @@ class Inventory
         ++$this->lastSlot;
 
         $this->slots[$this->lastSlot - 1] = new Slot($this->lastSlot, $item, $amount);
+    }
+
+    public function removeItem(Slot $fromSlot): void
+    {
+        $index = $fromSlot->position - 1;
+
+        $inventorySlot = $this->slots[$index] ?? null;
+        // There is no such item
+        if ($inventorySlot === null) {
+            throw new \UnexpectedValueException('There is no such items in the slot');
+        }
+
+        if ($inventorySlot->item->name() !== $fromSlot->item->name()) {
+            throw new \UnexpectedValueException('There is no such items in the slot');
+        }
+
+        if ($inventorySlot->amountOfItems < $fromSlot->amountOfItems) {
+            throw new \UnexpectedValueException('There is no such amount of items in the slot');
+        }
+
+        $amountOfItemsLeft = $inventorySlot->amountOfItems - $fromSlot->amountOfItems;
+
+        if ($amountOfItemsLeft > 0 || $inventorySlot->item == Item\Currency::gold()) {
+            $this->slots[$index] = new Slot($inventorySlot->position, $inventorySlot->item, $amountOfItemsLeft);
+        } else {
+            unset($this->slots[$index]);
+        }
     }
 
     /**

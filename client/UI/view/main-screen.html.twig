@@ -8,15 +8,6 @@
             vertical-align: baseline;
         }
     </style>
-    <script>
-        function equipItem(inventorySlotPosition) {
-            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\EquipItem::ACTION_NAME') }}', {fromSlot: inventorySlotPosition});
-        }
-
-        function enterDungeon() {
-            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\EnterDungeon::ACTION_NAME') }}');
-        }
-    </script>
 {% endblock %}
 {% block content %}
     <h1>{{ player.name }}</h1>

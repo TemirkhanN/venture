@@ -1,3 +1,14 @@
+{% block header %}
+    <script>
+        function equipItem(inventorySlotPosition) {
+            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\EquipItem::ACTION_NAME') }}', {fromSlot: inventorySlotPosition});
+        }
+
+        function useItem(inventorySlotPosition) {
+            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\UseItem::ACTION_NAME') }}', {fromSlot: inventorySlotPosition});
+        }
+    </script>
+{% endblock %}
 <table>
     <tbody>
     <tr>
@@ -14,6 +25,8 @@
 
             {% if player.canEquip(slot.item) %}
                 <td onclick="equipItem({{ slot.position }})">{{ slot.item.name }}</td>
+            {% elseif player.canUseItem(slot.item) %}
+                <td onclick="useItem({{ slot.position }})">{{ slot.item.name }}</td>
             {% else %}
                 <td>{{ slot.item.name }}{% if slot.amountOfItems > 1 %}({{ slot.amountOfItems }}){% endif %}</td>
             {% endif %}

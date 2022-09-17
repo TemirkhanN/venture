@@ -11,4 +11,5 @@ interface StatsInterface
     public function maxHealth(): int;
     public function currentHealth(): int;
     public function decreaseHealth(int $amount): void;
+    public function increaseHealth(int $amount): void;
 }

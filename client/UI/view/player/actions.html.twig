@@ -1,6 +1,22 @@
+{% block header %}
+    <script>
+        function buyHealthPotion() {
+            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\BuyHealthPotion::ACTION_NAME') }}');
+        }
+
+        function enterDungeon() {
+            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\EnterDungeon::ACTION_NAME') }}');
+        }
+    </script>
+{% endblock %}
 <table>
     <tr>
         <td>Actions</td>
+    </tr>
+    <tr>
+        <td onclick="buyHealthPotion()">
+            Buy health potion(-10gold/+5hp)
+        </td>
     </tr>
     <tr>
         <td onclick="enterDungeon()">

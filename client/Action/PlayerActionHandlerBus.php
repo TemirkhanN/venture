@@ -29,6 +29,8 @@ class PlayerActionHandlerBus
             Attack::ACTION_NAME => $container->get(Attack::class),
             NextTurn::ACTION_NAME => $container->get(NextTurn::class),
             EndBattle::ACTION_NAME => $container->get(EndBattle::class),
+            BuyHealthPotion::ACTION_NAME => $container->get(BuyHealthPotion::class),
+            UseItem::ACTION_NAME => $container->get(UseItem::class),
         ];
     }
 

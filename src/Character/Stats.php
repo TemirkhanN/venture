@@ -53,4 +53,16 @@ class Stats implements StatsInterface
 
         $this->currentHealth -= $amount;
     }
+
+    public function increaseHealth(int $amount): void
+    {
+        if ($amount < 0) {
+            throw new \UnexpectedValueException('Can not increase health by negative amount');
+        }
+
+        $this->currentHealth += $amount;
+        if ($this->currentHealth > $this->maxHealth) {
+            $this->currentHealth = $this->maxHealth;
+        }
+    }
 }

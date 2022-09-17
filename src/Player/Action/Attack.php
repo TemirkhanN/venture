@@ -29,7 +29,7 @@ class Attack implements Battle\ActionInterface
         if ($damage < 0) {
             $damage = 0;
         }
-        $target->stats()->decreaseHealth($damage);
+        $target->decreaseHealth($damage);
 
         $at->addLog(sprintf('%s dealt %d damage to %s', $player->name(), $damage, $target->name()));
 

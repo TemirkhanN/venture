@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Game\Action;
 
-use TemirkhanN\Venture\Character\Equipment\EquipmentItem;
 use TemirkhanN\Venture\Player\Player;
 
-class EquipItem implements PlayerActionHandlerInterface
+class UseItem implements PlayerActionHandlerInterface
 {
-    public const ACTION_NAME = 'EquipItem';
+    public const ACTION_NAME = 'UseItem';
 
     public function handle(Player $player, ActionInterface $action): void
     {
@@ -23,12 +22,12 @@ class EquipItem implements PlayerActionHandlerInterface
             if ($slot->position === $fromSlot) {
                 $item = $slot->item;
 
-                if (!EquipmentItem::isEquipmentItem($item)) {
-                    // TODO notice?
+                if (!$player->canUseItem($item)) {
                     return;
                 }
 
-                $player->equip(EquipmentItem::autoDetect($item));
+                $player->useItem($item);
+                $player->discardItem($slot);
 
                 return;
             }

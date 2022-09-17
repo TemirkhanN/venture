@@ -6,60 +6,63 @@ namespace TemirkhanN\Venture\Character;
 
 class EquipmentBoostedStats implements StatsInterface
 {
-    private readonly StatsInterface $baseStats;
-    private readonly Equipment\Equipment $equipment;
+    private readonly int $attack;
+    private readonly int $defence;
+    private readonly int $maxHealth;
+    private int $currentHealth;
 
     public function __construct(Equipment\Equipment $equipment, StatsInterface $baseStats)
     {
-        $this->baseStats = $baseStats;
-        $this->equipment = $equipment;
+        $attack = $baseStats->attack();
+        $defence = $baseStats->defence();
+        $maxHealth = $baseStats->maxHealth();
+        $currentHealth = $baseStats->currentHealth();
+        foreach ($equipment->list() as $item) {
+            $attack += $item->attack;
+            $defence += $item->defence;
+            $maxHealth += $item->health;
+        }
+
+        if ($baseStats->currentHealth() === $baseStats->maxHealth()) {
+            $currentHealth = $maxHealth;
+        }
+
+        $this->attack = $attack;
+        $this->defence = $defence;
+        $this->maxHealth = $maxHealth;
+        $this->currentHealth = $currentHealth;
     }
 
     public function attack(): int
     {
-        $attack = $this->baseStats->attack();
-
-        foreach ($this->equipment->list() as $item) {
-            $attack += $item->attack;
-        }
-
-        return $attack;
+        return $this->attack;
     }
 
     public function defence(): int
     {
-        $defence = $this->baseStats->defence();
-        foreach ($this->equipment->list() as $item) {
-            $defence += $item->defence;
-        }
-
-        return $defence;
+        return $this->defence;
     }
 
     public function maxHealth(): int
     {
-        $maxHealth = $this->baseStats->maxHealth();
-
-        foreach ($this->equipment->list() as $item) {
-            $maxHealth += $item->health;
-        }
-
-        return $maxHealth;
+        return $this->maxHealth;
     }
 
     public function currentHealth(): int
     {
-        $currentHealth = $this->baseStats->currentHealth();
-
-        foreach ($this->equipment->list() as $item) {
-            $currentHealth += $item->health;
-        }
-
-        return $currentHealth;
+        return $this->currentHealth;
     }
 
     public function decreaseHealth(int $amount): void
     {
-        $this->baseStats->decreaseHealth($amount);
+        $this->currentHealth -= $amount;
+    }
+
+    public function increaseHealth(int $amount): void
+    {
+        $this->currentHealth += $amount;
+        if ($this->currentHealth > $this->maxHealth) {
+            $this->currentHealth = $this->maxHealth;
+        }
     }
 }

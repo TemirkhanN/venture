@@ -1,3 +1,11 @@
 1:
   type: currency
   name: Gold
+
+100:
+  type: consumable
+  name: Minor healing potion
+  effects:
+    -
+      id: 1
+      power: 5
