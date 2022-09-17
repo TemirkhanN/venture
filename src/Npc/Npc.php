@@ -14,6 +14,7 @@ class Npc implements TargetInterface
     use CharacterTrait;
 
     public readonly int $id;
+    public readonly string $objectId;
 
     public function __construct(int $id, string $name, StatsInterface $stats)
     {
@@ -21,5 +22,6 @@ class Npc implements TargetInterface
         $this->name  = $name;
         $this->stats = $stats;
         $this->equipment = new Equipment();
+        $this->objectId = uniqid('npc', true);
     }
 }
