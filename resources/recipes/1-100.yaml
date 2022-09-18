@@ -1,0 +1,14 @@
+1:
+  requiredItems:
+    - { id: 201, amount: 2 }
+  result:
+    item: 202
+    amount: 1
+
+2:
+  requiredItems:
+    - { id: 202, amount: 3 }
+    - { id: 200, amount: 5 }
+  result:
+    item: 1001
+    amount: 1

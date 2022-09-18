@@ -7,8 +7,12 @@ use TemirkhanN\Venture\Utils\Cache;
 require_once __DIR__ .'/../bootstrap.php';
 require_once __DIR__ .'/output.php';
 
-$cache = new Cache('test');
+function getCache(): Cache {
+    static $cache = null;
 
-function getCache() use ($cache): Cache {
+    if ($cache === null) {
+        $cache = new Cache('test');
+    }
+
     return $cache;
 }

@@ -64,6 +64,8 @@ class ItemRepository implements ItemRepositoryInterface
                 }
 
                 return new Consumable($id, $itemData['name'], $effects);
+            case Resource::ITEM_TYPE:
+                return new Resource($id, $itemData['name']);
             default:
                 throw new \UnexpectedValueException(sprintf('Unknown type %s', $itemData['type']));
         }
