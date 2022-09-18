@@ -4,22 +4,28 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Item;
 
+use TemirkhanN\Venture\Utils\Id;
+
 class Currency implements ItemInterface
 {
     public const ITEM_TYPE = 'currency';
 
     public const CURRENCY_NAME_GOLD = 'Gold';
 
-    private string $name;
-
-    public function __construct(string $name)
+    public function __construct(private readonly Id $id, private readonly string $name)
     {
-        $this->name = $name;
+
+    }
+
+    public function id(): Id
+    {
+        return $this->id;
     }
 
     public static function gold(): self
     {
-        return new self(self::CURRENCY_NAME_GOLD);
+        // TODO likely should be exposed on repository level or infra-related layer
+        return new self(new Id(1), self::CURRENCY_NAME_GOLD);
     }
 
     public function type(): string

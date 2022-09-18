@@ -7,6 +7,7 @@ namespace TemirkhanN\Venture\Item;
 use TemirkhanN\Venture\Item\Effect\Effect;
 use TemirkhanN\Venture\Item\Effect\EffectType;
 use TemirkhanN\Venture\Utils\Db\Table;
+use TemirkhanN\Venture\Utils\Id;
 
 class ItemRepository implements ItemRepositoryInterface
 {
@@ -27,7 +28,7 @@ class ItemRepository implements ItemRepositoryInterface
             return null;
         }
 
-        return $this->hydrateToObject($data);
+        return $this->hydrateToObject($id, $data);
     }
 
     public function getById(int $id): ItemInterface
@@ -40,15 +41,16 @@ class ItemRepository implements ItemRepositoryInterface
         return $item;
     }
 
-    private function hydrateToObject(array $itemData): ItemInterface
+    private function hydrateToObject(int $rawId, array $itemData): ItemInterface
     {
+        $id = new Id($rawId);
         switch ($itemData['type']) {
             case Armor::ITEM_TYPE:
-                return new Armor($itemData['name'], $itemData['defence'], $itemData['health']);
+                return new Armor($id, $itemData['name'], $itemData['defence'], $itemData['health']);
             case Weapon::ITEM_TYPE:
-                return new Weapon($itemData['name'], $itemData['attack']);
+                return new Weapon($id, $itemData['name'], $itemData['attack']);
             case Currency::ITEM_TYPE:
-                return new Currency($itemData['name']);
+                return new Currency($id, $itemData['name']);
             case Consumable::ITEM_TYPE:
                 $effects = [];
                 foreach ($itemData['effects'] as $effectDetails) {
@@ -61,7 +63,7 @@ class ItemRepository implements ItemRepositoryInterface
                     );
                 }
 
-                return new Consumable($itemData['name'], $effects);
+                return new Consumable($id, $itemData['name'], $effects);
             default:
                 throw new \UnexpectedValueException(sprintf('Unknown type %s', $itemData['type']));
         }

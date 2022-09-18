@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Item;
 
 use TemirkhanN\Venture\Item\Effect\EffectInterface;
+use TemirkhanN\Venture\Utils\Id;
 
 class Consumable implements ItemInterface
 {
@@ -14,9 +15,14 @@ class Consumable implements ItemInterface
      * @param string $name
      * @param array<EffectInterface> $effects
      */
-    public function __construct(private readonly string $name, private readonly array $effects)
+    public function __construct(private readonly Id $id, private readonly string $name, private readonly array $effects)
     {
 
+    }
+
+    public function id(): Id
+    {
+        return $this->id;
     }
 
     public function type(): string
