@@ -70,14 +70,6 @@ class Player implements Battle\TargetInterface
         (new Action\Loot($this))->perform($for);
     }
 
-    /**
-     * @return iterable<Inventory\Slot>
-     */
-    public function showInventory(): iterable
-    {
-        return $this->inventory->list();
-    }
-
     public function isInDungeon(): bool
     {
         return $this->state == PlayerState::InDungeon;

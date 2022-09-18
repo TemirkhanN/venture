@@ -6,14 +6,14 @@ namespace TemirkhanN\Venture\Character;
 
 use TemirkhanN\Venture\Character\Equipment\EquipmentItem;
 use TemirkhanN\Venture\Item;
-use TemirkhanN\Venture\Player\Inventory\Inventory;
+use TemirkhanN\Venture\Player\Inventory;
 
 trait CharacterTrait
 {
     private string $name;
     private Equipment\Equipment $equipment;
     private StatsInterface $stats;
-    private Inventory $inventory;
+    private Inventory\Inventory $inventory;
 
     public function name(): string
     {
@@ -46,6 +46,15 @@ trait CharacterTrait
         }
 
         $this->stats->increaseHealth($amount);
+    }
+
+
+    /**
+     * @return iterable<Inventory\Slot>
+     */
+    public function showInventory(): iterable
+    {
+        return $this->inventory->list();
     }
 
     public function equip(Equipment\EquipmentItem $item): void
