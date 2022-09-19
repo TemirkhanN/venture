@@ -27,6 +27,6 @@ class PerformGUITransition implements Listener
         }
         $event->complete();
 
-        $this->app->switchToWindow($event->to());
+        $this->app->switchToScene($event->to());
     }
 }

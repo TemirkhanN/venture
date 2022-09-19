@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\UI;
+namespace TemirkhanN\Venture\Game\UI\Scene;
 
 use League\Event\EventDispatcher;
 use TemirkhanN\Venture\Character\Stats;
@@ -11,11 +11,12 @@ use TemirkhanN\Venture\Game\IO\InputInterface;
 use TemirkhanN\Venture\Game\IO\OutputInterface;
 use TemirkhanN\Venture\Game\Storage\PlayerRepository;
 use TemirkhanN\Venture\Game\UI\Event\Transition;
+use TemirkhanN\Venture\Game\UI\SceneInterface;
 use TemirkhanN\Venture\Game\UI\Renderer\RendererInterface;
 use TemirkhanN\Venture\Item\ItemRepository;
 use TemirkhanN\Venture\Player\Player;
 
-class NewGame implements GUIInterface
+class NewGame implements SceneInterface
 {
     public function __construct(
         private readonly PlayerRepository $playerRepository,
@@ -43,7 +44,7 @@ class NewGame implements GUIInterface
 
             $this->playerRepository->save($player);
 
-            $this->eventDispatcher->dispatch(new Transition(MainScreen::class));
+            $this->eventDispatcher->dispatch(new Transition(Main::class));
 
             return;
         }

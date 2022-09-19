@@ -9,8 +9,8 @@ use TemirkhanN\Venture\Game\Action\ActionInput;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerBus;
 use TemirkhanN\Venture\Game\IO\InputInterface;
 use TemirkhanN\Venture\Game\IO\OutputInterface;
-use TemirkhanN\Venture\Game\UI\GUIInterface;
-use TemirkhanN\Venture\Game\UI\MainScreen;
+use TemirkhanN\Venture\Game\UI\SceneInterface;
+use TemirkhanN\Venture\Game\UI\Scene\Main;
 
 class App
 {
@@ -41,20 +41,20 @@ class App
 
         $this->tryToPerformAction($input);
 
-        $this->switchToWindow(MainScreen::class);
+        $this->switchToScene(Main::class);
     }
 
     /**
-     * @param class-string<GUIInterface> $guiClass
+     * @param class-string<SceneInterface> $guiClass
      *
      * @return void
      */
-    public function switchToWindow(string $guiClass): void
+    public function switchToScene(string $guiClass): void
     {
         $gui = $this->serviceLocator->get($guiClass);
 
-        if (!$gui instanceof GUIInterface) {
-            throw new \RuntimeException(sprintf('%s shall implemented %s', $guiClass, GUIInterface::class));
+        if (!$gui instanceof SceneInterface) {
+            throw new \RuntimeException(sprintf('%s shall implemented %s', $guiClass, SceneInterface::class));
         }
 
         $gui->run($this->input, $this->output);

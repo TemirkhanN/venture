@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\UI;
+namespace TemirkhanN\Venture\Game\UI\Scene;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TemirkhanN\Venture\Game\IO\InputInterface;
 use TemirkhanN\Venture\Game\IO\OutputInterface;
 use TemirkhanN\Venture\Game\Storage\PlayerRepository;
 use TemirkhanN\Venture\Game\UI\Event\Transition;
+use TemirkhanN\Venture\Game\UI\SceneInterface;
 use TemirkhanN\Venture\Game\UI\Renderer\RendererInterface;
 
-class MainScreen implements GUIInterface
+class Main implements SceneInterface
 {
     public function __construct(
         private readonly PlayerRepository $playerRepository,
@@ -30,13 +31,13 @@ class MainScreen implements GUIInterface
         }
 
         if ($player->isInDungeon()) {
-            $this->eventDispatcher->dispatch(new Transition(DungeonScreen::class));
+            $this->eventDispatcher->dispatch(new Transition(Dungeon::class));
 
             return;
         }
 
         if ($player->isInFight()) {
-            $this->eventDispatcher->dispatch(new Transition(BattleScreen::class));
+            $this->eventDispatcher->dispatch(new Transition(Battle::class));
 
             return;
         }

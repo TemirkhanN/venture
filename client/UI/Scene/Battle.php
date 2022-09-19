@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\UI;
+namespace TemirkhanN\Venture\Game\UI\Scene;
 
 use TemirkhanN\Venture\Game\IO\InputInterface;
 use TemirkhanN\Venture\Game\IO\OutputInterface;
 use TemirkhanN\Venture\Game\Storage\BattleRepository;
 use TemirkhanN\Venture\Game\Storage\PlayerRepository;
+use TemirkhanN\Venture\Game\UI\SceneInterface;
 use TemirkhanN\Venture\Game\UI\Renderer\RendererInterface;
 
-class BattleScreen implements GUIInterface
+class Battle implements SceneInterface
 {
     public function __construct(
         private readonly PlayerRepository $playerRepository,
