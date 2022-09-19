@@ -1,0 +1,11 @@
+200:
+  type: resource
+  name: Iron hunk
+
+201:
+  type: resource
+  name: Hide
+
+202:
+  type: resource
+  name: Leather
