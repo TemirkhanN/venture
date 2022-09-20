@@ -22,9 +22,9 @@ class Currency implements ItemInterface
         return $this->id;
     }
 
+    // TODO likely should be exposed on repository level or infra-related layer
     public static function gold(): self
     {
-        // TODO likely should be exposed on repository level or infra-related layer
         return new self(new Id(1), self::CURRENCY_NAME_GOLD);
     }
 

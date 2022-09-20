@@ -8,6 +8,11 @@ use TemirkhanN\Venture\Item;
 
 class Inventory
 {
+    private const STACKABLE_ITEMS_TYPES = [
+        Item\Consumable::ITEM_TYPE,
+        Item\Resource::ITEM_TYPE,
+    ];
+
     /**
      * @var array<Slot>
      */
@@ -17,22 +22,43 @@ class Inventory
 
     public function __construct()
     {
-        $this->putItem(Item\Currency::gold(), 0);
+        $this->addGold(1);
     }
 
     public function putItem(Item\ItemInterface $item, int $amount)
     {
-        if ($item == Item\Currency::gold()) {
-            $currentGoldAmount = $this->slots[0]->amountOfItems ?? 0;
+        if ($this->isStackable($item)) {
+            foreach ($this->slots as $index => $slot) {
+                if ($slot->item->id()->value() == $item->id()->value()) {
+                    $this->slots[$index] = $slot->addAmount($amount);
 
-            $this->slots[0] = new Slot(1, $item, $currentGoldAmount + $amount);
-
-            return;
+                    return;
+                }
+            }
         }
 
         ++$this->lastSlot;
 
         $this->slots[$this->lastSlot - 1] = new Slot($this->lastSlot, $item, $amount);
+    }
+
+    public function removeGold(int $amount): void
+    {
+        $gold = Item\Currency::gold();
+        foreach ($this->slots as $index => $slot) {
+            if ($slot->item == $gold) {
+                $this->slots[$index] = $slot->removeAmount($amount);
+
+                return;
+            }
+        }
+
+        throw new \DomainException('There is literally no gold in the inventory');
+    }
+
+    public function addGold(int $amount): void
+    {
+        $this->putItem(Item\Currency::gold(), $amount);
     }
 
     public function removeItem(Slot $fromSlot): void
@@ -68,5 +94,10 @@ class Inventory
     public function list(): array
     {
         return $this->slots;
+    }
+
+    private function isStackable(Item\ItemInterface $item): bool
+    {
+        return in_array($item->type(), self::STACKABLE_ITEMS_TYPES);
     }
 }

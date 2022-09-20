@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use League\Container\Argument\Literal\StringArgument;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
 use League\Event\EventDispatcher;
@@ -29,15 +28,13 @@ return (function () {
 
     $di->add(Game\IO\OutputInterface::class, Game\IO\Printer::class);
 
-    $di->add(EventDispatcherInterface::class, EventDispatcher::class)
-       ->addMethodCall('subscribeTo', [
-           new StringArgument(Game\UI\Event\Transition::class),
-           Game\UI\Event\PerformGUITransition::class
-       ]);
+    $di->add(EventDispatcherInterface::class, EventDispatcher::class);
 
     $di->add(ItemRepositoryInterface::class, ItemRepository::class);
 
     $di->add(ContainerInterface::class, $di);
+
+    $di->add(Game\App::class)->addArgument($di);
 
 return $di;
 })();

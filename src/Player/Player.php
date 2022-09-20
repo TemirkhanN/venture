@@ -54,7 +54,7 @@ class Player implements Battle\TargetInterface
             throw new \DomainException('Player does not have that enough gold to pay for items');
         }
 
-        $this->inventory->removeItem(new Inventory\Slot(1, Currency::gold(), $goldPrice));
+        $this->inventory->removeGold($goldPrice);
 
         foreach ($drop as $loot) {
             $this->loot($loot);

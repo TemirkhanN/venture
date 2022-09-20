@@ -9,12 +9,7 @@ use TemirkhanN\Venture\Game\App;
 
 class PerformGUITransition implements Listener
 {
-    private readonly App $app;
-
-    public function __construct(App $app)
-    {
-        $this->app = $app;
-    }
+    public function __construct(private readonly App $app) {}
 
     public function __invoke(object $event): void
     {
@@ -22,7 +17,7 @@ class PerformGUITransition implements Listener
             return;
         }
 
-        if ($event->isPropagationStopped() ) {
+        if ($event->isPropagationStopped()) {
             return;
         }
         $event->complete();

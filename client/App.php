@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Game;
 
+use League\Event\EventDispatcher;
 use Psr\Container\ContainerInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TemirkhanN\Venture\Game\Action\ActionInput;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerBus;
 use TemirkhanN\Venture\Game\IO\InputInterface;
 use TemirkhanN\Venture\Game\IO\OutputInterface;
+use TemirkhanN\Venture\Game\UI\Event\PerformGUITransition;
+use TemirkhanN\Venture\Game\UI\Event\Transition;
 use TemirkhanN\Venture\Game\UI\SceneInterface;
 use TemirkhanN\Venture\Game\UI\Scene\Main;
 
@@ -23,8 +27,6 @@ class App
 
     public function __construct(ContainerInterface $serviceLocator)
     {
-        $this->playerActionHandler = $serviceLocator->get(PlayerActionHandlerBus::class);
-
         $this->serviceLocator = $serviceLocator;
     }
 
@@ -34,10 +36,10 @@ class App
             throw new \RuntimeException('Application is already running');
         }
 
+        $this->initialize();
+
         $this->input = $input;
         $this->output = $output;
-
-        $this->isRunning = true;
 
         $this->tryToPerformAction($input);
 
@@ -51,6 +53,10 @@ class App
      */
     public function switchToScene(string $guiClass): void
     {
+        if (!$this->isRunning) {
+            throw new \RuntimeException('Can not switch the scene in inactive application');
+        }
+
         $gui = $this->serviceLocator->get($guiClass);
 
         if (!$gui instanceof SceneInterface) {
@@ -58,6 +64,24 @@ class App
         }
 
         $gui->run($this->input, $this->output);
+    }
+
+    private function initialize(): void
+    {
+        if ($this->isRunning) {
+            return;
+        }
+        $this->isRunning = true;
+
+        $this->playerActionHandler = $this->serviceLocator->get(PlayerActionHandlerBus::class);
+
+        /** @var EventDispatcher $eventDispatcher */
+        $eventDispatcher = $this->serviceLocator->get(EventDispatcherInterface::class);
+
+        $eventDispatcher->subscribeTo(
+            Transition::class,
+            $this->serviceLocator->get(PerformGUITransition::class)
+        );
     }
 
     private function tryToPerformAction(InputInterface $input): void

@@ -7,7 +7,7 @@ use TemirkhanN\Venture\Game\IO\HttpInput;
 use TemirkhanN\Venture\Game\IO\Printer;
 
 // assets shall not go through php server router
-if (str_starts_with($_SERVER['REQUEST_URI'], '/assets/')) {
+if (str_starts_with($_SERVER['REQUEST_URI'], '/assets/') || str_starts_with($_SERVER['REQUEST_URI'], '/favicon.ico')) {
     return false;
 }
 

@@ -16,4 +16,38 @@ class Slot
     {
 
     }
+
+    /**
+     * #[Pure]
+     *
+     * @param int $amount
+     * @return $this
+     */
+    public function addAmount(int $amount): static
+    {
+        if ($amount < 0) {
+            throw new \UnexpectedValueException('To decrease amount use removeAmount');
+        }
+
+        return new static($this->position, $this->item, $this->amountOfItems + $amount);
+    }
+
+    /**
+     * #[Pure]
+     *
+     * @param int $amount
+     * @return $this
+     */
+    public function removeAmount(int $amount): static
+    {
+        if ($amount > 0) {
+            throw new \UnexpectedValueException('To increase amount use addAmount');
+        }
+
+        if ($this->amountOfItems < $amount) {
+            throw new \LogicException('Attempted to discard more items than there exists');
+        }
+
+        return new static($this->position, $this->item, $this->amountOfItems - $amount);
+    }
 }

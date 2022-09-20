@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Game\UI\Scene;
 
-use League\Event\EventDispatcher;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TemirkhanN\Venture\Character\Stats;
 use TemirkhanN\Venture\Craft\RecipeRepository;
 use TemirkhanN\Venture\Drop\Drop;
@@ -23,7 +23,7 @@ class NewGame implements SceneInterface
 {
     public function __construct(
         private readonly PlayerRepository $playerRepository,
-        private readonly EventDispatcher $eventDispatcher,
+        private readonly EventDispatcherInterface $eventDispatcher,
         private readonly ItemRepository $itemRepository,
         private readonly RecipeRepository $recipeRepository,
         private readonly RendererInterface $renderer
@@ -39,17 +39,7 @@ class NewGame implements SceneInterface
 
         $playerName = $input->getString('name');
         if ($this->isValidPlayerName($playerName)) {
-            $player = new Player($playerName, Stats::lowestStats(2));
-
-            $player->loot(new Drop($this->itemRepository->getById(Item::CURRENCY_GOLD), 10));
-            $player->loot(new Drop($this->itemRepository->getById(Item::WEAPON_BROADSWORD), 1));
-            $player->loot(new Drop($this->itemRepository->getById(Item::WEAPON_DAGGER), 1));
-            $player->loot(new Drop($this->itemRepository->getById(Item::ARMOR_LEATHER_ARMOR), 1));
-
-            $player->learnRecipe($this->recipeRepository->getById(Recipe::LEATHER));
-            $player->learnRecipe($this->recipeRepository->getById(Recipe::CHAIN_MAIL));
-
-            $this->playerRepository->save($player);
+            $this->createNewPlayer($playerName);
 
             $this->eventDispatcher->dispatch(new Transition(Main::class));
 
@@ -62,5 +52,21 @@ class NewGame implements SceneInterface
     private function isValidPlayerName(string $playerName): bool
     {
         return $playerName !== '' && !preg_match('#^[A-Za-z0-9]$#', $playerName);
+    }
+
+    private function createNewPlayer(string $playerName): void
+    {
+        // Todo some rpg-class preset?
+        $player = new Player($playerName, Stats::lowestStats(2));
+
+        $player->loot(new Drop($this->itemRepository->getById(Item::CURRENCY_GOLD), 10));
+        $player->loot(new Drop($this->itemRepository->getById(Item::WEAPON_BROADSWORD), 1));
+        $player->loot(new Drop($this->itemRepository->getById(Item::WEAPON_DAGGER), 1));
+        $player->loot(new Drop($this->itemRepository->getById(Item::ARMOR_LEATHER_ARMOR), 1));
+
+        $player->learnRecipe($this->recipeRepository->getById(Recipe::LEATHER));
+        $player->learnRecipe($this->recipeRepository->getById(Recipe::CHAIN_MAIL));
+
+        $this->playerRepository->save($player);
     }
 }
