@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Game\Action;
 
+use TemirkhanN\Venture\Player\Inventory\Slot;
 use TemirkhanN\Venture\Player\Player;
 
 class UseItem implements PlayerActionHandlerInterface
@@ -20,14 +21,7 @@ class UseItem implements PlayerActionHandlerInterface
 
         foreach ($player->showInventory() as $slot) {
             if ($slot->position === $fromSlot) {
-                $item = $slot->item;
-
-                if (!$player->canUseItem($item)) {
-                    return;
-                }
-
-                $player->useItem($item);
-                $player->discardItem($slot);
+                $player->useItem(new Slot($slot->position, $slot->item, 1));
 
                 return;
             }

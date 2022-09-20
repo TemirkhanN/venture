@@ -26,7 +26,7 @@
             {% if player.canEquip(slot.item) %}
                 <td onclick="equipItem({{ slot.position }})">{{ slot.item.name }}</td>
             {% elseif player.canUseItem(slot.item) %}
-                <td onclick="useItem({{ slot.position }})">{{ slot.item.name }}</td>
+                <td onclick="useItem({{ slot.position }})">{{ slot.item.name }}{% if slot.amountOfItems > 1 %}({{ slot.amountOfItems }}){% endif %}</td>
             {% else %}
                 <td>{{ slot.item.name }}{% if slot.amountOfItems > 1 %}({{ slot.amountOfItems }}){% endif %}</td>
             {% endif %}

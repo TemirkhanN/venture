@@ -66,11 +66,6 @@ class Player implements Battle\TargetInterface
         $this->inventory->putItem($drop->item, $drop->amount);
     }
 
-    public function discardItem(Inventory\Slot $slot): void
-    {
-        $this->inventory->removeItem($slot);
-    }
-
     public function receiveReward(Battle\Battle $for): void
     {
         (new Action\Loot($this))->perform($for);

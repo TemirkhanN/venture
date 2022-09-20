@@ -84,20 +84,33 @@ trait CharacterTrait
         return false;
     }
 
-    public function useItem(Item\ItemInterface $item): void
+    public function discardItem(Inventory\Slot $slot): void
     {
-        if (!$this->canUseItem($item)) {
+        $this->inventory->removeItem($slot);
+    }
+
+    public function useItem(Inventory\Slot $fromSlot): void
+    {
+        if (!$this->canUseItem($fromSlot->item)) {
             throw new \DomainException('Character can not use this item');
         }
 
-        if (!$item instanceof ITem\Consumable) {
+        $item = $fromSlot->item;
+
+        if ($this->canEquip($item)) {
+            $this->equip(EquipmentItem::autoDetect($item));
+
             return;
         }
 
-        foreach ($item->effects() as $effect) {
-            if ($effect->type() == Item\Effect\EffectType::FAST_HEAL) {
-                $this->increaseHealth($effect->power());
+        if ($item instanceof Item\Consumable) {
+            foreach ($item->effects() as $effect) {
+                if ($effect->type() == Item\Effect\EffectType::FAST_HEAL) {
+                    $this->increaseHealth($effect->power());
+                }
             }
+
+            $this->discardItem($fromSlot);
         }
     }
 }
