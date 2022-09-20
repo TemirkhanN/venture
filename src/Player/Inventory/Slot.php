@@ -40,8 +40,8 @@ class Slot
      */
     public function removeAmount(int $amount): static
     {
-        if ($amount > 0) {
-            throw new \UnexpectedValueException('To increase amount use addAmount');
+        if ($amount < 0) {
+            throw new \InvalidArgumentException('Can not decrease by negative amount');
         }
 
         if ($this->amountOfItems < $amount) {
