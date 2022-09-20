@@ -1,8 +1,8 @@
 1:
-  name: Morlok
+  name: Goblin
   attack: 2
   defence: 2
-  health: 10
+  health: 8
 2:
   name: Kobold
   attack: 3
@@ -13,3 +13,13 @@
   attack: 1
   defence: 0
   health: 4
+4:
+  name: Slime
+  attack: 2
+  defence: 0
+  health: 5
+5:
+  name: Cave Bat
+  attack: 2
+  defence: 0
+  health: 5

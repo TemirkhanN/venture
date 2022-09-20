@@ -9,3 +9,6 @@
 202:
   type: resource
   name: Leather
+203:
+  type: resource
+  name: Shell
