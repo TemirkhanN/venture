@@ -22,7 +22,8 @@ return (function () {
 
     $di->add(TwigRenderer::class)
         ->setAlias(RendererInterface::class)
-        ->addArgument(ROOT_DIR . '/client/UI/view');
+        ->addArgument(ROOT_DIR . '/client/assets/view')
+        ->addArgument($di);
 
     $di->add(Cache::class)->addArgument('stable');
 

@@ -24,10 +24,10 @@ class RecipeRepository
             throw new \RuntimeException('Recipe does not exist');
         }
 
-        return $this->hydrateToObject($data);
+        return $this->hydrateToObject($id, $data);
     }
 
-    private function hydrateToObject(array $rawData): Recipe
+    private function hydrateToObject(int $recipeId, array $rawData): Recipe
     {
         $requiredItems = [];
         foreach ($rawData['requiredItems'] as $requiredItem) {
@@ -36,6 +36,7 @@ class RecipeRepository
         }
 
         return new Recipe(
+            new Id($recipeId),
             $requiredItems,
             new CraftResult(
                 new ItemId(new Id($rawData['result']['item'])),

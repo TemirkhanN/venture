@@ -7,6 +7,10 @@
         function enterDungeon() {
             performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\EnterDungeon::ACTION_NAME') }}');
         }
+
+        function startCrafting() {
+            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\ToggleCraftMenu::ACTION_NAME') }}', {status: 'on'});
+        }
     </script>
 {% endblock %}
 <table>
@@ -21,6 +25,11 @@
     <tr>
         <td onclick="enterDungeon()">
             Step into the dungeon
+        </td>
+    </tr>
+    <tr>
+        <td onclick="startCrafting()">
+            Start crafting
         </td>
     </tr>
 </table>

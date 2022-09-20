@@ -6,10 +6,13 @@ namespace TemirkhanN\Venture\Game\UI\Scene;
 
 use League\Event\EventDispatcher;
 use TemirkhanN\Venture\Character\Stats;
+use TemirkhanN\Venture\Craft\RecipeRepository;
 use TemirkhanN\Venture\Drop\Drop;
 use TemirkhanN\Venture\Game\IO\InputInterface;
 use TemirkhanN\Venture\Game\IO\OutputInterface;
 use TemirkhanN\Venture\Game\Storage\PlayerRepository;
+use TemirkhanN\Venture\Game\Storage\Reference\Item;
+use TemirkhanN\Venture\Game\Storage\Reference\Recipe;
 use TemirkhanN\Venture\Game\UI\Event\Transition;
 use TemirkhanN\Venture\Game\UI\SceneInterface;
 use TemirkhanN\Venture\Game\UI\Renderer\RendererInterface;
@@ -22,6 +25,7 @@ class NewGame implements SceneInterface
         private readonly PlayerRepository $playerRepository,
         private readonly EventDispatcher $eventDispatcher,
         private readonly ItemRepository $itemRepository,
+        private readonly RecipeRepository $recipeRepository,
         private readonly RendererInterface $renderer
     ) {
     }
@@ -37,10 +41,13 @@ class NewGame implements SceneInterface
         if ($this->isValidPlayerName($playerName)) {
             $player = new Player($playerName, Stats::lowestStats(2));
 
-            $player->loot(new Drop($this->itemRepository->getById(1), 10));
-            $player->loot(new Drop($this->itemRepository->getById(2001), 1));
-            $player->loot(new Drop($this->itemRepository->getById(2002), 1));
-            $player->loot(new Drop($this->itemRepository->getById(1002), 1));
+            $player->loot(new Drop($this->itemRepository->getById(Item::CURRENCY_GOLD), 10));
+            $player->loot(new Drop($this->itemRepository->getById(Item::WEAPON_BROADSWORD), 1));
+            $player->loot(new Drop($this->itemRepository->getById(Item::WEAPON_DAGGER), 1));
+            $player->loot(new Drop($this->itemRepository->getById(Item::ARMOR_LEATHER_ARMOR), 1));
+
+            $player->learnRecipe($this->recipeRepository->getById(Recipe::LEATHER));
+            $player->learnRecipe($this->recipeRepository->getById(Recipe::CHAIN_MAIL));
 
             $this->playerRepository->save($player);
 

@@ -6,11 +6,11 @@
         <tr>
             <td>
                 <img src="/assets/player/base.png" title="{{ battle.player.name }}"/>
-                {{ include('character-stats.html.twig', {character: battle.player}, with_context=false) }}
+                {{ include('character/character-stats.html.twig', {character: battle.player}, with_context=false) }}
             </td>
             <td>
                 <img src="/assets/enemies/{{ battle.enemy.name|lower }}.png" title="{{ battle.enemy.name }}"/>
-                {{ include('character-stats.html.twig', {character: battle.enemy}, with_context=false) }}
+                {{ include('character/character-stats.html.twig', {character: battle.enemy}, with_context=false) }}
             </td>
         </tr>
         <tr>

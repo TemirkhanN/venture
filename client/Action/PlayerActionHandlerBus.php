@@ -22,15 +22,17 @@ class PlayerActionHandlerBus
         ContainerInterface $container
     ) {
         $this->handlers = [
-            EquipItem::ACTION_NAME => $container->get(EquipItem::class),
-            EnterDungeon::ACTION_NAME => $container->get(EnterDungeon::class),
-            ProceedDungeon::ACTION_NAME => $container->get(ProceedDungeon::class),
-            LeaveDungeon::ACTION_NAME => $container->get(LeaveDungeon::class),
-            Attack::ACTION_NAME => $container->get(Attack::class),
-            NextTurn::ACTION_NAME => $container->get(NextTurn::class),
-            EndBattle::ACTION_NAME => $container->get(EndBattle::class),
+            EquipItem::ACTION_NAME       => $container->get(EquipItem::class),
+            EnterDungeon::ACTION_NAME    => $container->get(EnterDungeon::class),
+            ProceedDungeon::ACTION_NAME  => $container->get(ProceedDungeon::class),
+            LeaveDungeon::ACTION_NAME    => $container->get(LeaveDungeon::class),
+            Attack::ACTION_NAME          => $container->get(Attack::class),
+            NextTurn::ACTION_NAME        => $container->get(NextTurn::class),
+            EndBattle::ACTION_NAME       => $container->get(EndBattle::class),
             BuyHealthPotion::ACTION_NAME => $container->get(BuyHealthPotion::class),
-            UseItem::ACTION_NAME => $container->get(UseItem::class),
+            UseItem::ACTION_NAME         => $container->get(UseItem::class),
+            ToggleCraftMenu::ACTION_NAME => $container->get(ToggleCraftMenu::class),
+            CraftItem::ACTION_NAME       => $container->get(CraftItem::class),
         ];
     }
 

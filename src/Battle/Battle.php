@@ -36,7 +36,7 @@ class Battle
         }
 
         $this->player = $with;
-        $this->player->state = PlayerState::InFight;
+        $this->player->state = PlayerState::Fighting;
     }
 
     public function applyAction(ActionInterface $action): void

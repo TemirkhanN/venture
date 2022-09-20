@@ -6,15 +6,20 @@ namespace TemirkhanN\Venture\Player;
 
 use TemirkhanN\Venture\Battle;
 use TemirkhanN\Venture\Character;
+use TemirkhanN\Venture\Craft\Recipe;
+use TemirkhanN\Venture\Craft\RecipeBook;
 use TemirkhanN\Venture\Drop\Drop;
 use TemirkhanN\Venture\Item\Currency;
 use TemirkhanN\Venture\Player\Inventory;
+use TemirkhanN\Venture\Utils\Id;
 
 class Player implements Battle\TargetInterface
 {
     use Character\CharacterTrait;
 
     public PlayerState $state;
+
+    private RecipeBook $recipeBook;
 
     public function __construct(string $name, Character\Stats $stats)
     {
@@ -23,6 +28,7 @@ class Player implements Battle\TargetInterface
         $this->stats     = $stats;
         $this->equipment = new Character\Equipment\Equipment();
         $this->inventory = new Inventory\Inventory();
+        $this->recipeBook = new RecipeBook();
     }
 
     public function gold(): int
@@ -70,6 +76,24 @@ class Player implements Battle\TargetInterface
         (new Action\Loot($this))->perform($for);
     }
 
+    /**
+     * @return iterable<Id>
+     */
+    public function recipeBook(): iterable
+    {
+        return $this->recipeBook->listRecipes();
+    }
+
+    public function knowsRecipe(Recipe $recipe): bool
+    {
+        return $this->recipeBook->containsRecipe($recipe);
+    }
+
+    public function learnRecipe(Recipe $recipe): void
+    {
+        $this->recipeBook->addRecipe($recipe);
+    }
+
     public function isInDungeon(): bool
     {
         return $this->state == PlayerState::InDungeon;
@@ -77,11 +101,16 @@ class Player implements Battle\TargetInterface
 
     public function isInFight(): bool
     {
-        return $this->state == PlayerState::InFight;
+        return $this->state == PlayerState::Fighting;
     }
 
     public function isIdle(): bool
     {
         return $this->state == PlayerState::Idle;
+    }
+
+    public function isCrafting(): bool
+    {
+        return $this->state == PlayerState::Crafting;
     }
 }

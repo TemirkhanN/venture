@@ -26,6 +26,10 @@ class Craft
      */
     public function perform(Recipe $recipe): Result
     {
+        if (!$this->player->knowsRecipe($recipe)) {
+            return Result::error('Player can not use recipe that he does not know');
+        }
+
         $requirements = [];
         foreach ($recipe->requiredItems() as $requirement) {
             $itemId = $requirement->item()->id->value();

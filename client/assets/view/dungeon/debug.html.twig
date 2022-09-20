@@ -26,7 +26,7 @@
                     {% for monster in stage.monsters %}
                         <td>
                             {{ monster.name }}
-                            {{ include('character-stats.html.twig', {character: monster}, with_context=false) }}
+                            {{ include('character/character-stats.html.twig', {character: monster}, with_context=false) }}
                         </td>
                     {% endfor %}
                 </tr>

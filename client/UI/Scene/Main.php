@@ -11,6 +11,7 @@ use TemirkhanN\Venture\Game\Storage\PlayerRepository;
 use TemirkhanN\Venture\Game\UI\Event\Transition;
 use TemirkhanN\Venture\Game\UI\SceneInterface;
 use TemirkhanN\Venture\Game\UI\Renderer\RendererInterface;
+use TemirkhanN\Venture\Player\Player;
 
 class Main implements SceneInterface
 {
@@ -24,20 +25,10 @@ class Main implements SceneInterface
     public function run(InputInterface $input, OutputInterface $output): void
     {
         $player = $this->playerRepository->find();
-        if ($player === null) {
-            $this->eventDispatcher->dispatch(new Transition(NewGame::class));
 
-            return;
-        }
-
-        if ($player->isInDungeon()) {
-            $this->eventDispatcher->dispatch(new Transition(Dungeon::class));
-
-            return;
-        }
-
-        if ($player->isInFight()) {
-            $this->eventDispatcher->dispatch(new Transition(Battle::class));
+        $scene = $this->getActiveScene($player);
+        if ($scene !== null) {
+            $this->eventDispatcher->dispatch(new Transition($scene));
 
             return;
         }
@@ -48,5 +39,21 @@ class Main implements SceneInterface
                 'title'  => 'Main screen',
             ])
         );
+    }
+
+    private function getActiveScene(?Player $player): ?string
+    {
+        switch (true) {
+            case $player === null:
+                return NewGame::class;
+            case $player->isInDungeon():
+                return Dungeon::class;
+            case $player->isInFight():
+                return Battle::class;
+            case $player->isCrafting():
+                return Craft::class;
+            default:
+                return null;
+        }
     }
 }

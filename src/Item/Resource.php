@@ -18,6 +18,11 @@ class Resource implements ItemInterface
 
     }
 
+    public static function isResource(ItemInterface $item): bool
+    {
+        return $item->type() === self::ITEM_TYPE;
+    }
+
     public function id(): Id
     {
         return $this->id;
