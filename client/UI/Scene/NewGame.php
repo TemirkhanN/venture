@@ -60,7 +60,6 @@ class NewGame implements SceneInterface
         $player = new Player($playerName, Stats::lowestStats(2));
 
         $player->loot(new Drop($this->itemRepository->getById(Item::CURRENCY_GOLD), 10));
-        $player->loot(new Drop($this->itemRepository->getById(Item::WEAPON_BROADSWORD), 1));
         $player->loot(new Drop($this->itemRepository->getById(Item::WEAPON_DAGGER), 1));
         $player->loot(new Drop($this->itemRepository->getById(Item::ARMOR_LEATHER_ARMOR), 1));
 
