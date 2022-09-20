@@ -1,5 +1,3 @@
 vendor
 .idea
 var/*
-!var/.gitkeep
-!var/stable/.gitkeep
