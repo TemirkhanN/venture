@@ -11,6 +11,7 @@ class Inventory
     private const STACKABLE_ITEMS_TYPES = [
         Item\Consumable::ITEM_TYPE,
         Item\Resource::ITEM_TYPE,
+        Item\Currency::ITEM_TYPE,
     ];
 
     /**
