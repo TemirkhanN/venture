@@ -27,11 +27,6 @@ class EndBattle implements PlayerActionHandlerInterface
             return;
         }
 
-
-        if (!$battle->isOver()) {
-            return;
-        }
-
         if ($battle->player()->isAlive() && !$battle->enemy()->isAlive()) {
             $player->receiveReward($battle);
         }

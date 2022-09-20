@@ -16,8 +16,13 @@
 {% endblock %}
 
 {% if not battle.isOver %}
-    <button onclick="attackEnemy()"{% if not battle.doesCurrentTurnBelongToPlayer %} disabled{% endif %}>Attack</button><br/>
-    <button onclick="nextTurn()"{% if battle.doesCurrentTurnBelongToPlayer %} disabled{% endif %}>Next turn</button><br/>
+    {% if battle.doesCurrentTurnBelongToPlayer %}
+        <button onclick="attackEnemy()">Attack</button><br/>
+    {% else %}
+        <button onclick="nextTurn()">Next turn</button><br/>
+    {% endif %}
+
+    <button onclick="endBattle()">Flee</button><br/>
 {% else %}
     {% if battle.player.isAlive %}
         <button onclick="endBattle()">Receive rewards</button><br/>
