@@ -19,6 +19,7 @@ class Inflector extends AbstractExtension
     {
         return [
             new TwigFunction('itemName', $this->lazyCall(ItemDetail::class, 'getItemName')),
+            new TwigFunction('characterImage', $this->lazyCall(CharacterDetail::class, 'getImagePath')),
         ];
     }
 

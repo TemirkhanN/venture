@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Npc;
 
-use TemirkhanN\Venture\Battle\TargetInterface;
+use TemirkhanN\Venture\Character\CharacterInterface;
 use TemirkhanN\Venture\Character\CharacterTrait;
 use TemirkhanN\Venture\Character\Equipment\Equipment;
 use TemirkhanN\Venture\Character\StatsInterface;
 
-class Npc implements TargetInterface
+class Npc implements CharacterInterface
 {
     use CharacterTrait;
 

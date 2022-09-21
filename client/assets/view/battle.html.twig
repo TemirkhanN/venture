@@ -5,11 +5,11 @@
         <tbody>
         <tr>
             <td>
-                <img src="/assets/player/base.png" title="{{ battle.player.name }}"/>
+                <img src="{{ characterImage(battle.player) }}" title="{{ battle.player.name }}"/>
                 {{ include('character/character-stats.html.twig', {character: battle.player}, with_context=false) }}
             </td>
             <td>
-                <img src="/assets/enemies/{{ battle.enemy.name|lower }}.png" title="{{ battle.enemy.name }}"/>
+                <img src="{{ characterImage(battle.enemy) }}" title="{{ battle.enemy.name }}"/>
                 {{ include('character/character-stats.html.twig', {character: battle.enemy}, with_context=false) }}
             </td>
         </tr>

@@ -13,7 +13,7 @@ use TemirkhanN\Venture\Item\Currency;
 use TemirkhanN\Venture\Player\Inventory;
 use TemirkhanN\Venture\Utils\Id;
 
-class Player implements Battle\TargetInterface
+class Player implements Character\CharacterInterface
 {
     use Character\CharacterTrait;
 
