@@ -5,7 +5,19 @@
     <title>{% if title is defined %}{{ title }}{% else %}Venture{% endif %}</title>
 
     <script>
+        // Well, because we rewrite whole document body every time, global variables stay persistent and conflict
+        if (typeof isLoading === 'undefined') {
+            var isLoading = false;
+        }
+
         function sendPost(data) {
+            if (isLoading) {
+                console.log('Page is still loading')
+                return;
+            }
+
+            isLoading = true;
+
             fetch('/', {
                 method: 'POST',
                 body: JSON.stringify(data),
@@ -16,6 +28,7 @@
                 document.open();
                 document.write(await response.text());
                 document.close();
+                isLoading = false;
             })
         }
 
