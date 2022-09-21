@@ -1,37 +1,22 @@
-{% extends "main-template.html.twig" %}
+<div>
+    {% for stage in dungeon.stages %}
 
-{% block header %}
-    <style>
-        td {
-            border: 1px solid gray;
-            padding: 5px;
-            vertical-align: baseline;
-        }
-    </style>
-{% endblock %}
-
-{% block content %}
-    <h1>Dungeon</h1>
-    <div>
-        {% for stage in dungeon.stages %}
-
-            {% if stage.isComplete %}
-                <p style="text-decoration:line-through;">{{ stage.name }}</p>
-            {% else %}
-                <p>{{ stage.name }}</p>
-            {% endif %}
-            <table>
-                <tbody>
-                <tr>
-                    {% for monster in stage.monsters %}
-                        <td>
-                            {{ monster.name }}
-                            {{ include('character/character-stats.html.twig', {character: monster}, with_context=false) }}
-                        </td>
-                    {% endfor %}
-                </tr>
-                </tbody>
-            </table>
-        {% endfor %}
-    </div>
-{% endblock %}
+        {% if stage.isComplete %}
+            <p style="text-decoration:line-through;">{{ stage.name }}</p>
+        {% else %}
+            <p>{{ stage.name }}</p>
+        {% endif %}
+        <table>
+            <tbody>
+            <tr>
+                {% for monster in stage.monsters %}
+                    <td>
+                        {{ monster.name }}
+                        {{ include('character/character-stats.html.twig', {character: monster}, with_context=false) }}
+                    </td>
+                {% endfor %}
+            </tr>
+            </tbody>
+        </table>
+    {% endfor %}
+</div>
