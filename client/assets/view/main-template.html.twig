@@ -40,6 +40,14 @@
             payload.name = name;
             sendPost({action: payload})
         }
+
+        function cheatAddGold(amount) {
+            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\Cheat\\GetGold::ACTION_NAME') }}', {amount: amount});
+        }
+
+        function cheatRestoreHealth() {
+            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\Cheat\\Heal::ACTION_NAME') }}');
+        }
     </script>
     {% block header %}
     {% endblock %}

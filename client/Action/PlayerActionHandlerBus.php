@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Game\Action;
 
 use Psr\Container\ContainerInterface;
+use TemirkhanN\Venture\Game\Action\Cheat\GetGold;
+use TemirkhanN\Venture\Game\Action\Cheat\Heal;
 use TemirkhanN\Venture\Game\IO\InputInterface;
 use TemirkhanN\Venture\Game\Storage\PlayerRepository;
 use TemirkhanN\Venture\Player\Player;
@@ -33,6 +35,8 @@ class PlayerActionHandlerBus
             UseItem::ACTION_NAME         => $container->get(UseItem::class),
             ToggleCraftMenu::ACTION_NAME => $container->get(ToggleCraftMenu::class),
             CraftItem::ACTION_NAME       => $container->get(CraftItem::class),
+            GetGold::ACTION_NAME         => $container->get(GetGold::class),
+            Heal::ACTION_NAME            => $container->get(Heal::class),
         ];
     }
 
