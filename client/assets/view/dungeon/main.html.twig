@@ -29,7 +29,7 @@
                 <tbody>
                 <tr>
                     {% for monster in stage.monsters %}
-                        <td>
+                        {% if monster.isAlive %}<td>{% else %}<td style="text-decoration: line-through;">{% endif %}
                             {{ include('character/character-stats.html.twig', {character: monster}, with_context=false) }}
                         </td>
                     {% endfor %}
