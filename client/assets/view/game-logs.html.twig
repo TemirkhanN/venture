@@ -1,0 +1,12 @@
+{% extends "main-template.html.twig" %}
+
+{% block content %}
+    <h1>{{ Details }}</h1>
+    <div>
+        {% for gameLog in gameLogs %}
+            {{ gameLog }}<br/>
+        {% endfor %}
+
+        <button onclick="location.reload()">Close</button>
+    </div>
+{% endblock %}

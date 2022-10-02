@@ -66,11 +66,6 @@ class Player implements Character\CharacterInterface
         $this->inventory->putItem($drop->item, $drop->amount);
     }
 
-    public function receiveReward(Battle\Battle $for): void
-    {
-        (new Action\Loot($this))->perform($for);
-    }
-
     /**
      * @return iterable<Id>
      */

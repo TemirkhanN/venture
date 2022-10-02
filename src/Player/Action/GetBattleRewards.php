@@ -5,16 +5,22 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Player\Action;
 
 use TemirkhanN\Venture\Battle\Battle;
+use TemirkhanN\Venture\Drop\Drop;
 use TemirkhanN\Venture\Player\Player;
 
-class Loot
+class GetBattleRewards
 {
     public function __construct(private readonly Player $player)
     {
 
     }
 
-    public function perform(Battle $on): void
+    /**
+     * @param Battle $on
+     *
+     * @return iterable<Drop>
+     */
+    public function receiveRewards(Battle $on): iterable
     {
         if ($on->player() !== $this->player) {
             throw new \DomainException('Player was not participating in battle');
@@ -30,6 +36,8 @@ class Loot
 
         foreach ($on->issueRewards() as $drop) {
             $this->player->loot($drop);
+
+            yield $drop;
         }
     }
 }

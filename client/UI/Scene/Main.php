@@ -7,6 +7,7 @@ namespace TemirkhanN\Venture\Game\UI\Scene;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TemirkhanN\Venture\Game\IO\InputInterface;
 use TemirkhanN\Venture\Game\IO\OutputInterface;
+use TemirkhanN\Venture\Game\Storage\GameLogRepository;
 use TemirkhanN\Venture\Game\Storage\PlayerRepository;
 use TemirkhanN\Venture\Game\UI\Event\Transition;
 use TemirkhanN\Venture\Game\UI\SceneInterface;
@@ -18,12 +19,25 @@ class Main implements SceneInterface
     public function __construct(
         private readonly PlayerRepository $playerRepository,
         private readonly EventDispatcherInterface $eventDispatcher,
-        private readonly RendererInterface $renderer
+        private readonly RendererInterface $renderer,
+        private readonly GameLogRepository $gameLogRepository
     ) {
     }
 
     public function run(InputInterface $input, OutputInterface $output): void
     {
+        $gameLogs = $this->getGameLogs();
+        if ($gameLogs !== []) {
+            $output->write(
+                $this->renderer->render('game-logs', [
+                    'title'    => 'Details',
+                    'gameLogs' => $gameLogs,
+                ])
+            );
+
+            return;
+        }
+
         $player = $this->playerRepository->find();
 
         $scene = $this->getActiveScene($player);
@@ -55,5 +69,15 @@ class Main implements SceneInterface
             default:
                 return null;
         }
+    }
+
+    private function getGameLogs(): array
+    {
+        $logs = [];
+        foreach ($this->gameLogRepository->viewLogs() as $log) {
+            $logs[] = $log;
+        }
+
+        return $logs;
     }
 }

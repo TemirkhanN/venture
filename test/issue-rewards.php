@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use TemirkhanN\Venture\Battle\Battle;
+use TemirkhanN\Venture\Player\Action\GetBattleRewards;
 
 require_once __DIR__ .'/bootstrap.php';
 
@@ -25,7 +26,7 @@ if (!$battle->player()->isAlive()) {
     fatalError('Player has to win the battle/be alive in order to receive the rewards');
 }
 
-$player->receiveReward($battle);
+(new GetBattleRewards($player))->receiveRewards($battle);
 
 renderPlayer($player);
 renderInventory($player);
