@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\Action;
+namespace TemirkhanN\Venture\Game\Action\Inventory;
 
+use TemirkhanN\Venture\Game\Action\ActionInterface;
+use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
 use TemirkhanN\Venture\Player\Inventory\Slot;
 use TemirkhanN\Venture\Player\Player;
 

@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\Action;
+namespace TemirkhanN\Venture\Game\Action\Battle;
 
+use TemirkhanN\Venture\Game\Action\ActionInterface;
+use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
 use TemirkhanN\Venture\Game\Storage\BattleRepository;
 use TemirkhanN\Venture\Game\Storage\GameLogRepository;
 use TemirkhanN\Venture\Player\Action\GetBattleRewards;

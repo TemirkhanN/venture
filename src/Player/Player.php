@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Player;
 
-use TemirkhanN\Venture\Battle;
 use TemirkhanN\Venture\Character;
 use TemirkhanN\Venture\Craft\Recipe;
 use TemirkhanN\Venture\Craft\RecipeBook;

@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\Action;
+namespace TemirkhanN\Venture\Game\Action\Dungeon;
 
 use TemirkhanN\Venture\Dungeon\DungeonGenerator;
+use TemirkhanN\Venture\Game\Action\ActionInterface;
+use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
 use TemirkhanN\Venture\Game\Storage\DungeonRepository;
 use TemirkhanN\Venture\Player\Player;
 

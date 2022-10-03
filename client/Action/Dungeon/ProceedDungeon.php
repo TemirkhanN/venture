@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\Action;
+namespace TemirkhanN\Venture\Game\Action\Dungeon;
 
 use TemirkhanN\Venture\Battle\Battle;
+use TemirkhanN\Venture\Game\Action\ActionInterface;
+use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
 use TemirkhanN\Venture\Game\Storage\BattleRepository;
 use TemirkhanN\Venture\Game\Storage\DungeonRepository;
 use TemirkhanN\Venture\Player\Action\EngageBattle;
