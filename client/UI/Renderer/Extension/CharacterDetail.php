@@ -14,15 +14,15 @@ class CharacterDetail
     public function getImagePath(CharacterInterface $character): string
     {
         if ($character instanceof Npc) {
-            $path = sprintf('/assets/enemies/%s.png', strtolower($character->name()));
+            $path = sprintf('/assets/images/enemies/%s.png', strtolower($character->name()));
 
             if (!file_exists(self::GAME_DIR . $path)) {
-                $path = '/assets/enemies/unknown-enemy.png';
+                $path = '/assets/images/enemies/unknown-enemy.png';
             }
 
             return $path;
         }
 
-        return '/assets/player/base.png';
+        return '/assets/images/player/base.png';
     }
 }
