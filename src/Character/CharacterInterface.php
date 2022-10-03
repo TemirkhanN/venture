@@ -8,7 +8,7 @@ use TemirkhanN\Venture\Battle\TargetInterface;
 use TemirkhanN\Venture\Item\ItemInterface;
 use TemirkhanN\Venture\Player\Inventory\Slot;
 
-interface CharacterInterface extends TargetInterface
+interface CharacterInterface extends TargetInterface, ProgressInterface
 {
     public function decreaseHealth(int $amount): void;
     public function increaseHealth(int $amount): void;

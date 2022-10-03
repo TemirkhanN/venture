@@ -10,6 +10,7 @@ use TemirkhanN\Venture\Player\Inventory;
 
 trait CharacterTrait
 {
+    private int $exp = 0;
     private string $name;
     private Equipment\Equipment $equipment;
     private StatsInterface $stats;
@@ -112,5 +113,20 @@ trait CharacterTrait
 
             $this->discardItem($fromSlot);
         }
+    }
+
+    public function lvl(): int
+    {
+        return ExperienceCalculator::calculateLvl($this->exp);
+    }
+
+    public function exp(): int
+    {
+        return $this->exp;
+    }
+
+    public function nextLvlExp(): int
+    {
+        return ExperienceCalculator::calculateExp($this->lvl() + 1);
     }
 }

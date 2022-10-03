@@ -83,6 +83,15 @@ class Player implements Character\CharacterInterface
         $this->recipeBook->addRecipe($recipe);
     }
 
+    public function gainExperience(int $amount): void
+    {
+        if ($amount < 0) {
+            throw new \UnexpectedValueException('Can not gain negative amount of experience');
+        }
+
+        $this->exp += $amount;
+    }
+
     public function isInDungeon(): bool
     {
         return $this->state == PlayerState::InDungeon;
