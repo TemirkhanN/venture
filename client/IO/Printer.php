@@ -13,8 +13,11 @@ class Printer implements OutputInterface
         $this->buffer .= $content;
     }
 
-    public function __destruct()
+    public function flush(): string
     {
-        echo $this->buffer;
+        $buffer = $this->buffer;
+        $this->buffer = '';
+
+        return $buffer;
     }
 }

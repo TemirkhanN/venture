@@ -13,4 +13,4 @@ COPY ./ /app
 
 RUN composer install --no-dev --prefer-dist --no-progress --optimize-autoloader
 
-CMD php -S 172.17.0.2:8080 -t client client/launch.php
+CMD php client/launch.php

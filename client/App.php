@@ -18,31 +18,23 @@ use TemirkhanN\Venture\Game\UI\Scene\Main;
 
 class App
 {
-    private readonly ContainerInterface $serviceLocator;
-    private readonly InputInterface $input;
-    private readonly OutputInterface $output;
+    private InputInterface $input;
     private readonly PlayerActionHandlerBus $playerActionHandler;
 
     private bool $isRunning = false;
 
-    public function __construct(ContainerInterface $serviceLocator)
-    {
-        $this->serviceLocator = $serviceLocator;
+    public function __construct(
+        private readonly ContainerInterface $serviceLocator,
+        private readonly OutputInterface $output
+    ) {
     }
 
-    public function run(InputInterface $input, OutputInterface $output): void
+    public function run(InputInterface $input): void
     {
-        if ($this->isRunning) {
-            throw new \RuntimeException('Application is already running');
-        }
+        $this->input = $input;
 
         $this->initialize();
-
-        $this->input = $input;
-        $this->output = $output;
-
-        $this->tryToPerformAction($input);
-
+        $this->tryToPerformAction();
         $this->switchToScene(Main::class);
     }
 
@@ -84,9 +76,9 @@ class App
         );
     }
 
-    private function tryToPerformAction(InputInterface $input): void
+    private function tryToPerformAction(): void
     {
-        $action = ActionInput::fromInput($input);
+        $action = ActionInput::fromInput($this->input);
         if ($action === null) {
             return;
         }

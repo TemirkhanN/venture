@@ -34,7 +34,7 @@ return (function () {
 
     $di->add(ContainerInterface::class, $di);
 
-    $di->add(Game\App::class)->addArgument($di);
+    $di->add(Game\App::class)->addArguments([$di, Game\IO\Printer::class]);
 
 return $di;
 })();
