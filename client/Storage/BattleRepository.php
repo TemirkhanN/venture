@@ -59,11 +59,11 @@ class BattleRepository extends AbstractObjectStorage
             foreach ($stage->monsters() as $monster) {
                 if ($monster->objectId === $actualValue->objectId) {
                     if ($monster->stats()->currentHealth() > $actualValue->stats()->currentHealth()) {
-                        $monster->decreaseHealth(
+                        $monster->loseHp(
                             $monster->stats()->currentHealth() - $actualValue->stats()->currentHealth()
                         );
                     } else {
-                        $monster->increaseHealth(
+                        $monster->restoreHp(
                             $actualValue->stats()->currentHealth() - $monster->stats()->currentHealth()
                         );
                     }

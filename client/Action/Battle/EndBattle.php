@@ -42,6 +42,11 @@ class EndBattle implements PlayerActionHandlerInterface
             }
         }
 
+        // Enemy has to restore health to prevent player from using attack=>flee exploit
+        if ($battle->enemy()->isAlive()) {
+            $battle->enemy()->restoreHp();
+        }
+
         $player->state = PlayerState::InDungeon;
 
         $this->battleRepository->end($battle);

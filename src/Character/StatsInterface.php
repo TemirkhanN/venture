@@ -10,6 +10,6 @@ interface StatsInterface
     public function defence(): int;
     public function maxHealth(): int;
     public function currentHealth(): int;
-    public function decreaseHealth(int $amount): void;
-    public function increaseHealth(int $amount): void;
+    public function loseHealth(int $amount): void;
+    public function restoreHealth(int $amount): void;
 }

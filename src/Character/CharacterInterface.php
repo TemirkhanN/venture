@@ -10,8 +10,8 @@ use TemirkhanN\Venture\Player\Inventory\Slot;
 
 interface CharacterInterface extends TargetInterface, ProgressInterface
 {
-    public function decreaseHealth(int $amount): void;
-    public function increaseHealth(int $amount): void;
+    public function loseHp(int $amount): void;
+    public function restoreHp(int $amount): void;
     /**
      * @return iterable<Slot>
      */

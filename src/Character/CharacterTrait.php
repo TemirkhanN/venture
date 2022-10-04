@@ -31,22 +31,26 @@ trait CharacterTrait
         return new EquipmentBoostedStats($this->equipment, $this->stats);
     }
 
-    public function decreaseHealth(int $amount): void
+    public function loseHp(int $amount): void
     {
         if ($amount < 0) {
             throw new \UnexpectedValueException('Can not decrease health by the negative amount');
         }
 
-        $this->stats->decreaseHealth($amount);
+        $this->stats->loseHealth($amount);
     }
 
-    public function increaseHealth(int $amount): void
+    public function restoreHp(?int $amount = null): void
     {
+        if ($amount === null) {
+            $amount = $this->stats->maxHealth() - $this->stats->currentHealth();
+        }
+
         if ($amount < 0) {
             throw new \UnexpectedValueException('Can not increase health by the negative amount');
         }
 
-        $this->stats->increaseHealth($amount);
+        $this->stats->restoreHealth($amount);
     }
 
 
@@ -107,7 +111,7 @@ trait CharacterTrait
         if ($item instanceof Item\Consumable) {
             foreach ($item->effects() as $effect) {
                 if ($effect->type() == Item\Effect\EffectType::FAST_HEAL) {
-                    $this->increaseHealth($effect->power());
+                    $this->restoreHp($effect->power());
                 }
             }
 

@@ -24,7 +24,7 @@ class Heal implements PlayerActionHandlerInterface
 
         $stats = $player->stats();
 
-        $player->increaseHealth($stats->maxHealth() - $stats->currentHealth());
+        $player->restoreHp($stats->maxHealth() - $stats->currentHealth());
 
         $this->playerRepository->save($player);
     }

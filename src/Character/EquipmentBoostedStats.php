@@ -53,7 +53,7 @@ class EquipmentBoostedStats implements StatsInterface
         return $this->currentHealth;
     }
 
-    public function decreaseHealth(int $amount): void
+    public function loseHealth(int $amount): void
     {
         $this->currentHealth -= $amount;
         if ($this->currentHealth < 0) {
@@ -61,7 +61,7 @@ class EquipmentBoostedStats implements StatsInterface
         }
     }
 
-    public function increaseHealth(int $amount): void
+    public function restoreHealth(int $amount): void
     {
         $this->currentHealth += $amount;
         if ($this->currentHealth > $this->maxHealth) {

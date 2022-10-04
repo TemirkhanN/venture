@@ -45,7 +45,7 @@ class Stats implements StatsInterface
         return $this->currentHealth;
     }
 
-    public function decreaseHealth(int $amount): void
+    public function loseHealth(int $amount): void
     {
         if ($amount < 0) {
             throw new \UnexpectedValueException('Can not decrease health by negative amount');
@@ -58,7 +58,7 @@ class Stats implements StatsInterface
         }
     }
 
-    public function increaseHealth(int $amount): void
+    public function restoreHealth(int $amount): void
     {
         if ($amount < 0) {
             throw new \UnexpectedValueException('Can not increase health by negative amount');
