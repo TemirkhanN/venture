@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Character;
 
 use TemirkhanN\Venture\Character\Equipment\EquipmentItem;
+use TemirkhanN\Venture\Character\Stats\LevelBoostedStats;
 use TemirkhanN\Venture\Item;
 use TemirkhanN\Venture\Player\Inventory;
 
@@ -13,7 +14,7 @@ trait CharacterTrait
     private int $exp = 0;
     private string $name;
     private Equipment\Equipment $equipment;
-    private StatsInterface $stats;
+    private Stats $stats;
     private Inventory\Inventory $inventory;
 
     public function name(): string
@@ -28,7 +29,7 @@ trait CharacterTrait
 
     public function stats(): StatsInterface
     {
-        return new EquipmentBoostedStats($this->equipment, $this->stats);
+        return new EquipmentBoostedStats($this->equipment, new LevelBoostedStats($this->lvl(), $this->stats));
     }
 
     public function loseHp(int $amount): void

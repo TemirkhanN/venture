@@ -4,6 +4,10 @@
         <td colspan="2">{{ character.name }}</td>
     </tr>
     <tr>
+        <td>LVL</td>
+        <td title="Next level {{ character.exp }}/{{ character.nextLvlExp }}">{{ character.lvl }}</td>
+    </tr>
+    <tr>
         <td>HP</td>
         <td>{{ character.stats.currentHealth }}/{{ character.stats.maxHealth }}</td>
     </tr>
