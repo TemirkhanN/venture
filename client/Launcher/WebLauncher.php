@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\Action\Launcher;
+namespace TemirkhanN\Venture\Game\Launcher;
 
 use Exception;
 use Psr\Http\Message\ServerRequestInterface;
@@ -14,6 +14,7 @@ use TemirkhanN\Venture\Game\App;
 use TemirkhanN\Venture\Game\IO\HttpInput;
 use TemirkhanN\Venture\Game\IO\InputInterface;
 use TemirkhanN\Venture\Game\IO\Printer;
+use const APP_DIR;
 
 class WebLauncher
 {
