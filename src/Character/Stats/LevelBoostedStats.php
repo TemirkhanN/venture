@@ -5,17 +5,13 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Character\Stats;
 
 use TemirkhanN\Venture\Character\Stats;
-use TemirkhanN\Venture\Character\StatsInterface;
 
-class LevelBoostedStats implements StatsInterface
+class LevelBoostedStats extends AbstractBoostedStats
 {
-    private readonly int $attack;
-    private readonly int $defence;
-    private readonly int $maxHealth;
-    private int $currentHealth;
-
     public function __construct(int $lvl, Stats $baseStats)
     {
+        parent::__construct($baseStats);
+
         if ($lvl < 1) {
             throw new \DomainException('Level can not be lesser than 1');
         }
@@ -33,53 +29,8 @@ class LevelBoostedStats implements StatsInterface
             }
         }
 
-        $this->attack  = $baseStats->attack() + $bonusAttack;
-        $this->defence = $baseStats->defence() + $bonusDefence;
-
-        $this->maxHealth = $baseStats->maxHealth() + $bonusHealth;
-
-        $currentHealth = $baseStats->currentHealth() + $bonusHealth;
-
-        if ($baseStats->currentHealth() === $baseStats->maxHealth()) {
-            $currentHealth = $baseStats->maxHealth();
-        }
-
-        $this->currentHealth = $currentHealth;
-    }
-
-    public function attack(): int
-    {
-        return $this->attack;
-    }
-
-    public function defence(): int
-    {
-        return $this->defence;
-    }
-
-    public function maxHealth(): int
-    {
-        return $this->maxHealth;
-    }
-
-    public function currentHealth(): int
-    {
-        return $this->currentHealth;
-    }
-
-    public function loseHealth(int $amount): void
-    {
-        $this->currentHealth -= $amount;
-        if ($this->currentHealth < 0) {
-            $this->currentHealth = 0;
-        }
-    }
-
-    public function restoreHealth(int $amount): void
-    {
-        $this->currentHealth += $amount;
-        if ($this->currentHealth > $this->maxHealth) {
-            $this->currentHealth = $this->maxHealth;
-        }
+        $this->bonusAttack  = $bonusAttack;
+        $this->bonusDefence = $bonusDefence;
+        $this->bonusHealth = $bonusHealth;
     }
 }

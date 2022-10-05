@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Character;
 
 use TemirkhanN\Venture\Character\Equipment\EquipmentItem;
+use TemirkhanN\Venture\Character\Stats\EquipmentBoostedStats;
 use TemirkhanN\Venture\Character\Stats\LevelBoostedStats;
 use TemirkhanN\Venture\Item;
 use TemirkhanN\Venture\Player\Inventory;
@@ -51,7 +52,7 @@ trait CharacterTrait
             throw new \UnexpectedValueException('Can not increase health by the negative amount');
         }
 
-        $this->stats->restoreHealth($amount);
+        $this->stats()->restoreHealth($amount);
     }
 
 
