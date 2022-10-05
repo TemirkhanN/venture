@@ -94,18 +94,12 @@ class Battle
     }
 
     /**
+     * @todo well, this shall be separate from battle
+     *
      * @return iterable<Drop>
      */
     public function issueRewards(): iterable
     {
-        if (!$this->isOver() || !$this->player()->isAlive()) {
-            throw new \DomainException('Player has to win the battle to receive rewards');
-        }
-
-        $rewards = [];
-        if (!$this->rewardsIssued) {
-            $rewards = (new GenerateDrop())->execute($this->enemy);
-        }
 
         $this->rewardsIssued = true;
 

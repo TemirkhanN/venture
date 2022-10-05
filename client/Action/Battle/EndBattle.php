@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Game\Action\Battle;
 
+use TemirkhanN\Venture\Drop\GenerateDrop;
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
 use TemirkhanN\Venture\Game\Storage\BattleRepository;
@@ -11,6 +12,7 @@ use TemirkhanN\Venture\Game\Storage\GameLogRepository;
 use TemirkhanN\Venture\Player\Action\GetBattleRewards;
 use TemirkhanN\Venture\Player\Player;
 use TemirkhanN\Venture\Player\PlayerState;
+use TemirkhanN\Venture\Utils\Iterating;
 
 class EndBattle implements PlayerActionHandlerInterface
 {
@@ -18,6 +20,7 @@ class EndBattle implements PlayerActionHandlerInterface
 
     public function __construct(
         private readonly BattleRepository $battleRepository,
+        private readonly GenerateDrop $dropGenerator,
         private readonly GameLogRepository $gameLogRepository
     ) {}
 
@@ -33,12 +36,12 @@ class EndBattle implements PlayerActionHandlerInterface
         }
 
         if ($battle->player()->isAlive() && !$battle->enemy()->isAlive()) {
-            $rewards = (new GetBattleRewards($player))->receiveRewards($battle);
+            $logsBeforeAction = Iterating::toArray($battle->logs());
+            (new GetBattleRewards($player, $this->dropGenerator))->receiveRewards($battle);
+            $logsAfter = array_reverse(Iterating::toArray($battle->logs()));
 
-            foreach ($rewards as $reward) {
-                $this->gameLogRepository->addLog(
-                    sprintf('%s received %d %s', $player->name(), $reward->amount, $reward->item->name())
-                );
+            foreach (array_slice($logsAfter, count($logsBeforeAction)) as $lootLog) {
+                $this->gameLogRepository->addLog($lootLog);
             }
         }
 

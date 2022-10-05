@@ -4,21 +4,16 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Drop;
 
-use TemirkhanN\Venture\Item\ItemRepository;
+use TemirkhanN\Venture\Item\ItemRepositoryInterface;
 use TemirkhanN\Venture\Npc\Npc;
-use TemirkhanN\Venture\Utils\Db\Table;
 use TemirkhanN\Venture\Utils\Rng\Chance;
 
 class GenerateDrop
 {
-    private Table $tableGateway;
-    private ItemRepository $itemRepository;
-
-    public function __construct()
-    {
-        $this->tableGateway = new Table('drop');
-        // TODO injection is a must
-        $this->itemRepository = new ItemRepository();
+    public function __construct(
+        private readonly DropChanceRepository $dropChanceRepository,
+        private readonly ItemRepositoryInterface $itemRepository
+    ) {
     }
 
     /**
@@ -28,13 +23,15 @@ class GenerateDrop
      */
     public function execute(Npc $npc): iterable
     {
-        $drops = $this->tableGateway->findById($npc->id) ?? [];
+        $dropChances = $this->dropChanceRepository->findAllByNpcId($npc->id);
+        if ($dropChances->isSuccessful()) {
+            /** @var DropChance $dropChance */
+            foreach ($dropChances->getData() as $dropChance) {
+                if (Chance::raw($dropChance->chance)->roll()) {
+                    $item = $this->itemRepository->getById($dropChance->item->value());
 
-        foreach ($drops as $dropDetails) {
-            if (Chance::raw((float) $dropDetails['chance'])->roll()) {
-                $item = $this->itemRepository->getById($dropDetails['id']);
-
-                yield new Drop($item, $dropDetails['amount']);
+                    yield new Drop($item, $dropChance->amount);
+                }
             }
         }
     }

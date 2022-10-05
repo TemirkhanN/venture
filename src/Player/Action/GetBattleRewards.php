@@ -6,27 +6,23 @@ namespace TemirkhanN\Venture\Player\Action;
 
 use TemirkhanN\Venture\Battle\Battle;
 use TemirkhanN\Venture\Drop\Drop;
+use TemirkhanN\Venture\Drop\GenerateDrop;
 use TemirkhanN\Venture\Player\Player;
 
 class GetBattleRewards
 {
-    public function __construct(private readonly Player $player)
+    public function __construct(private readonly Player $player, private readonly GenerateDrop $dropGenerator)
     {
 
     }
 
-    /**
-     * @param Battle $on
-     *
-     * @return iterable<Drop>
-     */
-    public function receiveRewards(Battle $on): iterable
+    public function receiveRewards(Battle $from): void
     {
-        if ($on->player() !== $this->player) {
+        if ($from->player() !== $this->player) {
             throw new \DomainException('Player was not participating in battle');
         }
 
-        if (!$on->isOver()) {
+        if (!$from->isOver()) {
             throw new \DomainException('Battle is not over yet.');
         }
 
@@ -34,10 +30,11 @@ class GetBattleRewards
             throw new \DomainException('Player lost the battle. How do you expect receiving rewards?');
         }
 
-        foreach ($on->issueRewards() as $drop) {
+        foreach ($this->dropGenerator->execute($from->enemy()) as $drop) {
             $this->player->loot($drop);
-
-            yield $drop;
+            $from->addLog(
+                sprintf('%s received %d %s', $this->player->name(), $drop->amount, $drop->item->name())
+            );
         }
     }
 }
