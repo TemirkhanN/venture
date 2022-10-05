@@ -38,6 +38,11 @@ class App
         $this->switchToScene(Main::class);
     }
 
+    public function isRunning(): bool
+    {
+        return $this->isRunning;
+    }
+
     /**
      * @param class-string<SceneInterface> $guiClass
      *
