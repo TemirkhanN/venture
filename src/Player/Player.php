@@ -12,6 +12,9 @@ use TemirkhanN\Venture\Item\Currency;
 use TemirkhanN\Venture\Player\Inventory;
 use TemirkhanN\Venture\Utils\Id;
 
+/**
+ * @todo Rethink player states. They might not be needed in the domain
+ */
 class Player implements Character\CharacterInterface
 {
     use Character\CharacterTrait;
