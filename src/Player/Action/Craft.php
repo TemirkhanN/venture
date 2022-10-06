@@ -7,7 +7,7 @@ namespace TemirkhanN\Venture\Player\Action;
 use TemirkhanN\Venture\Craft\CraftResult;
 use TemirkhanN\Venture\Craft\Recipe;
 use TemirkhanN\Venture\Drop\Drop;
-use TemirkhanN\Venture\Item\ItemRepository;
+use TemirkhanN\Venture\Item\Prototype\ItemRepository;
 use TemirkhanN\Venture\Player\Inventory\Slot;
 use TemirkhanN\Venture\Player\Player;
 use TemirkhanN\Venture\Utils\Generic\Result;

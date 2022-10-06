@@ -2,14 +2,12 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Item;
+namespace TemirkhanN\Venture\Item\Prototype;
 
 use TemirkhanN\Venture\Utils\Id;
 
 class Weapon implements ItemInterface
 {
-    use TypeCasterTrait;
-
     public const ITEM_TYPE = 'weapon';
 
     public function __construct(

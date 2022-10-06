@@ -9,9 +9,9 @@ use TemirkhanN\Venture\Item;
 class Inventory
 {
     private const STACKABLE_ITEMS_TYPES = [
-        Item\Consumable::ITEM_TYPE,
-        Item\Resource::ITEM_TYPE,
-        Item\Currency::ITEM_TYPE,
+        Item\Prototype\Consumable::ITEM_TYPE,
+        Item\Prototype\Resource::ITEM_TYPE,
+        Item\Prototype\Currency::ITEM_TYPE,
     ];
 
     /**
@@ -26,7 +26,7 @@ class Inventory
         $this->addGold(1);
     }
 
-    public function putItem(Item\ItemInterface $item, int $amount)
+    public function putItem(Item\Prototype\ItemInterface $item, int $amount)
     {
         if ($this->isStackable($item)) {
             foreach ($this->slots as $index => $slot) {
@@ -45,7 +45,7 @@ class Inventory
 
     public function removeGold(int $amount): void
     {
-        $gold = Item\Currency::gold();
+        $gold = Item\Prototype\Currency::gold();
         foreach ($this->slots as $index => $slot) {
             if ($slot->item == $gold) {
                 $this->slots[$index] = $slot->removeAmount($amount);
@@ -59,7 +59,7 @@ class Inventory
 
     public function addGold(int $amount): void
     {
-        $this->putItem(Item\Currency::gold(), $amount);
+        $this->putItem(Item\Prototype\Currency::gold(), $amount);
     }
 
     public function removeItem(Slot $fromSlot): void
@@ -82,7 +82,7 @@ class Inventory
 
         $amountOfItemsLeft = $inventorySlot->amountOfItems - $fromSlot->amountOfItems;
 
-        if ($amountOfItemsLeft > 0 || $inventorySlot->item == Item\Currency::gold()) {
+        if ($amountOfItemsLeft > 0 || $inventorySlot->item == Item\Prototype\Currency::gold()) {
             $this->slots[$index] = new Slot($inventorySlot->position, $inventorySlot->item, $amountOfItemsLeft);
         } else {
             unset($this->slots[$index]);
@@ -97,7 +97,7 @@ class Inventory
         return $this->slots;
     }
 
-    private function isStackable(Item\ItemInterface $item): bool
+    private function isStackable(Item\Prototype\ItemInterface $item): bool
     {
         return in_array($item->type(), self::STACKABLE_ITEMS_TYPES);
     }

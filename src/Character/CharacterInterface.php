@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Character;
 
 use TemirkhanN\Venture\Battle\TargetInterface;
-use TemirkhanN\Venture\Item\ItemInterface;
+use TemirkhanN\Venture\Item\Prototype\ItemInterface;
 use TemirkhanN\Venture\Player\Inventory\Slot;
 
 interface CharacterInterface extends TargetInterface, ProgressInterface

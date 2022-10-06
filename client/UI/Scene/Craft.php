@@ -11,7 +11,7 @@ use TemirkhanN\Venture\Game\IO\OutputInterface;
 use TemirkhanN\Venture\Game\Storage\PlayerRepository;
 use TemirkhanN\Venture\Game\UI\Renderer\RendererInterface;
 use TemirkhanN\Venture\Game\UI\SceneInterface;
-use TemirkhanN\Venture\Item\Resource;
+use TemirkhanN\Venture\Item\Prototype\Resource;
 use TemirkhanN\Venture\Player\Inventory\Slot;
 use TemirkhanN\Venture\Player\Player;
 

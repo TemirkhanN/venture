@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Player\Inventory;
 
-use TemirkhanN\Venture\Item\ItemInterface;
+use TemirkhanN\Venture\Item\Prototype\ItemInterface;
 
 class Slot
 {

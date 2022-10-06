@@ -10,8 +10,8 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 use TemirkhanN\Venture\Game;
 use TemirkhanN\Venture\Game\UI\Renderer\RendererInterface;
 use TemirkhanN\Venture\Game\UI\Renderer\TwigRenderer;
-use TemirkhanN\Venture\Item\ItemRepository;
-use TemirkhanN\Venture\Item\ItemRepositoryInterface;
+use TemirkhanN\Venture\Item\Prototype\ItemRepository;
+use TemirkhanN\Venture\Item\Prototype\ItemRepositoryInterface;
 use TemirkhanN\Venture\Utils\Cache;
 
 return (function () {

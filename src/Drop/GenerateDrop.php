@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Drop;
 
-use TemirkhanN\Venture\Item\ItemRepositoryInterface;
+use TemirkhanN\Venture\Item\Prototype\ItemRepositoryInterface;
 use TemirkhanN\Venture\Npc\Npc;
 use TemirkhanN\Venture\Utils\Rng\Chance;
 

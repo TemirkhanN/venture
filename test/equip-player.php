@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use TemirkhanN\Venture\Character\Equipment\EquipmentItem;
-use TemirkhanN\Venture\Item\Armor;
-use TemirkhanN\Venture\Item\ItemRepository;
-use TemirkhanN\Venture\Item\Weapon;
+use TemirkhanN\Venture\Item\Prototype\Armor;
+use TemirkhanN\Venture\Item\Prototype\ItemRepository;
+use TemirkhanN\Venture\Item\Prototype\Weapon;
 use TemirkhanN\Venture\Player\Player;
 
 require_once __DIR__ .'/bootstrap.php';

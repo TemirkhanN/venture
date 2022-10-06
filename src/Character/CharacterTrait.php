@@ -69,7 +69,7 @@ trait CharacterTrait
         $this->equipment->equip($item);
     }
 
-    public function canEquip(Item\ItemInterface $item): bool
+    public function canEquip(Item\Prototype\ItemInterface $item): bool
     {
         return EquipmentItem::isEquipmentItem($item);
     }
@@ -82,9 +82,9 @@ trait CharacterTrait
         return $this->equipment->list();
     }
 
-    public function canUseItem(Item\ItemInterface $item): bool
+    public function canUseItem(Item\Prototype\ItemInterface $item): bool
     {
-        if ($item->type() === Item\Consumable::ITEM_TYPE) {
+        if ($item->type() === Item\Prototype\Consumable::ITEM_TYPE) {
             return true;
         }
 
@@ -110,7 +110,7 @@ trait CharacterTrait
             return;
         }
 
-        if ($item instanceof Item\Consumable) {
+        if ($item instanceof Item\Prototype\Consumable) {
             foreach ($item->effects() as $effect) {
                 if ($effect->type() == Item\Effect\EffectType::FAST_HEAL) {
                     $this->restoreHp($effect->power());

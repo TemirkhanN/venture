@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Item;
+namespace TemirkhanN\Venture\Item\Prototype;
 
 use TemirkhanN\Venture\Item\Effect\Effect;
 use TemirkhanN\Venture\Item\Effect\EffectType;

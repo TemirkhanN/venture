@@ -14,9 +14,9 @@ use TemirkhanN\Venture\Game\Storage\PlayerRepository;
 use TemirkhanN\Venture\Game\Storage\Reference\Item;
 use TemirkhanN\Venture\Game\Storage\Reference\Recipe;
 use TemirkhanN\Venture\Game\UI\Event\Transition;
-use TemirkhanN\Venture\Game\UI\SceneInterface;
 use TemirkhanN\Venture\Game\UI\Renderer\RendererInterface;
-use TemirkhanN\Venture\Item\ItemRepository;
+use TemirkhanN\Venture\Game\UI\SceneInterface;
+use TemirkhanN\Venture\Item\Prototype\ItemRepository;
 use TemirkhanN\Venture\Player\Player;
 
 class NewGame implements SceneInterface

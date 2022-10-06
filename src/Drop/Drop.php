@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Drop;
 
-use TemirkhanN\Venture\Item\ItemInterface;
+use TemirkhanN\Venture\Item\Prototype\ItemInterface;
 
 class Drop
 {

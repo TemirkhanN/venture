@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use TemirkhanN\Venture\Craft\RecipeRepository;
 use TemirkhanN\Venture\Drop\Drop;
-use TemirkhanN\Venture\Item\ItemRepository;
+use TemirkhanN\Venture\Item\Prototype\ItemRepository;
 use TemirkhanN\Venture\Player\Action\Craft;
 use TemirkhanN\Venture\Player\Player;
 

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Character\Equipment;
 
-use TemirkhanN\Venture\Item\Armor;
-use TemirkhanN\Venture\Item\ItemInterface;
-use TemirkhanN\Venture\Item\Weapon;
+use TemirkhanN\Venture\Item\Prototype\Armor;
+use TemirkhanN\Venture\Item\Prototype\ItemInterface;
+use TemirkhanN\Venture\Item\Prototype\Weapon;
 
 class EquipmentItem
 {

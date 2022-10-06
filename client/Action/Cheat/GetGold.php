@@ -9,7 +9,7 @@ use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
 use TemirkhanN\Venture\Game\Storage\PlayerRepository;
 use TemirkhanN\Venture\Game\Storage\Reference\Item;
-use TemirkhanN\Venture\Item\ItemRepositoryInterface;
+use TemirkhanN\Venture\Item\Prototype\ItemRepositoryInterface;
 use TemirkhanN\Venture\Player\Player;
 
 class GetGold implements PlayerActionHandlerInterface

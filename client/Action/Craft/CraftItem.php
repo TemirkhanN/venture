@@ -7,7 +7,7 @@ namespace TemirkhanN\Venture\Game\Action\Craft;
 use TemirkhanN\Venture\Craft\RecipeRepository;
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
-use TemirkhanN\Venture\Item\ItemRepositoryInterface;
+use TemirkhanN\Venture\Item\Prototype\ItemRepositoryInterface;
 use TemirkhanN\Venture\Player\Action\Craft;
 use TemirkhanN\Venture\Player\Player;
 

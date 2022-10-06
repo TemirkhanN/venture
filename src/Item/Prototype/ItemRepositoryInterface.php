@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Item;
+namespace TemirkhanN\Venture\Item\Prototype;
 
 interface ItemRepositoryInterface
 {

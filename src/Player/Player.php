@@ -8,7 +8,7 @@ use TemirkhanN\Venture\Character;
 use TemirkhanN\Venture\Craft\Recipe;
 use TemirkhanN\Venture\Craft\RecipeBook;
 use TemirkhanN\Venture\Drop\Drop;
-use TemirkhanN\Venture\Item\Currency;
+use TemirkhanN\Venture\Item\Prototype\Currency;
 use TemirkhanN\Venture\Player\Inventory;
 use TemirkhanN\Venture\Utils\Id;
 
