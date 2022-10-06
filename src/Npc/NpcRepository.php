@@ -6,6 +6,7 @@ namespace TemirkhanN\Venture\Npc;
 
 use TemirkhanN\Venture\Character\Stats;
 use TemirkhanN\Venture\Utils\Db\Table;
+use TemirkhanN\Venture\Utils\Id;
 
 class NpcRepository
 {
@@ -16,7 +17,7 @@ class NpcRepository
         $this->tableGateway = new Table('npcs');
     }
 
-    public function findById(int $id): ?Npc
+    public function findById(string $id): ?Npc
     {
         $data = $this->tableGateway->findById($id);
 
@@ -27,7 +28,7 @@ class NpcRepository
         return $this->hydrateToObject($id, $data);
     }
 
-    public function getById(int $id): Npc
+    public function getById(string $id): Npc
     {
         $npc = $this->findById($id);
         if ($npc === null) {
@@ -47,10 +48,10 @@ class NpcRepository
         return $this->hydrateToObject($random['id'], $random['data']);
     }
 
-    private function hydrateToObject(int $id, array $npcData): Npc
+    private function hydrateToObject(string $id, array $npcData): Npc
     {
         return new Npc(
-            $id,
+            new Id($id),
             $npcData['name'],
             new Stats($npcData['attack'], $npcData['defence'], $npcData['health'])
         );

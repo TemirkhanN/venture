@@ -6,6 +6,6 @@ namespace TemirkhanN\Venture\Game\Storage\Reference;
 
 class Recipe
 {
-    const LEATHER = 1;
-    const CHAIN_MAIL = 2;
+    const LEATHER = '1';
+    const CHAIN_MAIL = '2';
 }

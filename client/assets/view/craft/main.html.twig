@@ -37,7 +37,7 @@
                     <tbody>
                     {% for recipe in recipes %}
                         <tr>
-                            <td onclick="craftRecipe({{ recipe.id.value }}, '{{ itemName(recipe.result.item) }}')">
+                            <td onclick="craftRecipe('{{ recipe.id.value }}', '{{ itemName(recipe.result.item) }}')">
                                 <b>{{ itemName(recipe.result.item) }}</b>: {% for itemReqs in recipe.requiredItems %}{{ itemName(itemReqs.item) }}({{ itemReqs.amount }}) {% endfor %}
                             </td>
                         </tr>

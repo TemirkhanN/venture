@@ -63,7 +63,7 @@ class Craft implements SceneInterface
     {
         $recipes = [];
         foreach ($player->recipeBook() as $recipeId) {
-            $recipes[] = $this->recipeRepository->getById($recipeId->value());
+            $recipes[] = $this->recipeRepository->getById((string) $recipeId);
         }
 
         return $recipes;

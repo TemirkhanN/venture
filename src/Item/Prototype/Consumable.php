@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Item\Prototype;
 
 use TemirkhanN\Venture\Item\Effect\EffectInterface;
-use TemirkhanN\Venture\Utils\Db\Id;
+use TemirkhanN\Venture\Utils\Id;
 
 class Consumable implements ItemInterface
 {

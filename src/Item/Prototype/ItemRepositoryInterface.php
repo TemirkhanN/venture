@@ -6,7 +6,7 @@ namespace TemirkhanN\Venture\Item\Prototype;
 
 interface ItemRepositoryInterface
 {
-    public function findById(int $id): ?ItemInterface;
+    public function findById(string $id): ?ItemInterface;
 
-    public function getById(int $id): ItemInterface;
+    public function getById(string $id): ItemInterface;
 }

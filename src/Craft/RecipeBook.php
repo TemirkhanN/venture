@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Craft;
 
-use TemirkhanN\Venture\Utils\Db\Id;
+use TemirkhanN\Venture\Utils\Id;
 
 class RecipeBook
 {
@@ -16,11 +16,11 @@ class RecipeBook
             return;
         }
 
-        $this->recipeIds[$recipe->id()->value()] = $recipe->id();
+        $this->recipeIds[(string) $recipe->id()] = $recipe->id();
     }
 
     /**
-     * @return iterable<\TemirkhanN\Venture\Utils\Db\Id>
+     * @return iterable<Id>
      */
     public function listRecipes(): iterable
     {

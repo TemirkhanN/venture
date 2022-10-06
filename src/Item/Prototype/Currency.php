@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Item\Prototype;
 
-use TemirkhanN\Venture\Utils\Db\Id;
+use TemirkhanN\Venture\Utils\Id;
 
 class Currency implements ItemInterface
 {
@@ -25,7 +25,7 @@ class Currency implements ItemInterface
     // TODO likely should be exposed on repository level or infra-related layer
     public static function gold(): self
     {
-        return new self(new Id(1), self::CURRENCY_NAME_GOLD);
+        return new self(new Id('1'), self::CURRENCY_NAME_GOLD);
     }
 
     public function type(): string

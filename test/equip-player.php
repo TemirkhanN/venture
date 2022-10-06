@@ -20,11 +20,11 @@ if ($player === null) {
 
 $repo = new ItemRepository();
 
-$sword = Weapon::fromItem($repo->getById(2002));
-$armor = Armor::fromItem($repo->getById(1001));
+$sword = $repo->getById('2002');
+$armor = $repo->getById('1001');
 
-$player->equip(EquipmentItem::weapon($sword));
-$player->equip(EquipmentItem::bodyArmor($armor));
+$player->equip(EquipmentItem::autoDetect($sword));
+$player->equip(EquipmentItem::autoDetect($armor));
 
 renderPlayer($player);
 

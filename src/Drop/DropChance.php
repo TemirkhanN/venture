@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Drop;
 
-use TemirkhanN\Venture\Utils\Db\Id;
+use TemirkhanN\Venture\Utils\Id;
 
 class DropChance
 {

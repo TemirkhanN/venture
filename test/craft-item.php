@@ -20,10 +20,10 @@ if ($player === null) {
 $itemRepository = new ItemRepository();
 $recipeRepository = new RecipeRepository();
 
-$animalHide = $itemRepository->getById(201);
+$animalHide = $itemRepository->getById('201');
 $player->loot(new Drop($animalHide, 9));
 
-$leatherRecipe = $recipeRepository->getById(1);
+$leatherRecipe = $recipeRepository->getById('1');
 
 (new Craft($player, $itemRepository))->perform($leatherRecipe);
 

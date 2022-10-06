@@ -53,7 +53,7 @@ class Craft
                 break;
             }
 
-            $itemId = $slot->item->id()->value();
+            $itemId = (string) $slot->item->id();
             if (!isset($requirements[$itemId])) {
                 continue;
             }
@@ -85,7 +85,7 @@ class Craft
 
     private function gatherCraftResult(CraftResult $result): void
     {
-        $craftedItem = $this->itemRepository->getById($result->item()->id->value());
+        $craftedItem = $this->itemRepository->getById((string) $result->item()->id);
 
         $this->player->loot(new Drop($craftedItem, $result->amount()));
     }

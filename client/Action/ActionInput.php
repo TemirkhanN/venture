@@ -50,15 +50,14 @@ class ActionInput implements ActionInterface
         switch ($type) {
             case self::TYPE_MIXED:
                 return $value;
-                break;
             case self::TYPE_STRING:
                 if (!is_string($value)) {
                     throw new \UnexpectedValueException('Type expected to be string');
                 }
 
-                return (string) $value;
+                return $value;
             case self::TYPE_INT:
-                if (!is_integer($value)) {
+                if (!is_scalar($value)) {
                     throw new \UnexpectedValueException('Type expected to be integer');
                 }
                 return (int) $value;

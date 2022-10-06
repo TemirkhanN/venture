@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Craft;
 
 use TemirkhanN\Venture\Craft\Requirement\ItemRequirement;
-use TemirkhanN\Venture\Utils\Db\Id;
 use TemirkhanN\Venture\Utils\Db\Table;
+use TemirkhanN\Venture\Utils\Id;
 
 class RecipeRepository
 {
@@ -17,7 +17,7 @@ class RecipeRepository
         $this->tableGateway = new Table('recipes');
     }
 
-    public function getById(int $id): Recipe
+    public function getById(string $id): Recipe
     {
         $data = $this->tableGateway->findById($id);
         if ($data === null) {
@@ -27,11 +27,11 @@ class RecipeRepository
         return $this->hydrateToObject($id, $data);
     }
 
-    private function hydrateToObject(int $recipeId, array $rawData): Recipe
+    private function hydrateToObject(string $recipeId, array $rawData): Recipe
     {
         $requiredItems = [];
         foreach ($rawData['requiredItems'] as $requiredItem) {
-            $id = new Id($requiredItem['id']);
+            $id = new Id((string) $requiredItem['id']);
             $requiredItems[] = new ItemRequirement(new ItemId($id), $requiredItem['amount']);
         }
 

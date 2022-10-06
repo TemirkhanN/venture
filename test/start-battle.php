@@ -17,7 +17,7 @@ if ($player === null) {
 }
 
 $npcRepository = new NpcRepository();
-$enemy = $npcRepository->getById(1);
+$enemy = $npcRepository->getById('1');
 
 $battle = new Battle($enemy);
 $battle->applyAction(new EngageBattle($player));

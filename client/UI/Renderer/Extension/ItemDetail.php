@@ -16,6 +16,6 @@ class ItemDetail
 
     public function getItemName(ItemId $itemId): string
     {
-        return $this->itemRepository->getById($itemId->id->value())->name();
+        return $this->itemRepository->getById((string) $itemId->id)->name();
     }
 }

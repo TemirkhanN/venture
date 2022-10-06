@@ -10,7 +10,7 @@ use TemirkhanN\Venture\Craft\RecipeBook;
 use TemirkhanN\Venture\Drop\Drop;
 use TemirkhanN\Venture\Item\Prototype\Currency;
 use TemirkhanN\Venture\Player\Inventory;
-use TemirkhanN\Venture\Utils\Db\Id;
+use TemirkhanN\Venture\Utils\Id;
 
 /**
  * @todo Rethink player states. They might not be needed in the domain
@@ -69,7 +69,7 @@ class Player implements Character\CharacterInterface
     }
 
     /**
-     * @return iterable<\TemirkhanN\Venture\Utils\Db\Id>
+     * @return iterable<Id>
      */
     public function recipeBook(): iterable
     {

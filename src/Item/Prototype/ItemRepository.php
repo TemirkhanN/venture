@@ -6,8 +6,8 @@ namespace TemirkhanN\Venture\Item\Prototype;
 
 use TemirkhanN\Venture\Item\Effect\Effect;
 use TemirkhanN\Venture\Item\Effect\EffectType;
-use TemirkhanN\Venture\Utils\Db\Id;
 use TemirkhanN\Venture\Utils\Db\Table;
+use TemirkhanN\Venture\Utils\Id;
 
 class ItemRepository implements ItemRepositoryInterface
 {
@@ -21,7 +21,7 @@ class ItemRepository implements ItemRepositoryInterface
         $this->effectTableGateway = new Table('effects');
     }
 
-    public function findById(int $id): ?ItemInterface
+    public function findById(string $id): ?ItemInterface
     {
         $data = $this->tableGateway->findById($id);
         if ($data === null) {
@@ -31,7 +31,7 @@ class ItemRepository implements ItemRepositoryInterface
         return $this->hydrateToObject($id, $data);
     }
 
-    public function getById(int $id): ItemInterface
+    public function getById(string $id): ItemInterface
     {
         $item = $this->findById($id);
         if ($item === null) {
@@ -41,7 +41,7 @@ class ItemRepository implements ItemRepositoryInterface
         return $item;
     }
 
-    private function hydrateToObject(int $rawId, array $itemData): ItemInterface
+    private function hydrateToObject(string $rawId, array $itemData): ItemInterface
     {
         $id = new Id($rawId);
         switch ($itemData['type']) {

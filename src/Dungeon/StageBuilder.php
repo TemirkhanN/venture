@@ -6,6 +6,7 @@ namespace TemirkhanN\Venture\Dungeon;
 
 use TemirkhanN\Venture\Npc\Npc;
 use TemirkhanN\Venture\Npc\NpcRepository;
+use TemirkhanN\Venture\Utils\Id;
 
 class StageBuilder
 {
@@ -35,9 +36,9 @@ class StageBuilder
         return $this;
     }
 
-    public function addMonsterById(int $monsterId): static
+    public function addMonsterById(Id $monsterId): static
     {
-        return $this->addMonster($this->npcRepository->getById($monsterId));
+        return $this->addMonster($this->npcRepository->getById((string) $monsterId));
     }
 
     public function addRandomMonster(): static

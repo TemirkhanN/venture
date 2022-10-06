@@ -10,7 +10,7 @@ use Symfony\Component\Yaml\Yaml;
 class Table
 {
     /**
-     * @var array<int, array>
+     * @var array<string, array>
      */
     private array $rows;
 
@@ -23,7 +23,7 @@ class Table
         }
     }
 
-    public function findById(int $id): ?array
+    public function findById(string $id): ?array
     {
         $data = $this->rows[$id] ?? null;
         if ($data === null) {
@@ -56,11 +56,12 @@ class Table
     private function loadData(string $fromFile): void
     {
         foreach (Yaml::parseFile($fromFile) as $identifier => $details) {
-            if (isset($this->rows[$identifier])) {
+            $id = (string) $identifier;
+            if (isset($this->rows[$id])) {
                 throw new \UnexpectedValueException('Multiple rows with the same id found.');
             }
 
-            $this->rows[$identifier] = $details + ['id' => $identifier];
+            $this->rows[$id] = $details + ['id' => $id];
         }
     }
 }

@@ -32,7 +32,7 @@ class CraftItem implements PlayerActionHandlerInterface
             return;
         }
 
-        $recipeId = $action->getInput('recipeId', ActionInterface::TYPE_INT);
+        $recipeId = $action->getInput('recipeId', ActionInterface::TYPE_STRING);
         $recipe = $this->recipeRepository->getById($recipeId);
 
         (new Craft($player, $this->itemRepository))->perform($recipe);
