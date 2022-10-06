@@ -39,13 +39,13 @@ trait CharacterTrait
             throw new \UnexpectedValueException('Can not decrease health by the negative amount');
         }
 
-        $this->stats->loseHealth($amount);
+        $this->stats()->loseHealth($amount);
     }
 
     public function restoreHp(?int $amount = null): void
     {
         if ($amount === null) {
-            $amount = $this->stats->maxHealth() - $this->stats->currentHealth();
+            $amount = $this->stats()->maxHealth() - $this->stats()->currentHealth();
         }
 
         if ($amount < 0) {
