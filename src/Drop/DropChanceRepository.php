@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Drop;
 
+use TemirkhanN\Venture\Utils\Db\Id;
 use TemirkhanN\Venture\Utils\Db\Table;
 use TemirkhanN\Venture\Utils\Generic\Result;
-use TemirkhanN\Venture\Utils\Id;
 
 class DropChanceRepository
 {

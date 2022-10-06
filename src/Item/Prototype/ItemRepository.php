@@ -6,8 +6,8 @@ namespace TemirkhanN\Venture\Item\Prototype;
 
 use TemirkhanN\Venture\Item\Effect\Effect;
 use TemirkhanN\Venture\Item\Effect\EffectType;
+use TemirkhanN\Venture\Utils\Db\Id;
 use TemirkhanN\Venture\Utils\Db\Table;
-use TemirkhanN\Venture\Utils\Id;
 
 class ItemRepository implements ItemRepositoryInterface
 {

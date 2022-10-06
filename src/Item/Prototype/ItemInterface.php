@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Item\Prototype;
 
-use TemirkhanN\Venture\Utils\Id;
+use TemirkhanN\Venture\Utils\Db\Id;
 
 interface ItemInterface
 {

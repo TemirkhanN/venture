@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Craft;
 
 use TemirkhanN\Venture\Craft\Requirement\ItemRequirement;
+use TemirkhanN\Venture\Utils\Db\Id;
 use TemirkhanN\Venture\Utils\Db\Table;
-use TemirkhanN\Venture\Utils\Id;
 
 class RecipeRepository
 {

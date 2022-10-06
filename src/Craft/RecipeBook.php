@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Craft;
 
-use TemirkhanN\Venture\Utils\Id;
+use TemirkhanN\Venture\Utils\Db\Id;
 
 class RecipeBook
 {
@@ -20,7 +20,7 @@ class RecipeBook
     }
 
     /**
-     * @return iterable<Id>
+     * @return iterable<\TemirkhanN\Venture\Utils\Db\Id>
      */
     public function listRecipes(): iterable
     {

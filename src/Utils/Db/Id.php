@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Utils;
+namespace TemirkhanN\Venture\Utils\Db;
 
 final class Id
 {
