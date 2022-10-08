@@ -1,7 +1,7 @@
 FROM php:8.1-cli
 
 RUN apt update && \
-    apt install -y --no-install-recommends git
+    apt install -y --no-install-recommends git zip
 
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/ \
