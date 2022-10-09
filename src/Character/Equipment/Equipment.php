@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Character\Equipment;
 
+use TemirkhanN\Venture\Utils\Generic\ImmutableList;
+
 class Equipment
 {
     /**
@@ -12,11 +14,11 @@ class Equipment
     private array $items = [];
 
     /**
-     * @return iterable<EquipmentItem>
+     * @return ImmutableList<EquipmentItem>
      */
-    public function list(): iterable
+    public function list(): ImmutableList
     {
-        yield from $this->items;
+        return new ImmutableList($this->items);
     }
 
     public function equip(EquipmentItem $item): void

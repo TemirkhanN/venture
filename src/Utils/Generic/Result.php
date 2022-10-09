@@ -27,7 +27,7 @@ class Result
      *
      * @return static<T>
      */
-    public static function success($data): self
+    public static function success(mixed $data = null): self
     {
         // phpcs:enable
         $result       = new self();

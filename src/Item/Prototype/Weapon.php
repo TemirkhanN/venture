@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Item\Prototype;
 
+use TemirkhanN\Venture\Item\ItemInterface as ItemInstance;
 use TemirkhanN\Venture\Utils\Id;
 
 class Weapon implements ItemInterface
@@ -12,7 +13,7 @@ class Weapon implements ItemInterface
 
     public function __construct(
         private readonly Id $id,
-        public readonly string $name,
+        private readonly string $name,
         public readonly int $attack
     )
     {
@@ -32,5 +33,10 @@ class Weapon implements ItemInterface
     public function name(): string
     {
         return $this->name;
+    }
+
+    public function replicate(): ItemInstance
+    {
+        return new \TemirkhanN\Venture\Item\Weapon($this);
     }
 }

@@ -6,7 +6,7 @@ namespace TemirkhanN\Venture\Player\Action;
 
 use TemirkhanN\Venture\Craft\CraftResult;
 use TemirkhanN\Venture\Craft\Recipe;
-use TemirkhanN\Venture\Drop\Drop;
+use TemirkhanN\Venture\Drop\Loot;
 use TemirkhanN\Venture\Item\Prototype\ItemRepository;
 use TemirkhanN\Venture\Player\Inventory\Slot;
 use TemirkhanN\Venture\Player\Player;
@@ -48,9 +48,14 @@ class Craft
         }
 
         $itemsToBeUsed = [];
+        /** @var Slot $slot */
         foreach ($this->player->showInventory() as $slot) {
             if ($requirements === []) {
                 break;
+            }
+
+            if ($slot->isEmpty()) {
+                continue;
             }
 
             $itemId = (string) $slot->item->id();
@@ -67,15 +72,15 @@ class Craft
                 $discardingAmount = $slot->amountOfItems;
                 $requirements[$itemId] -= $slot->amountOfItems;
             }
-            $itemsToBeUsed[] = new Slot($slot->position, $slot->item, $discardingAmount);
+            $itemsToBeUsed[$slot->position] = $discardingAmount;
         }
 
         if ($requirements !== []) {
             return Result::error('Player does not have required items');
         }
 
-        foreach ($itemsToBeUsed as $slot) {
-            $this->player->discardItem($slot);
+        foreach ($itemsToBeUsed as $slot => $amount) {
+            $this->player->discardItem($slot, $amount);
         }
 
         $this->gatherCraftResult($recipe->result());
@@ -87,6 +92,6 @@ class Craft
     {
         $craftedItem = $this->itemRepository->getById((string) $result->item()->id);
 
-        $this->player->loot(new Drop($craftedItem, $result->amount()));
+        $this->player->loot(new Loot($craftedItem->replicate(), $result->amount()));
     }
 }

@@ -7,8 +7,11 @@ namespace TemirkhanN\Venture\Character;
 use TemirkhanN\Venture\Character\Equipment\EquipmentItem;
 use TemirkhanN\Venture\Character\Stats\EquipmentBoostedStats;
 use TemirkhanN\Venture\Character\Stats\LevelBoostedStats;
+use TemirkhanN\Venture\Drop\Loot;
 use TemirkhanN\Venture\Item;
 use TemirkhanN\Venture\Player\Inventory;
+use TemirkhanN\Venture\Utils\Generic\ImmutableList;
+use TemirkhanN\Venture\Utils\Generic\Result;
 
 trait CharacterTrait
 {
@@ -55,13 +58,15 @@ trait CharacterTrait
         $this->stats()->restoreHealth($amount);
     }
 
-
-    /**
-     * @return iterable<Inventory\Slot>
-     */
-    public function showInventory(): iterable
+    public function showInventory(): Inventory\Inventory
     {
-        return $this->inventory->list();
+        return $this->inventory;
+    }
+
+    // todo check if it is necessary to expose this
+    public function slot(int $slotPosition): Inventory\Slot
+    {
+        return $this->inventory->getSlot($slotPosition);
     }
 
     public function equip(Equipment\EquipmentItem $item): void
@@ -75,50 +80,65 @@ trait CharacterTrait
     }
 
     /**
-     * @return iterable<Equipment\EquipmentItem>
+     * @return ImmutableList<Equipment\EquipmentItem>
      */
-    public function equipment(): iterable
+    public function equipment(): ImmutableList
     {
         return $this->equipment->list();
     }
 
-    public function canUseItem(Item\Prototype\ItemInterface $item): bool
+    public function canUseItem(int $slotPosition): bool
     {
-        if ($item->type() === Item\Prototype\Consumable::ITEM_TYPE) {
+        $slot = $this->inventory->getSlot($slotPosition);
+        if ($slot->isEmpty()) {
+            return false;
+        }
+
+        if ($slot->item->type() === Item\Prototype\Consumable::ITEM_TYPE) {
             return true;
         }
 
         return false;
     }
 
-    public function discardItem(Inventory\Slot $slot): void
+    public function discardItem(int $slotPosition, ?int $amount = null): Result
     {
-        $this->inventory->removeItem($slot);
+        return $this->inventory->removeItem($slotPosition, $amount);
     }
 
-    public function useItem(Inventory\Slot $fromSlot): void
+    public function loot(Loot $loot): Result
     {
-        if (!$this->canUseItem($fromSlot->item)) {
-            throw new \DomainException('Character can not use this item');
+        return $this->inventory->putItem($loot->item, $loot->amount);
+    }
+
+    public function useItem(int $inSlot, int $amount): Result
+    {
+        if (!$this->canUseItem($inSlot)) {
+            return Result::error('Character can not use this item');
         }
 
-        $item = $fromSlot->item;
+        $slot = $this->inventory->getSlot($inSlot);
+        $item = $slot->item;
 
         if ($this->canEquip($item)) {
             $this->equip(EquipmentItem::autoDetect($item));
 
-            return;
+            return Result::success('Equipped item');
         }
 
-        if ($item instanceof Item\Prototype\Consumable) {
+        if ($item->type() === Item\Prototype\Consumable::ITEM_TYPE) {
             foreach ($item->effects() as $effect) {
                 if ($effect->type() == Item\Effect\EffectType::FAST_HEAL) {
                     $this->restoreHp($effect->power());
                 }
             }
 
-            $this->discardItem($fromSlot);
+            $this->discardItem($inSlot, 1);
+
+            return Result::success('Consumed item');
         }
+
+        return Result::error('Could not use the item.');
     }
 
     public function lvl(): int

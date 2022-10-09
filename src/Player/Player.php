@@ -7,9 +7,9 @@ namespace TemirkhanN\Venture\Player;
 use TemirkhanN\Venture\Character;
 use TemirkhanN\Venture\Craft\Recipe;
 use TemirkhanN\Venture\Craft\RecipeBook;
-use TemirkhanN\Venture\Drop\Drop;
 use TemirkhanN\Venture\Item\Prototype\Currency;
 use TemirkhanN\Venture\Player\Inventory;
+use TemirkhanN\Venture\Utils\Generic\ImmutableList;
 use TemirkhanN\Venture\Utils\Id;
 
 /**
@@ -33,45 +33,10 @@ class Player implements Character\CharacterInterface
         $this->recipeBook = new RecipeBook();
     }
 
-    public function gold(): int
-    {
-        foreach ($this->inventory->list() as $slot) {
-            if ($slot->item->name() === Currency::CURRENCY_NAME_GOLD) {
-                return $slot->amountOfItems;
-            }
-        }
-
-        return 0;
-    }
-
     /**
-     * @param int $goldPrice
-     * @param iterable<Drop> $drop
-     *
-     * @return void
+     * @return ImmutableList<Id>
      */
-    public function buyItems(int $goldPrice, iterable $drop): void
-    {
-        if ($this->gold() < $goldPrice) {
-            throw new \DomainException('Player does not have that enough gold to pay for items');
-        }
-
-        $this->inventory->removeGold($goldPrice);
-
-        foreach ($drop as $loot) {
-            $this->loot($loot);
-        }
-    }
-
-    public function loot(Drop $drop)
-    {
-        $this->inventory->putItem($drop->item, $drop->amount);
-    }
-
-    /**
-     * @return iterable<Id>
-     */
-    public function recipeBook(): iterable
+    public function recipeBook(): ImmutableList
     {
         return $this->recipeBook->listRecipes();
     }

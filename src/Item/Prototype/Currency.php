@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Item\Prototype;
 
+use TemirkhanN\Venture\Item\ItemInterface as ItemInstance;
 use TemirkhanN\Venture\Utils\Id;
 
 class Currency implements ItemInterface
@@ -36,5 +37,10 @@ class Currency implements ItemInterface
     public function name(): string
     {
         return $this->name;
+    }
+
+    public function replicate(): ItemInstance
+    {
+        return new \TemirkhanN\Venture\Item\Currency($this);
     }
 }

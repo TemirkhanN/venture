@@ -19,7 +19,7 @@ class GenerateDrop
     /**
      * @param Npc $npc
      *
-     * @return iterable<Drop>
+     * @return iterable<Loot>
      */
     public function execute(Npc $npc): iterable
     {
@@ -30,7 +30,7 @@ class GenerateDrop
                 if (Chance::raw($dropChance->chance)->roll()) {
                     $item = $this->itemRepository->getById((string) $dropChance->item);
 
-                    yield new Drop($item, $dropChance->amount);
+                    yield new Loot($item->replicate(), $dropChance->amount);
                 }
             }
         }

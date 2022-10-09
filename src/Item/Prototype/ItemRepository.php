@@ -54,7 +54,7 @@ class ItemRepository implements ItemRepositoryInterface
             case Consumable::ITEM_TYPE:
                 $effects = [];
                 foreach ($itemData['effects'] as $effectDetails) {
-                    $effectData = $this->effectTableGateway->findById($effectDetails['id']);
+                    $effectData = $this->effectTableGateway->findById((string) $effectDetails['id']);
                     $effects[] = new Effect(
                         $effectData['name'],
                         EffectType::from($effectData['type']),

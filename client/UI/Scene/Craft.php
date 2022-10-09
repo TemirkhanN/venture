@@ -47,8 +47,9 @@ class Craft implements SceneInterface
      */
     private function getPlayerResources(Player $player): iterable
     {
+        /** @var Slot $slot */
         foreach ($player->showInventory() as $slot) {
-            if (Resource::isResource($slot->item)) {
+            if (!$slot->isEmpty() && Resource::isResource($slot->item)) {
                 yield $slot;
             }
         }

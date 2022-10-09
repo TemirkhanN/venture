@@ -10,7 +10,18 @@ final class Id
 
     public function __construct(string|int $id)
     {
-        $this->id = (string) $id;
+        $identifier = (string) $id;
+
+        if ($identifier === '') {
+            throw new \LogicException('Id can not be empty');
+        }
+
+        $this->id = $identifier;
+    }
+
+    public static function generate(string $prefix = ''): self
+    {
+        return new self(uniqid($prefix, true));
     }
 
     public function value(): string

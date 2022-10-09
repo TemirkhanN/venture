@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Item\Prototype;
 
 use TemirkhanN\Venture\Item\Effect\EffectInterface;
+use TemirkhanN\Venture\Item\ItemInterface as ItemInstance;
+use TemirkhanN\Venture\Utils\Generic\ImmutableList;
 use TemirkhanN\Venture\Utils\Id;
 
 class Consumable implements ItemInterface
@@ -36,10 +38,15 @@ class Consumable implements ItemInterface
     }
 
     /**
-     * @return iterable<EffectInterface>
+     * @return ImmutableList<EffectInterface>
      */
-    public function effects(): iterable
+    public function effects(): ImmutableList
     {
-        return $this->effects;
+        return new ImmutableList($this->effects);
+    }
+
+    public function replicate(): ItemInstance
+    {
+        return new \TemirkhanN\Venture\Item\Consumable($this);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Item\Prototype;
 
+use TemirkhanN\Venture\Item\ItemInterface as ItemInstance;
 use TemirkhanN\Venture\Utils\Id;
 
 class Armor implements ItemInterface
@@ -11,8 +12,8 @@ class Armor implements ItemInterface
     public const ITEM_TYPE = 'armor';
 
     public function __construct(
-        public readonly Id $id,
-        public readonly string $name,
+        private readonly Id $id,
+        private readonly string $name,
         public readonly int $defence,
         public readonly int $health = 0
     )
@@ -33,5 +34,10 @@ class Armor implements ItemInterface
     public function name(): string
     {
         return $this->name;
+    }
+
+    public function replicate(): ItemInstance
+    {
+        return new \TemirkhanN\Venture\Item\Armor($this);
     }
 }

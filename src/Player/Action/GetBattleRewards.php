@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Player\Action;
 
 use TemirkhanN\Venture\Battle\Battle;
-use TemirkhanN\Venture\Drop\Drop;
+use TemirkhanN\Venture\Drop\Loot;
 use TemirkhanN\Venture\Drop\GenerateDrop;
 use TemirkhanN\Venture\Player\Player;
 

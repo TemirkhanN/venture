@@ -7,7 +7,7 @@ namespace TemirkhanN\Venture\Game\UI\Scene;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TemirkhanN\Venture\Character\Stats;
 use TemirkhanN\Venture\Craft\RecipeRepository;
-use TemirkhanN\Venture\Drop\Drop;
+use TemirkhanN\Venture\Drop\Loot;
 use TemirkhanN\Venture\Game\IO\InputInterface;
 use TemirkhanN\Venture\Game\IO\OutputInterface;
 use TemirkhanN\Venture\Game\Storage\PlayerRepository;
@@ -59,13 +59,18 @@ class NewGame implements SceneInterface
         // Todo some rpg-class preset?
         $player = new Player($playerName, Stats::lowestStats(2));
 
-        $player->loot(new Drop($this->itemRepository->getById(Item::CURRENCY_GOLD), 10));
-        $player->loot(new Drop($this->itemRepository->getById(Item::WEAPON_DAGGER), 1));
-        $player->loot(new Drop($this->itemRepository->getById(Item::ARMOR_LEATHER_ARMOR), 1));
+        $player->loot($this->getDrop(Item::CURRENCY_GOLD, 10));
+        $player->loot($this->getDrop(Item::WEAPON_DAGGER, 1));
+        $player->loot($this->getDrop(Item::ARMOR_LEATHER_ARMOR, 1));
 
         $player->learnRecipe($this->recipeRepository->getById(Recipe::LEATHER));
         $player->learnRecipe($this->recipeRepository->getById(Recipe::CHAIN_MAIL));
 
         $this->playerRepository->save($player);
+    }
+
+    private function getDrop(string $id, int $amount): Loot
+    {
+        return new Loot($this->itemRepository->getById($id)->replicate(), $amount);
     }
 }

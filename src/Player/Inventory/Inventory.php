@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Player\Inventory;
 
+use IteratorAggregate;
 use TemirkhanN\Venture\Item;
+use TemirkhanN\Venture\Utils\Generic\ImmutableList;
+use TemirkhanN\Venture\Utils\Generic\Result;
+use Traversable;
 
-class Inventory
+class Inventory implements IteratorAggregate
 {
     private const STACKABLE_ITEMS_TYPES = [
         Item\Prototype\Consumable::ITEM_TYPE,
@@ -15,86 +19,104 @@ class Inventory
     ];
 
     /**
-     * @var array<Slot>
+     * @var array<int, Slot>
      */
     private array $slots = [];
 
-    private int $lastSlot = 1;
-
-    public function __construct()
+    public function __construct(int $size = 32)
     {
-        $this->addGold(1);
+        for ($i = 0; $i < $size; $i++) {
+            $this->slots[$i] = Slot::empty($i + 1);
+        }
     }
 
-    public function putItem(Item\Prototype\ItemInterface $item, int $amount)
+    public function putItem(Item\ItemInterface $item, int $amount): Result
     {
-        if ($this->isStackable($item)) {
-            foreach ($this->slots as $index => $slot) {
-                if ($slot->item->id()->value() == $item->id()->value()) {
+        $firstEmptySlotIndex = null;
+        foreach ($this->slots as $index => $slot) {
+            if ($slot->isEmpty()) {
+                if (!isset($firstEmptySlotIndex)) {
+                    $firstEmptySlotIndex = $index;
+                }
+
+                if (!$this->isStackable($item)) {
+                    $this->slots[$index] = $slot->replace($item, $amount);
+
+                    return Result::success();
+                }
+            } else {
+                if ($this->isStackable($item) && (string)$slot->item->id() === (string)$item->id()) {
                     $this->slots[$index] = $slot->addAmount($amount);
 
-                    return;
+                    return Result::success();
                 }
             }
         }
 
-        ++$this->lastSlot;
+        if ($this->isStackable($item) && $firstEmptySlotIndex !== null) {
+            $slot                              = $this->slots[$firstEmptySlotIndex];
+            $this->slots[$firstEmptySlotIndex] = $slot->replace($item, $amount);
 
-        $this->slots[$this->lastSlot - 1] = new Slot($this->lastSlot, $item, $amount);
+            return Result::success();
+        }
+
+        return Result::error('Inventory is full');
     }
 
-    public function removeGold(int $amount): void
+    public function removeItem(int $slotPosition, ?int $amount): Result
     {
-        $gold = Item\Prototype\Currency::gold();
-        foreach ($this->slots as $index => $slot) {
-            if ($slot->item == $gold) {
-                $this->slots[$index] = $slot->removeAmount($amount);
+        $index = $slotPosition - 1;
 
-                return;
-            }
+        $inventorySlot = $this->getSlot($slotPosition);
+        if ($inventorySlot->isEmpty()) {
+            return Result::error('There is no such items in the slot');
         }
 
-        throw new \DomainException('There is literally no gold in the inventory');
-    }
-
-    public function addGold(int $amount): void
-    {
-        $this->putItem(Item\Prototype\Currency::gold(), $amount);
-    }
-
-    public function removeItem(Slot $fromSlot): void
-    {
-        $index = $fromSlot->position - 1;
-
-        $inventorySlot = $this->slots[$index] ?? null;
-        // There is no such item
-        if ($inventorySlot === null) {
-            throw new \UnexpectedValueException('There is no such items in the slot');
+        $discardingAmount = $amount;
+        if ($discardingAmount === null) {
+            $discardingAmount = $inventorySlot->amountOfItems;
         }
 
-        if ($inventorySlot->item->name() !== $fromSlot->item->name()) {
-            throw new \UnexpectedValueException('There is no such items in the slot');
+        if ($inventorySlot->amountOfItems < $discardingAmount) {
+            return Result::error('There is no such amount of items in the slot');
         }
 
-        if ($inventorySlot->amountOfItems < $fromSlot->amountOfItems) {
-            throw new \UnexpectedValueException('There is no such amount of items in the slot');
-        }
-
-        $amountOfItemsLeft = $inventorySlot->amountOfItems - $fromSlot->amountOfItems;
+        $amountOfItemsLeft = $inventorySlot->amountOfItems - $discardingAmount;
 
         if ($amountOfItemsLeft > 0 || $inventorySlot->item == Item\Prototype\Currency::gold()) {
-            $this->slots[$index] = new Slot($inventorySlot->position, $inventorySlot->item, $amountOfItemsLeft);
+            $updatedSlot = new Slot($inventorySlot->position, $inventorySlot->item, $amountOfItemsLeft);
         } else {
-            unset($this->slots[$index]);
+            $updatedSlot = Slot::empty($inventorySlot->position);
         }
+
+        $this->slots[$index] = $updatedSlot;
+
+        return Result::success();
     }
 
     /**
      * @return array<Slot>
      */
-    public function list(): array
+    public function slots(): array
     {
-        return $this->slots;
+        return array_values($this->slots);
+    }
+
+    /**
+     * @return ImmutableList<Slot>
+     */
+    public function getIterator(): Traversable
+    {
+        return new ImmutableList($this->slots());
+    }
+
+    public function getSlot(int $position): Slot
+    {
+        if (!isset($this->slots[$position - 1])) {
+            throw new \OverflowException('There is no such slot at position %d', $position);
+        }
+
+        return $this->slots[$position - 1];
     }
 
     private function isStackable(Item\Prototype\ItemInterface $item): bool

@@ -6,12 +6,15 @@ namespace TemirkhanN\Venture\Game\Action\Inventory;
 
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
+use TemirkhanN\Venture\Game\Storage\GameLogRepository;
 use TemirkhanN\Venture\Player\Inventory\Slot;
 use TemirkhanN\Venture\Player\Player;
 
 class UseItem implements PlayerActionHandlerInterface
 {
     public const ACTION_NAME = 'UseItem';
+
+    public function __construct(private readonly GameLogRepository $gameLogRepository) {}
 
     public function handle(Player $player, ActionInterface $action): void
     {
@@ -21,12 +24,10 @@ class UseItem implements PlayerActionHandlerInterface
 
         $fromSlot = $action->getInput('fromSlot', $action::TYPE_INT);
 
-        foreach ($player->showInventory() as $slot) {
-            if ($slot->position === $fromSlot) {
-                $player->useItem(new Slot($slot->position, $slot->item, 1));
+        $result = $player->useItem($fromSlot, 1);
 
-                return;
-            }
+        if (!$result->isSuccessful()) {
+            $this->gameLogRepository->addLog($result->getError());
         }
     }
 }

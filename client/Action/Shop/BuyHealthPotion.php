@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Game\Action\Shop;
 
-use TemirkhanN\Venture\Drop\Drop;
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
 use TemirkhanN\Venture\Game\Storage\PlayerRepository;
 use TemirkhanN\Venture\Game\Storage\Reference\Item;
 use TemirkhanN\Venture\Item\Prototype\ItemRepositoryInterface;
 use TemirkhanN\Venture\Player\Player;
+use TemirkhanN\Venture\Trade\Purchase\Offer;
+use TemirkhanN\Venture\Trade\Purchase\Purchase;
 
 class BuyHealthPotion implements PlayerActionHandlerInterface
 {
@@ -35,13 +36,21 @@ class BuyHealthPotion implements PlayerActionHandlerInterface
             return;
         }
 
-        if ($player->gold() < self::POTION_PRICE) {
+        $potion = $this->itemRepository->getById(Item::MINOR_HEALING_POTION);
+        $gold = $this->itemRepository->getById(Item::CURRENCY_GOLD);
+
+        $playerWillPay = new Offer();
+        $playerWillPay->require($gold, self::POTION_PRICE);
+
+        $playerWillReceive = new Offer();
+        $playerWillReceive->require($potion, 1);
+        $purchase = new Purchase($playerWillPay, $playerWillReceive);
+
+        if (!$purchase->isAffordable($player)) {
             return;
         }
 
-        $potion = $this->itemRepository->getById(Item::MINOR_HEALING_POTION);
-
-        $player->buyItems(self::POTION_PRICE, [new Drop($potion, 1)]);
+        $purchase->perform($player);
 
         $this->playerRepository->save($player);
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Craft;
 
+use TemirkhanN\Venture\Utils\Generic\ImmutableList;
 use TemirkhanN\Venture\Utils\Id;
 
 class RecipeBook
@@ -20,11 +21,11 @@ class RecipeBook
     }
 
     /**
-     * @return iterable<Id>
+     * @return ImmutableList<Id>
      */
-    public function listRecipes(): iterable
+    public function listRecipes(): ImmutableList
     {
-        yield from $this->recipeIds;
+        return new ImmutableList($this->recipeIds);
     }
 
     public function containsRecipe(Recipe $recipe): bool

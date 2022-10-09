@@ -8,6 +8,11 @@
             performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\Inventory\\UseItem::ACTION_NAME') }}', {fromSlot: inventorySlotPosition});
         }
     </script>
+    <style>
+        .inventory td {
+            width: 40px;
+        }
+    </style>
 {% endblock %}
 <table>
     <tbody>
@@ -15,30 +20,35 @@
         <td colspan="8">Inventory</td>
     </tr>
     <tr>
-        {% set column = 0 %}
-        {% for slot in player.showInventory %}
-            {% set hasItems = true %}
-            {% if column == 0 %}
-                <div>
-            {% endif %}
-            {% set column = column + 1 %}
+        <table class="inventory">
+            <tbody>
+            {% set column = 0 %}
+            {% for slot in player.showInventory %}
+                {% set hasItems = true %}
+                {% if column == 0 %}
+                    <tr>
+                {% endif %}
+                {% set column = column + 1 %}
 
-            {% if player.canEquip(slot.item) %}
-                <td onclick="equipItem({{ slot.position }})">{{ slot.item.name }}</td>
-            {% elseif player.canUseItem(slot.item) %}
-                <td onclick="useItem({{ slot.position }})">{{ slot.item.name }}{% if slot.amountOfItems > 1 %}({{ slot.amountOfItems }}){% endif %}</td>
-            {% else %}
-                <td>{{ slot.item.name }}{% if slot.amountOfItems > 1 %}({{ slot.amountOfItems }}){% endif %}</td>
-            {% endif %}
+                {% if not slot.isEmpty %}
+                    {% if player.canEquip(slot.item) %}
+                        <td onclick="equipItem({{ slot.position }})">{{ slot.item.name }}</td>
+                    {% elseif player.canUseItem(slot.position) %}
+                        <td onclick="useItem({{ slot.position }})">{{ slot.item.name }}{% if slot.amountOfItems > 1 %}({{ slot.amountOfItems }}){% endif %}</td>
+                    {% else %}
+                        <td>{{ slot.item.name }}{% if slot.amountOfItems > 1 %}({{ slot.amountOfItems }}){% endif %}</td>
+                    {% endif %}
+                {% else %}
+                    <td>[ ]</td>
+                {% endif %}
 
-            {% if column == 4 %}
-                {% set column = 0 %}
-                </div>
-            {% endif %}
-        {% endfor %}
-        {% if column > 0 and column < 4 and hasItems is defined %}
-            </div>
-        {% endif %}
+                {% if column == 8 %}
+                    {% set column = 0 %}
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
     </tr>
     </tbody>
 </table>

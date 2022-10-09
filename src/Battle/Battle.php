@@ -6,7 +6,7 @@ namespace TemirkhanN\Venture\Battle;
 
 use SplStack;
 use TemirkhanN\Venture\Drop\GenerateDrop;
-use TemirkhanN\Venture\Drop\Drop;
+use TemirkhanN\Venture\Drop\Loot;
 use TemirkhanN\Venture\Npc\Npc;
 use TemirkhanN\Venture\Player\Player;
 use TemirkhanN\Venture\Player\PlayerState;
@@ -94,9 +94,9 @@ class Battle
     }
 
     /**
-     * @todo well, this shall be separate from battle
+     * @return iterable<Loot>
+     *@todo well, this shall be separate from battle
      *
-     * @return iterable<Drop>
      */
     public function issueRewards(): iterable
     {
