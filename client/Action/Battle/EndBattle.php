@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Game\Action\Battle;
 
+use TemirkhanN\Venture\Reward\ExperienceCalculator;
 use TemirkhanN\Venture\Reward\GenerateDrop;
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
@@ -21,6 +22,7 @@ class EndBattle implements PlayerActionHandlerInterface
     public function __construct(
         private readonly BattleRepository $battleRepository,
         private readonly GenerateDrop $dropGenerator,
+        private readonly ExperienceCalculator $experienceCalculator,
         private readonly GameLogRepository $gameLogRepository
     ) {}
 
@@ -37,7 +39,7 @@ class EndBattle implements PlayerActionHandlerInterface
 
         if ($battle->player()->isAlive() && !$battle->enemy()->isAlive()) {
             $logsBeforeAction = Iterating::toArray($battle->logs());
-            (new GetBattleRewards($player, $this->dropGenerator))->receiveRewards($battle);
+            (new GetBattleRewards($player, $this->dropGenerator, $this->experienceCalculator))->receiveRewards($battle);
             $logsAfter = array_reverse(Iterating::toArray($battle->logs()));
 
             foreach (array_slice($logsAfter, count($logsBeforeAction)) as $lootLog) {
