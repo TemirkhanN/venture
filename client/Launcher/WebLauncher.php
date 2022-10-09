@@ -14,11 +14,14 @@ use TemirkhanN\Venture\Game\App;
 use TemirkhanN\Venture\Game\IO\HttpInput;
 use TemirkhanN\Venture\Game\IO\InputInterface;
 use TemirkhanN\Venture\Game\IO\Printer;
+use Throwable;
 use const APP_DIR;
 
 class WebLauncher
 {
-    public function __construct(private readonly App $app, private readonly Printer $printer) {}
+    public function __construct(private readonly App $app, private readonly Printer $printer)
+    {
+    }
 
     public function run(string $onHost): void
     {
@@ -29,9 +32,6 @@ class WebLauncher
         $http = new HttpServer(\Closure::fromCallable([$this, 'handleRequest']));
         $http->on('error', function (Exception $e) {
             echo PHP_EOL . $e->getMessage() . PHP_EOL;
-            if ($e->getPrevious() !== null) {
-                echo $e->getPrevious()->getMessage() . PHP_EOL;
-            }
         });
 
         $socket = new SocketServer($onHost);
@@ -39,7 +39,8 @@ class WebLauncher
         $http->listen($socket);
     }
 
-    private function serveStaticFile(string $path): Response {
+    private function serveStaticFile(string $path): Response
+    {
         $filePath = APP_DIR . '/' . trim(preg_replace('#\.{2,}#', '', $path), '/');
         if (!file_exists($filePath)) {
             $response = Response::plaintext('');
@@ -58,7 +59,7 @@ class WebLauncher
 
     private function readInput(ServerRequestInterface $request): InputInterface
     {
-        return new HttpInput(json_decode((string) $request->getBody(), true) ?? []);
+        return new HttpInput(json_decode((string)$request->getBody(), true) ?? []);
     }
 
     private function handleRequest(ServerRequestInterface $request): ?Response
@@ -79,8 +80,19 @@ class WebLauncher
         }
 
         $input = $this->readInput($request);
-        $this->app->run($input);
+        try {
+            $this->app->run($input);
+        } catch (Throwable $e) {
+            return $this->createExceptionResponse($e);
+        }
 
         return Response::html($this->printer->flush());
+    }
+
+    private function createExceptionResponse(Throwable $exception): Response
+    {
+        $details = sprintf('Error: %s<br><pre>%s</pre>', $exception->getMessage(), $exception->getTraceAsString());
+
+        return Response::html($details);
     }
 }
