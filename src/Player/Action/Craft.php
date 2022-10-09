@@ -6,10 +6,10 @@ namespace TemirkhanN\Venture\Player\Action;
 
 use TemirkhanN\Venture\Craft\CraftResult;
 use TemirkhanN\Venture\Craft\Recipe;
-use TemirkhanN\Venture\Drop\Loot;
 use TemirkhanN\Venture\Item\Prototype\ItemRepository;
-use TemirkhanN\Venture\Player\Inventory\Slot;
 use TemirkhanN\Venture\Player\Player;
+use TemirkhanN\Venture\Trade\Purchase\Offer;
+use TemirkhanN\Venture\Trade\Purchase\Purchase;
 use TemirkhanN\Venture\Utils\Generic\Result;
 
 class Craft
@@ -30,68 +30,28 @@ class Craft
             return Result::error('Player can not use recipe that he does not know');
         }
 
-        $requirements = [];
+        $craftingMaterials = new Offer();
         foreach ($recipe->requiredItems() as $requirement) {
-            $itemId = $requirement->item()->id->value();
-            if (!isset($requirements[$itemId])) {
-                $requirements[$itemId] = 0;
-            }
-
-            $requirements[$itemId] += $requirement->amount();
+            $requiredItem = $this->itemRepository->getById((string)$requirement->item()->id);
+            $craftingMaterials->require($requiredItem, $requirement->amount());
         }
 
+        $expectedResult = $recipe->result();
+        $craftingResult = new Offer();
+        $craftingResult->require(
+            $this->itemRepository->getById((string)$expectedResult->item()->id), $expectedResult->amount()
+        );
 
-        if ($requirements === []) {
-            $this->gatherCraftResult($recipe->result());
-
-            return Result::success($recipe->result());
-        }
-
-        $itemsToBeUsed = [];
-        /** @var Slot $slot */
-        foreach ($this->player->showInventory() as $slot) {
-            if ($requirements === []) {
-                break;
-            }
-
-            if ($slot->isEmpty()) {
-                continue;
-            }
-
-            $itemId = (string) $slot->item->id();
-            if (!isset($requirements[$itemId])) {
-                continue;
-            }
-
-            $requiredAmount = $requirements[$itemId];
-            if ($requiredAmount <= $slot->amountOfItems) {
-                $discardingAmount = $requiredAmount;
-                // requirement is fulfilled
-                unset($requirements[$itemId]);
-            } else {
-                $discardingAmount = $slot->amountOfItems;
-                $requirements[$itemId] -= $slot->amountOfItems;
-            }
-            $itemsToBeUsed[$slot->position] = $discardingAmount;
-        }
-
-        if ($requirements !== []) {
+        $exchange = new Purchase($craftingMaterials, $craftingResult);
+        if (!$exchange->isAffordable($this->player)) {
             return Result::error('Player does not have required items');
         }
 
-        foreach ($itemsToBeUsed as $slot => $amount) {
-            $this->player->discardItem($slot, $amount);
+        $result = $exchange->perform($this->player);
+        if (!$result->isSuccessful()) {
+            return Result::error(sprintf('Could not complete the crafting due to(%s)', $result->getError()));
         }
 
-        $this->gatherCraftResult($recipe->result());
-
         return Result::success($recipe->result());
-    }
-
-    private function gatherCraftResult(CraftResult $result): void
-    {
-        $craftedItem = $this->itemRepository->getById((string) $result->item()->id);
-
-        $this->player->loot(new Loot($craftedItem->replicate(), $result->amount()));
     }
 }

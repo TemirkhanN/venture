@@ -32,28 +32,43 @@ class Inventory implements IteratorAggregate
 
     public function putItem(Item\ItemInterface $item, int $amount): Result
     {
-        $firstEmptySlotIndex = null;
-        foreach ($this->slots as $index => $slot) {
-            if ($slot->isEmpty()) {
-                if (!isset($firstEmptySlotIndex)) {
-                    $firstEmptySlotIndex = $index;
+        if (!$this->isStackable($item)) {
+            if ($amount > 1) {
+                for ($i=0; $i < $amount; $i++) {
+                    $result = $this->putItem($item, 1);
+                    if (!$result->isSuccessful()) {
+                        return $result;
+                    }
                 }
 
-                if (!$this->isStackable($item)) {
-                    $this->slots[$index] = $slot->replace($item, $amount);
-
-                    return Result::success();
-                }
+                return Result::success();
             } else {
-                if ($this->isStackable($item) && (string)$slot->item->id() === (string)$item->id()) {
-                    $this->slots[$index] = $slot->addAmount($amount);
+                foreach ($this->slots as $index => $slot) {
+                    if ($slot->isEmpty()) {
+                        $this->slots[$index] = $slot->replace($item, 1);
 
-                    return Result::success();
+                        return Result::success();
+                    }
                 }
+
+                return Result::error('No space in inventory to store the item');
             }
         }
 
-        if ($this->isStackable($item) && $firstEmptySlotIndex !== null) {
+        $firstEmptySlotIndex = null;
+        foreach ($this->slots as $index => $slot) {
+            if ($slot->isEmpty() && !isset($firstEmptySlotIndex)) {
+                $firstEmptySlotIndex = $index;
+            }
+
+            if (!$slot->isEmpty() && (string)$slot->item->id() === (string)$item->id()) {
+                $this->slots[$index] = $slot->addAmount($amount);
+
+                return Result::success();
+            }
+        }
+
+        if ($firstEmptySlotIndex !== null) {
             $slot                              = $this->slots[$firstEmptySlotIndex];
             $this->slots[$firstEmptySlotIndex] = $slot->replace($item, $amount);
 
