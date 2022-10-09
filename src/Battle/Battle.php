@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Battle;
 
 use SplStack;
-use TemirkhanN\Venture\Drop\GenerateDrop;
-use TemirkhanN\Venture\Drop\Loot;
+use TemirkhanN\Venture\Reward\GenerateDrop;
+use TemirkhanN\Venture\Reward\Loot;
 use TemirkhanN\Venture\Npc\Npc;
 use TemirkhanN\Venture\Player\Player;
 use TemirkhanN\Venture\Player\PlayerState;

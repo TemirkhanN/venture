@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Game\Action\Cheat;
 
-use TemirkhanN\Venture\Drop\Loot;
+use TemirkhanN\Venture\Reward\Loot;
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
 use TemirkhanN\Venture\Game\Storage\PlayerRepository;

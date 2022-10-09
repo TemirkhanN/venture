@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Character;
 
 use TemirkhanN\Venture\Battle\TargetInterface;
-use TemirkhanN\Venture\Drop\Loot;
+use TemirkhanN\Venture\Reward\Loot;
 use TemirkhanN\Venture\Item\Prototype\ItemInterface;
 use TemirkhanN\Venture\Player\Inventory\Slot;
 use TemirkhanN\Venture\Utils\Generic\ImmutableList;

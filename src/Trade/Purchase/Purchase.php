@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Trade\Purchase;
 
 use TemirkhanN\Venture\Character\CharacterInterface;
-use TemirkhanN\Venture\Drop\Loot;
+use TemirkhanN\Venture\Reward\Loot;
 use TemirkhanN\Venture\Player\Inventory\Slot;
 use TemirkhanN\Venture\Trade\UnidirectionalTransferInterface;
 use TemirkhanN\Venture\Utils\Generic\Result;

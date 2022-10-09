@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Game\Action\Battle;
 
-use TemirkhanN\Venture\Drop\GenerateDrop;
+use TemirkhanN\Venture\Reward\GenerateDrop;
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
 use TemirkhanN\Venture\Game\Storage\BattleRepository;

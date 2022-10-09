@@ -7,7 +7,7 @@ namespace TemirkhanN\Venture\Game\UI\Scene;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TemirkhanN\Venture\Character\Stats;
 use TemirkhanN\Venture\Craft\RecipeRepository;
-use TemirkhanN\Venture\Drop\Loot;
+use TemirkhanN\Venture\Reward\Loot;
 use TemirkhanN\Venture\Game\IO\InputInterface;
 use TemirkhanN\Venture\Game\IO\OutputInterface;
 use TemirkhanN\Venture\Game\Storage\PlayerRepository;

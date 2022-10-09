@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Drop;
+namespace TemirkhanN\Venture\Reward;
 
 use TemirkhanN\Venture\Item\Prototype\ItemRepositoryInterface;
 use TemirkhanN\Venture\Npc\Npc;

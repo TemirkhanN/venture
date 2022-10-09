@@ -7,7 +7,7 @@ namespace TemirkhanN\Venture\Trade\Purchase;
 use PHPUnit\Framework\TestCase;
 use TemirkhanN\Venture\Character\CharacterInterface;
 use TemirkhanN\Venture\Character\Stats;
-use TemirkhanN\Venture\Drop\Loot;
+use TemirkhanN\Venture\Reward\Loot;
 use TemirkhanN\Venture\Item\Prototype\Currency;
 use TemirkhanN\Venture\Item\Prototype\Resource;
 use TemirkhanN\Venture\Player\Player;

@@ -7,7 +7,7 @@ namespace TemirkhanN\Venture\Character;
 use TemirkhanN\Venture\Character\Equipment\EquipmentItem;
 use TemirkhanN\Venture\Character\Stats\EquipmentBoostedStats;
 use TemirkhanN\Venture\Character\Stats\LevelBoostedStats;
-use TemirkhanN\Venture\Drop\Loot;
+use TemirkhanN\Venture\Reward\Loot;
 use TemirkhanN\Venture\Item;
 use TemirkhanN\Venture\Player\Inventory;
 use TemirkhanN\Venture\Utils\Generic\ImmutableList;
