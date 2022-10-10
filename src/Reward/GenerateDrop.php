@@ -23,7 +23,7 @@ class GenerateDrop
      */
     public function execute(Npc $npc): iterable
     {
-        $dropChances = $this->dropChanceRepository->findAllByNpcId((string)$npc->id);
+        $dropChances = $this->dropChanceRepository->findAllByNpcId((string)$npc->id());
         if ($dropChances->isSuccessful()) {
             /** @var DropChance $dropChance */
             foreach ($dropChances->getData() as $dropChance) {

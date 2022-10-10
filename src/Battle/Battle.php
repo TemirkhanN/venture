@@ -14,12 +14,14 @@ class Battle
     private int $turn = 0;
     private SplStack $logs;
 
-    public function __construct(private readonly Player $player, private readonly Npc $enemy)
+    // @todo player has to be readonly but currently reflection is used to sync objects with each other
+    public function __construct(private Player $player, private readonly Npc $enemy)
     {
         if ($player->state === PlayerState::Fighting) {
             throw new \DomainException('Player is already fighting');
         }
         $this->player->state = PlayerState::Fighting;
+        $this->turn = 1;
 
         $this->logs = new SplStack();
         $this->addLog(sprintf('%s started battle with %s', $player->name(), $enemy->name()));

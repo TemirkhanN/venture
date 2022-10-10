@@ -12,14 +12,27 @@ use TemirkhanN\Venture\Item;
 use TemirkhanN\Venture\Player\Inventory;
 use TemirkhanN\Venture\Utils\Generic\ImmutableList;
 use TemirkhanN\Venture\Utils\Generic\Result;
+use TemirkhanN\Venture\Utils\Id;
 
 trait CharacterTrait
 {
+    private readonly Id $id;
+    private readonly Id $instanceId;
     private int $exp = 0;
     private string $name;
     private Equipment\Equipment $equipment;
     private Stats $stats;
     private Inventory\Inventory $inventory;
+
+    public function id(): Id
+    {
+        return $this->id;
+    }
+
+    public function instanceId(): Id
+    {
+        return $this->instanceId;
+    }
 
     public function name(): string
     {
@@ -58,9 +71,12 @@ trait CharacterTrait
         $this->stats()->restoreHealth($amount);
     }
 
-    public function showInventory(): Inventory\Inventory
+    /**
+     * @return ImmutableList<Inventory\Slot>
+     */
+    public function showInventory(): ImmutableList
     {
-        return $this->inventory;
+        return new ImmutableList($this->inventory->slots());
     }
 
     // todo check if it is necessary to expose this

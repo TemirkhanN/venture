@@ -7,7 +7,6 @@ namespace TemirkhanN\Venture\Player;
 use TemirkhanN\Venture\Character;
 use TemirkhanN\Venture\Craft\Recipe;
 use TemirkhanN\Venture\Craft\RecipeBook;
-use TemirkhanN\Venture\Item\Prototype\Currency;
 use TemirkhanN\Venture\Player\Inventory;
 use TemirkhanN\Venture\Utils\Generic\ImmutableList;
 use TemirkhanN\Venture\Utils\Id;
@@ -25,11 +24,13 @@ class Player implements Character\CharacterInterface
 
     public function __construct(string $name, Character\Stats $stats)
     {
-        $this->state     = PlayerState::Idle;
-        $this->name      = $name;
-        $this->stats     = $stats;
-        $this->equipment = new Character\Equipment\Equipment();
-        $this->inventory = new Inventory\Inventory();
+        $this->instanceId = Id::generate('player');
+        $this->id         = $this->instanceId;
+        $this->state      = PlayerState::Idle;
+        $this->name       = $name;
+        $this->stats      = $stats;
+        $this->equipment  = new Character\Equipment\Equipment();
+        $this->inventory  = new Inventory\Inventory();
         $this->recipeBook = new RecipeBook();
     }
 

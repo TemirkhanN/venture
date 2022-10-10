@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Game\UI\Renderer\Extension;
 
-use TemirkhanN\Venture\Character\CharacterInterface;
+use TemirkhanN\Venture\Character\Prototype\CharacterInterface;
 use TemirkhanN\Venture\Npc\Npc;
 
 class CharacterDetail
