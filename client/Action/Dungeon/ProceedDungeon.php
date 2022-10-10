@@ -9,7 +9,6 @@ use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
 use TemirkhanN\Venture\Game\Storage\BattleRepository;
 use TemirkhanN\Venture\Game\Storage\DungeonRepository;
-use TemirkhanN\Venture\Player\Action\EngageBattle;
 use TemirkhanN\Venture\Player\Player;
 use TemirkhanN\Venture\Player\PlayerState;
 
@@ -26,7 +25,7 @@ class ProceedDungeon implements PlayerActionHandlerInterface
 
     public function handle(Player $player, ActionInterface $action): void
     {
-        if (!$player->isInDungeon()) {
+        if ($player->state !== PlayerState::InDungeon) {
             return;
         }
 
@@ -46,8 +45,7 @@ class ProceedDungeon implements PlayerActionHandlerInterface
 
         foreach ($currentStage->monsters() as $monster) {
             if ($monster->isAlive()) {
-                $battle = new Battle($monster);
-                $battle->applyAction(new EngageBattle($player));
+                $battle = new Battle($player, $monster);
                 $this->battleRepository->save($battle);
 
                 return;

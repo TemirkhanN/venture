@@ -5,38 +5,24 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Battle;
 
 use SplStack;
-use TemirkhanN\Venture\Reward\GenerateDrop;
-use TemirkhanN\Venture\Reward\Loot;
 use TemirkhanN\Venture\Npc\Npc;
 use TemirkhanN\Venture\Player\Player;
 use TemirkhanN\Venture\Player\PlayerState;
 
 class Battle
 {
-    private ?Player $player = null;
-
-    private Npc $enemy;
-
     private int $turn = 0;
-
     private SplStack $logs;
 
-    private bool $rewardsIssued = false;
-
-    public function __construct(Npc $enemy)
+    public function __construct(private readonly Player $player, private readonly Npc $enemy)
     {
-        $this->enemy = $enemy;
-        $this->logs = new SplStack();
-    }
-
-    public function start(Player $with): void
-    {
-        if ($this->isStarted() || $this->isOver() || $with->isInFight()) {
-            throw new \DomainException('Battle has already started');
+        if ($player->state === PlayerState::Fighting) {
+            throw new \DomainException('Player is already fighting');
         }
-
-        $this->player = $with;
         $this->player->state = PlayerState::Fighting;
+
+        $this->logs = new SplStack();
+        $this->addLog(sprintf('%s started battle with %s', $player->name(), $enemy->name()));
     }
 
     public function applyAction(ActionInterface $action): void
@@ -47,7 +33,7 @@ class Battle
         }
     }
 
-    public function player(): ?Player
+    public function player(): Player
     {
         return $this->player;
     }
@@ -91,18 +77,5 @@ class Battle
     public function logs(): iterable
     {
         yield from $this->logs;
-    }
-
-    /**
-     * @return iterable<Loot>
-     *@todo well, this shall be separate from battle
-     *
-     */
-    public function issueRewards(): iterable
-    {
-
-        $this->rewardsIssued = true;
-
-        return $rewards;
     }
 }

@@ -22,7 +22,7 @@ class BattleRepository extends AbstractObjectStorage
         /** @var Battle|null $battle */
         $battle = $this->getObject(self::CACHE_KEY, Battle::class);
 
-        if ($battle !== null && $battle->player() !== null) {
+        if ($battle !== null) {
             (new \ReflectionProperty($battle, 'player'))->setValue($battle, $player);
         }
 

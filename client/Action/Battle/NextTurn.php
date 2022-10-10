@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Game\Action\Battle;
 
+use TemirkhanN\Venture\Character\Action\Attack as AttackAction;
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
 use TemirkhanN\Venture\Game\Storage\BattleRepository;
-use TemirkhanN\Venture\Npc\Action\AttackPlayer;
 use TemirkhanN\Venture\Player\Player;
 
 class NextTurn implements PlayerActionHandlerInterface
@@ -29,7 +29,7 @@ class NextTurn implements PlayerActionHandlerInterface
             return;
         }
 
-        $battle->applyAction(new AttackPlayer());
+        $battle->applyAction(new AttackAction());
 
         $this->battleRepository->save($battle);
     }

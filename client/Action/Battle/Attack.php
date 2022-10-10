@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Game\Action\Battle;
 
+use TemirkhanN\Venture\Character\Action\Attack as AttackAction;
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
 use TemirkhanN\Venture\Game\Storage\BattleRepository;
@@ -28,7 +29,7 @@ class Attack implements PlayerActionHandlerInterface
             return;
         }
 
-        $battle->applyAction(new \TemirkhanN\Venture\Player\Action\Attack());
+        $battle->applyAction(new AttackAction());
 
         $this->battleRepository->save($battle);
     }
