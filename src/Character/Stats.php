@@ -18,7 +18,7 @@ class Stats implements StatsInterface
 
     public static function lowestStats(int $multiply = 1): self
     {
-        if ($multiply < 1) {
+        if ($multiply < 0) {
             throw new \LogicException('Stats can not be negative');
         }
 
