@@ -10,7 +10,7 @@ use TemirkhanN\Venture\Player\Player;
 
 class Battle
 {
-    private int $turn = 0;
+    private int $turn;
     private SplStack $logs;
 
     // @todo player has to be readonly but currently reflection is used to sync objects with each other
@@ -42,24 +42,15 @@ class Battle
 
     public function doesCurrentTurnBelongToPlayer(): bool
     {
-        if (!$this->isStarted()) {
-            throw new \LogicException('Battle is not started yet');
+        if (!$this->player->isAlive()) {
+            return false;
         }
 
         return $this->turn % 2 === 1;
     }
 
-    public function isStarted(): bool
-    {
-        return $this->turn > 0;
-    }
-
     public function isOver(): bool
     {
-        if (!$this->isStarted()) {
-            return false;
-        }
-
         return !$this->player->isAlive() || !$this->enemy->isAlive();
     }
 

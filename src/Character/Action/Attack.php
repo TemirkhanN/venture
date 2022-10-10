@@ -9,14 +9,9 @@ use TemirkhanN\Venture\Utils\Generic\Result;
 
 class Attack implements Battle\ActionInterface
 {
-    public function __construct()
-    {
-
-    }
-
     public function perform(Battle\Battle $at): Result
     {
-        if (!$at->isStarted() || $at->isOver()) {
+        if ($at->isOver()) {
             return Result::error('Can not perform actions in inactive battle.');
         }
 
