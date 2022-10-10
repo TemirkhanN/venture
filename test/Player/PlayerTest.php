@@ -14,7 +14,6 @@ use TemirkhanN\Venture\Item\Prototype\ItemInterface as ItemPrototype;
 use TemirkhanN\Venture\Item\Prototype\Weapon as WeaponPrototype;
 use TemirkhanN\Venture\Item\Weapon;
 use TemirkhanN\Venture\Utils\Id;
-use TemirkhanN\Venture\Utils\Iterating;
 
 class PlayerTest extends TestCase
 {
@@ -52,7 +51,6 @@ class PlayerTest extends TestCase
 
     public function equipAttemptsItemsProvider(): iterable
     {
-
         yield 'Shall be able to equip weapon' => [
             $this->createWeapon('Sword', 10),
             true,

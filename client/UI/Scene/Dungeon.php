@@ -24,7 +24,7 @@ class Dungeon implements SceneInterface
     public function run(InputInterface $input, OutputInterface $output): void
     {
         $player = $this->playerRepository->find();
-        if ($player === null || !$player->isInDungeon()) {
+        if ($player === null) {
             return;
         }
 

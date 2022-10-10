@@ -7,8 +7,9 @@ namespace TemirkhanN\Venture\Game\Action\Dungeon;
 use TemirkhanN\Venture\Dungeon\DungeonGenerator;
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
+use TemirkhanN\Venture\Game\Component\Player\Player;
+use TemirkhanN\Venture\Game\Component\Player\PlayerState;
 use TemirkhanN\Venture\Game\Storage\DungeonRepository;
-use TemirkhanN\Venture\Player\Player;
 
 class EnterDungeon implements PlayerActionHandlerInterface
 {
@@ -29,8 +30,10 @@ class EnterDungeon implements PlayerActionHandlerInterface
 
         $dungeon = $this->generator->generate(3, 4);
 
-        $dungeon->enter($player);
-
-        $this->dungeonRepository->save($dungeon);
+        $result = $dungeon->enter($player->player);
+        if ($result->isSuccessful()) {
+            $player->state = PlayerState::InDungeon;
+            $this->dungeonRepository->save($dungeon);
+        }
     }
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Dungeon;
 
 use TemirkhanN\Venture\Player\Player;
-use TemirkhanN\Venture\Player\PlayerState;
+use TemirkhanN\Venture\Utils\Generic\Result;
 
 class Dungeon
 {
@@ -25,18 +25,15 @@ class Dungeon
         $this->stages = array_values($stages);
     }
 
-    public function enter(Player $player): void
+    public function enter(Player $player): Result
     {
         if ($this->player !== null) {
-            throw new \LogicException('This dungeon was already visited by player');
-        }
-
-        if ($player->isInDungeon()) {
-            throw new \LogicException('Player is already in another dungeon');
+            return Result::error('This dungeon was already visited by player');
         }
 
         $this->player = $player;
-        $this->player->state = PlayerState::InDungeon;
+
+        return Result::success();
     }
 
     public function player(): ?Player

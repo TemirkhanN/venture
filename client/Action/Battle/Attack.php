@@ -7,8 +7,8 @@ namespace TemirkhanN\Venture\Game\Action\Battle;
 use TemirkhanN\Venture\Character\Action\Attack as AttackAction;
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
+use TemirkhanN\Venture\Game\Component\Player\Player;
 use TemirkhanN\Venture\Game\Storage\BattleRepository;
-use TemirkhanN\Venture\Player\Player;
 
 class Attack implements PlayerActionHandlerInterface
 {

@@ -7,7 +7,7 @@ namespace TemirkhanN\Venture\Game\Action\Inventory;
 use TemirkhanN\Venture\Character\Equipment\EquipmentItem;
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
-use TemirkhanN\Venture\Player\Player;
+use TemirkhanN\Venture\Game\Component\Player\Player;
 
 class EquipItem implements PlayerActionHandlerInterface
 {
@@ -21,7 +21,7 @@ class EquipItem implements PlayerActionHandlerInterface
 
         $fromSlot = $action->getInput('fromSlot', $action::TYPE_INT);
 
-        foreach ($player->showInventory() as $slot) {
+        foreach ($player->player->showInventory() as $slot) {
             if ($slot->position === $fromSlot) {
                 $item = $slot->item;
 
@@ -30,7 +30,7 @@ class EquipItem implements PlayerActionHandlerInterface
                     return;
                 }
 
-                $player->equip(EquipmentItem::autoDetect($item));
+                $player->player->equip(EquipmentItem::autoDetect($item));
 
                 return;
             }

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Game\Action\Cheat;
 
+use TemirkhanN\Venture\Game\Component\Player\Player;
 use TemirkhanN\Venture\Reward\Loot;
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
 use TemirkhanN\Venture\Game\Storage\PlayerRepository;
 use TemirkhanN\Venture\Game\Storage\Reference\Item;
 use TemirkhanN\Venture\Item\Prototype\ItemRepositoryInterface;
-use TemirkhanN\Venture\Player\Player;
 
 class GetGold implements PlayerActionHandlerInterface
 {
@@ -29,7 +29,7 @@ class GetGold implements PlayerActionHandlerInterface
 
         $amount = abs($action->getInput('amount', ActionInterface::TYPE_INT));
 
-        $player->loot(new Loot($this->itemRepository->getById(Item::CURRENCY_GOLD)->replicate(), $amount));
+        $player->player->loot(new Loot($this->itemRepository->getById(Item::CURRENCY_GOLD)->replicate(), $amount));
 
         $this->playerRepository->save($player);
     }

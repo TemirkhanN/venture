@@ -6,9 +6,9 @@ namespace TemirkhanN\Venture\Game\Action\Craft;
 
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
+use TemirkhanN\Venture\Game\Component\Player\Player;
+use TemirkhanN\Venture\Game\Component\Player\PlayerState;
 use TemirkhanN\Venture\Game\Storage\PlayerRepository;
-use TemirkhanN\Venture\Player\Player;
-use TemirkhanN\Venture\Player\PlayerState;
 
 class ToggleCraftMenu implements PlayerActionHandlerInterface
 {
@@ -24,11 +24,11 @@ class ToggleCraftMenu implements PlayerActionHandlerInterface
 
         $status = $action->getInput('status', ActionInterface::TYPE_STRING);
 
-        if ($status === 'on' && $player->isIdle()) {
+        if ($status === 'on' && $player->state === PlayerState::Idle) {
             $newState = PlayerState::Crafting;
         }
 
-        if ($status === 'off' && $player->isCrafting()) {
+        if ($status === 'off' && $player->state === PlayerState::Crafting) {
             $newState = PlayerState::Idle;
         }
 

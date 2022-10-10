@@ -6,10 +6,10 @@ namespace TemirkhanN\Venture\Game\Action\Dungeon;
 
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
+use TemirkhanN\Venture\Game\Component\Player\Player;
+use TemirkhanN\Venture\Game\Component\Player\PlayerState;
 use TemirkhanN\Venture\Game\Storage\DungeonRepository;
 use TemirkhanN\Venture\Game\Storage\PlayerRepository;
-use TemirkhanN\Venture\Player\Player;
-use TemirkhanN\Venture\Player\PlayerState;
 
 class LeaveDungeon implements PlayerActionHandlerInterface
 {
@@ -25,7 +25,7 @@ class LeaveDungeon implements PlayerActionHandlerInterface
 
     public function handle(Player $player, ActionInterface $action): void
     {
-        if (!$player->isInDungeon()) {
+        if ($player->state !== PlayerState::InDungeon) {
             return;
         }
 

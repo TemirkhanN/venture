@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Game\UI\Scene;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
+use TemirkhanN\Venture\Game\Component\Player\Player;
+use TemirkhanN\Venture\Game\Component\Player\PlayerState;
 use TemirkhanN\Venture\Game\IO\InputInterface;
 use TemirkhanN\Venture\Game\IO\OutputInterface;
 use TemirkhanN\Venture\Game\Storage\GameLogRepository;
@@ -12,7 +14,6 @@ use TemirkhanN\Venture\Game\Storage\PlayerRepository;
 use TemirkhanN\Venture\Game\UI\Event\Transition;
 use TemirkhanN\Venture\Game\UI\SceneInterface;
 use TemirkhanN\Venture\Game\UI\Renderer\RendererInterface;
-use TemirkhanN\Venture\Player\Player;
 
 class Main implements SceneInterface
 {
@@ -49,7 +50,7 @@ class Main implements SceneInterface
 
         $output->write(
             $this->renderer->render('main-screen', [
-                'player' => $player,
+                'player' => $player->player,
                 'title'  => 'Main screen',
             ])
         );
@@ -60,11 +61,11 @@ class Main implements SceneInterface
         switch (true) {
             case $player === null:
                 return NewGame::class;
-            case $player->isInDungeon():
+            case $player->state === PlayerState::InDungeon:
                 return Dungeon::class;
-            case $player->isInFight():
+            case $player->state === PlayerState::Fighting:
                 return Battle::class;
-            case $player->isCrafting():
+            case $player->state === PlayerState::Crafting:
                 return Craft::class;
             default:
                 return null;

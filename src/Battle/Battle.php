@@ -7,7 +7,6 @@ namespace TemirkhanN\Venture\Battle;
 use SplStack;
 use TemirkhanN\Venture\Npc\Npc;
 use TemirkhanN\Venture\Player\Player;
-use TemirkhanN\Venture\Player\PlayerState;
 
 class Battle
 {
@@ -17,10 +16,6 @@ class Battle
     // @todo player has to be readonly but currently reflection is used to sync objects with each other
     public function __construct(private Player $player, private readonly Npc $enemy)
     {
-        if ($player->state === PlayerState::Fighting) {
-            throw new \DomainException('Player is already fighting');
-        }
-        $this->player->state = PlayerState::Fighting;
         $this->turn = 1;
 
         $this->logs = new SplStack();

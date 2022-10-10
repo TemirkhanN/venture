@@ -24,7 +24,7 @@ class Battle implements SceneInterface
     public function run(InputInterface $input, OutputInterface $output): void
     {
         $player = $this->playerRepository->find();
-        if ($player === null || !$player->isInFight()) {
+        if ($player === null) {
             return;
         }
 

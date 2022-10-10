@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Player;
+namespace TemirkhanN\Venture\Game\Component\Player;
 
 enum PlayerState: string
 {

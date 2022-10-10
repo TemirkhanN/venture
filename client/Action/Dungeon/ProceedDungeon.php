@@ -7,10 +7,10 @@ namespace TemirkhanN\Venture\Game\Action\Dungeon;
 use TemirkhanN\Venture\Battle\Battle;
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
+use TemirkhanN\Venture\Game\Component\Player\Player;
+use TemirkhanN\Venture\Game\Component\Player\PlayerState;
 use TemirkhanN\Venture\Game\Storage\BattleRepository;
 use TemirkhanN\Venture\Game\Storage\DungeonRepository;
-use TemirkhanN\Venture\Player\Player;
-use TemirkhanN\Venture\Player\PlayerState;
 
 class ProceedDungeon implements PlayerActionHandlerInterface
 {
@@ -45,7 +45,8 @@ class ProceedDungeon implements PlayerActionHandlerInterface
 
         foreach ($currentStage->monsters() as $monster) {
             if ($monster->isAlive()) {
-                $battle = new Battle($player, $monster);
+                $battle = new Battle($player->player, $monster);
+                $player->state = PlayerState::Fighting;
                 $this->battleRepository->save($battle);
 
                 return;

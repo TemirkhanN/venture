@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Game\Action\Battle;
 
-use TemirkhanN\Venture\Reward\ExperienceCalculator;
-use TemirkhanN\Venture\Reward\GenerateDrop;
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
+use TemirkhanN\Venture\Game\Component\Player\Player;
+use TemirkhanN\Venture\Game\Component\Player\PlayerState;
 use TemirkhanN\Venture\Game\Storage\BattleRepository;
 use TemirkhanN\Venture\Game\Storage\GameLogRepository;
 use TemirkhanN\Venture\Player\Action\GetBattleRewards;
-use TemirkhanN\Venture\Player\Player;
-use TemirkhanN\Venture\Player\PlayerState;
+use TemirkhanN\Venture\Reward\ExperienceCalculator;
+use TemirkhanN\Venture\Reward\GenerateDrop;
 use TemirkhanN\Venture\Utils\Iterating;
 
 class EndBattle implements PlayerActionHandlerInterface
@@ -24,7 +24,8 @@ class EndBattle implements PlayerActionHandlerInterface
         private readonly GenerateDrop $dropGenerator,
         private readonly ExperienceCalculator $experienceCalculator,
         private readonly GameLogRepository $gameLogRepository
-    ) {}
+    ) {
+    }
 
     public function handle(Player $player, ActionInterface $action): void
     {
@@ -39,7 +40,10 @@ class EndBattle implements PlayerActionHandlerInterface
 
         if ($battle->player()->isAlive() && !$battle->enemy()->isAlive()) {
             $logsBeforeAction = Iterating::toArray($battle->logs());
-            (new GetBattleRewards($player, $this->dropGenerator, $this->experienceCalculator))->receiveRewards($battle);
+
+            $action = (new GetBattleRewards($player->player, $this->dropGenerator, $this->experienceCalculator));
+            $action->receiveRewards($battle);
+
             $logsAfter = array_reverse(Iterating::toArray($battle->logs()));
 
             foreach (array_slice($logsAfter, count($logsBeforeAction)) as $lootLog) {

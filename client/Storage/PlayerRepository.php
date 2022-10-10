@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Game\Storage;
 
-use TemirkhanN\Venture\Player\Player;
+use TemirkhanN\Venture\Game\Component\Player\Player;
 
 class PlayerRepository extends AbstractObjectStorage
 {

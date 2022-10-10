@@ -6,10 +6,11 @@ namespace TemirkhanN\Venture\Game\Action\Shop;
 
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
+use TemirkhanN\Venture\Game\Component\Player\Player;
+use TemirkhanN\Venture\Game\Component\Player\PlayerState;
 use TemirkhanN\Venture\Game\Storage\PlayerRepository;
 use TemirkhanN\Venture\Game\Storage\Reference\Item;
 use TemirkhanN\Venture\Item\Prototype\ItemRepositoryInterface;
-use TemirkhanN\Venture\Player\Player;
 use TemirkhanN\Venture\Trade\Purchase\Offer;
 use TemirkhanN\Venture\Trade\Purchase\Purchase;
 
@@ -32,7 +33,7 @@ class BuyHealthPotion implements PlayerActionHandlerInterface
             return;
         }
 
-        if (!$player->isIdle()) {
+        if ($player->state !== PlayerState::Idle) {
             return;
         }
 
@@ -46,11 +47,11 @@ class BuyHealthPotion implements PlayerActionHandlerInterface
         $playerWillReceive->require($potion, 1);
         $purchase = new Purchase($playerWillPay, $playerWillReceive);
 
-        if (!$purchase->isAffordable($player)) {
+        if (!$purchase->isAffordable($player->player)) {
             return;
         }
 
-        $purchase->perform($player);
+        $purchase->perform($player->player);
 
         $this->playerRepository->save($player);
     }

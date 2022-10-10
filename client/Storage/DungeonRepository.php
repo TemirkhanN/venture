@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Game\Storage;
 
 use TemirkhanN\Venture\Dungeon\Dungeon;
-use TemirkhanN\Venture\Player\Player;
+use TemirkhanN\Venture\Game\Component\Player\Player;
 
 class DungeonRepository extends AbstractObjectStorage
 {
@@ -17,7 +17,7 @@ class DungeonRepository extends AbstractObjectStorage
         $dungeon = $this->getObject(self::CACHE_KEY, Dungeon::class);
 
         if ($dungeon !== null && $dungeon->player() !== null) {
-            (new \ReflectionProperty($dungeon, 'player'))->setValue($dungeon, $player);
+            (new \ReflectionProperty($dungeon, 'player'))->setValue($dungeon, $player->player);
         }
 
         return $dungeon;

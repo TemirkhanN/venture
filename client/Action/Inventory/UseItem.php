@@ -6,9 +6,8 @@ namespace TemirkhanN\Venture\Game\Action\Inventory;
 
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
+use TemirkhanN\Venture\Game\Component\Player\Player;
 use TemirkhanN\Venture\Game\Storage\GameLogRepository;
-use TemirkhanN\Venture\Player\Inventory\Slot;
-use TemirkhanN\Venture\Player\Player;
 
 class UseItem implements PlayerActionHandlerInterface
 {
@@ -24,7 +23,7 @@ class UseItem implements PlayerActionHandlerInterface
 
         $fromSlot = $action->getInput('fromSlot', $action::TYPE_INT);
 
-        $result = $player->useItem($fromSlot, 1);
+        $result = $player->player->useItem($fromSlot, 1);
 
         if (!$result->isSuccessful()) {
             $this->gameLogRepository->addLog($result->getError());

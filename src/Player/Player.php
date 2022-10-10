@@ -11,14 +11,9 @@ use TemirkhanN\Venture\Player\Inventory;
 use TemirkhanN\Venture\Utils\Generic\ImmutableList;
 use TemirkhanN\Venture\Utils\Id;
 
-/**
- * @todo Rethink player states. They might not be needed in the domain
- */
 class Player implements Character\CharacterInterface
 {
     use Character\CharacterTrait;
-
-    public PlayerState $state;
 
     private RecipeBook $recipeBook;
 
@@ -26,7 +21,6 @@ class Player implements Character\CharacterInterface
     {
         $this->instanceId = Id::generate('player');
         $this->id         = $this->instanceId;
-        $this->state      = PlayerState::Idle;
         $this->name       = $name;
         $this->stats      = $stats;
         $this->equipment  = new Character\Equipment\Equipment();
@@ -59,25 +53,5 @@ class Player implements Character\CharacterInterface
         }
 
         $this->exp += $amount;
-    }
-
-    public function isInDungeon(): bool
-    {
-        return $this->state == PlayerState::InDungeon;
-    }
-
-    public function isInFight(): bool
-    {
-        return $this->state == PlayerState::Fighting;
-    }
-
-    public function isIdle(): bool
-    {
-        return $this->state == PlayerState::Idle;
-    }
-
-    public function isCrafting(): bool
-    {
-        return $this->state == PlayerState::Crafting;
     }
 }

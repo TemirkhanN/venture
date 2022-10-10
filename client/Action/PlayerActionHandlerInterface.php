@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Game\Action;
 
-use TemirkhanN\Venture\Player\Player;
+use TemirkhanN\Venture\Game\Component\Player\Player;
 
 interface PlayerActionHandlerInterface
 {

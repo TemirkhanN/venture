@@ -6,8 +6,8 @@ namespace TemirkhanN\Venture\Game\Action\Cheat;
 
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
+use TemirkhanN\Venture\Game\Component\Player\Player;
 use TemirkhanN\Venture\Game\Storage\PlayerRepository;
-use TemirkhanN\Venture\Player\Player;
 
 class Heal implements PlayerActionHandlerInterface
 {
@@ -22,9 +22,9 @@ class Heal implements PlayerActionHandlerInterface
             return;
         }
 
-        $stats = $player->stats();
+        $stats = $player->player->stats();
 
-        $player->restoreHp($stats->maxHealth() - $stats->currentHealth());
+        $player->player->restoreHp($stats->maxHealth() - $stats->currentHealth());
 
         $this->playerRepository->save($player);
     }

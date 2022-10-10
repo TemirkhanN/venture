@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Game\Storage;
 
 use TemirkhanN\Venture\Battle\Battle;
-use TemirkhanN\Venture\Player\Player;
+use TemirkhanN\Venture\Game\Component\Player\Player;
 use TemirkhanN\Venture\Utils\Cache;
 
 class BattleRepository extends AbstractObjectStorage
@@ -23,7 +23,7 @@ class BattleRepository extends AbstractObjectStorage
         $battle = $this->getObject(self::CACHE_KEY, Battle::class);
 
         if ($battle !== null) {
-            (new \ReflectionProperty($battle, 'player'))->setValue($battle, $player);
+            (new \ReflectionProperty($battle, 'player'))->setValue($battle, $player->player);
         }
 
         return $battle;
@@ -48,7 +48,7 @@ class BattleRepository extends AbstractObjectStorage
      */
     private function syncWithDungeon(Battle $battle): void
     {
-        $dungeon = $this->dungeonRepository->find($battle->player());
+        $dungeon = $this->dungeonRepository->find(new Player($battle->player()));
         if ($dungeon === null) {
             return;
         }

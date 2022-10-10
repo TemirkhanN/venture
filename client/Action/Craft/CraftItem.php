@@ -7,9 +7,10 @@ namespace TemirkhanN\Venture\Game\Action\Craft;
 use TemirkhanN\Venture\Craft\RecipeRepository;
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
+use TemirkhanN\Venture\Game\Component\Player\Player;
+use TemirkhanN\Venture\Game\Component\Player\PlayerState;
 use TemirkhanN\Venture\Item\Prototype\ItemRepositoryInterface;
 use TemirkhanN\Venture\Player\Action\Craft;
-use TemirkhanN\Venture\Player\Player;
 
 class CraftItem implements PlayerActionHandlerInterface
 {
@@ -28,13 +29,13 @@ class CraftItem implements PlayerActionHandlerInterface
             return;
         }
 
-        if (!$player->isCrafting()) {
+        if ($player->state !== PlayerState::Crafting) {
             return;
         }
 
         $recipeId = $action->getInput('recipeId', ActionInterface::TYPE_STRING);
         $recipe = $this->recipeRepository->getById($recipeId);
 
-        (new Craft($player, $this->itemRepository))->perform($recipe);
+        (new Craft($player->player, $this->itemRepository))->perform($recipe);
     }
 }

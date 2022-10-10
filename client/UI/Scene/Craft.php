@@ -6,6 +6,7 @@ namespace TemirkhanN\Venture\Game\UI\Scene;
 
 use TemirkhanN\Venture\Craft\Recipe;
 use TemirkhanN\Venture\Craft\RecipeRepository;
+use TemirkhanN\Venture\Game\Component\Player\Player;
 use TemirkhanN\Venture\Game\IO\InputInterface;
 use TemirkhanN\Venture\Game\IO\OutputInterface;
 use TemirkhanN\Venture\Game\Storage\PlayerRepository;
@@ -13,7 +14,6 @@ use TemirkhanN\Venture\Game\UI\Renderer\RendererInterface;
 use TemirkhanN\Venture\Game\UI\SceneInterface;
 use TemirkhanN\Venture\Item\Prototype\Resource;
 use TemirkhanN\Venture\Player\Inventory\Slot;
-use TemirkhanN\Venture\Player\Player;
 
 class Craft implements SceneInterface
 {
@@ -48,7 +48,7 @@ class Craft implements SceneInterface
     private function getPlayerResources(Player $player): iterable
     {
         /** @var Slot $slot */
-        foreach ($player->showInventory() as $slot) {
+        foreach ($player->player->showInventory() as $slot) {
             if (!$slot->isEmpty() && Resource::isResource($slot->item)) {
                 yield $slot;
             }
@@ -63,7 +63,7 @@ class Craft implements SceneInterface
     private function getPlayerRecipes(Player $player): iterable
     {
         $recipes = [];
-        foreach ($player->recipeBook() as $recipeId) {
+        foreach ($player->player->recipeBook() as $recipeId) {
             $recipes[] = $this->recipeRepository->getById((string) $recipeId);
         }
 
