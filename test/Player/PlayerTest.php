@@ -6,7 +6,7 @@ namespace TemirkhanN\Venture\Player;
 
 use PHPUnit\Framework\TestCase;
 use TemirkhanN\Venture\Character\Equipment\EquipmentItem;
-use TemirkhanN\Venture\Character\Stats;
+use TemirkhanN\Venture\Character\Stats\Stats;
 use TemirkhanN\Venture\Item\Armor;
 use TemirkhanN\Venture\Item\Consumable;
 use TemirkhanN\Venture\Item\Prototype\Armor as ArmorPrototype;

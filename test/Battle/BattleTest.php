@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Battle;
 
 use PHPUnit\Framework\TestCase;
-use TemirkhanN\Venture\Character\Stats;
+use TemirkhanN\Venture\Character\Stats\Stats;
 use TemirkhanN\Venture\Npc\Npc;
 use TemirkhanN\Venture\Player\Player;
 use TemirkhanN\Venture\Utils\Id;

@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Game\UI\Scene;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
-use TemirkhanN\Venture\Character\Stats;
+use TemirkhanN\Venture\Character\Stats\Stats;
 use TemirkhanN\Venture\Craft\RecipeRepository;
 use TemirkhanN\Venture\Game\Component\Player\Player;
-use TemirkhanN\Venture\Reward\Loot;
 use TemirkhanN\Venture\Game\IO\InputInterface;
 use TemirkhanN\Venture\Game\IO\OutputInterface;
 use TemirkhanN\Venture\Game\Storage\PlayerRepository;
@@ -19,6 +18,7 @@ use TemirkhanN\Venture\Game\UI\Renderer\RendererInterface;
 use TemirkhanN\Venture\Game\UI\SceneInterface;
 use TemirkhanN\Venture\Item\Prototype\ItemRepository;
 use TemirkhanN\Venture\Player\Player as PlayerModel;
+use TemirkhanN\Venture\Reward\Loot;
 
 class NewGame implements SceneInterface
 {

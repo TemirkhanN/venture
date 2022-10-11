@@ -7,7 +7,7 @@ namespace TemirkhanN\Venture\Npc;
 use TemirkhanN\Venture\Character\CharacterInterface;
 use TemirkhanN\Venture\Character\CharacterTrait;
 use TemirkhanN\Venture\Character\Equipment\Equipment;
-use TemirkhanN\Venture\Character\Stats;
+use TemirkhanN\Venture\Character\Stats\Stats;
 use TemirkhanN\Venture\Player\Inventory\Inventory;
 use TemirkhanN\Venture\Utils\Id;
 

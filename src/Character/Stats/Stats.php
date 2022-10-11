@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Character;
+namespace TemirkhanN\Venture\Character\Stats;
 
 class Stats implements StatsInterface
 {
@@ -13,6 +13,10 @@ class Stats implements StatsInterface
         private readonly int $defence,
         private readonly int $maxHealth
     ) {
+        if ($this->maxHealth < 1) {
+            throw new \LogicException('Max health can not be lesser than 1');
+        }
+
         $this->currentHealth = $this->maxHealth;
     }
 

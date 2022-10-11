@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Character\Prototype;
 
-use TemirkhanN\Venture\Character\StatsInterface;
+use TemirkhanN\Venture\Character\Stats\StatsInterface;
 use TemirkhanN\Venture\Utils\Id;
 
 interface CharacterInterface

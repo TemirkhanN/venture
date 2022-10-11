@@ -17,7 +17,7 @@ class Player implements Character\CharacterInterface
 
     private RecipeBook $recipeBook;
 
-    public function __construct(string $name, Character\Stats $stats)
+    public function __construct(string $name, Character\Stats\Stats $stats)
     {
         $this->instanceId = Id::generate('player');
         $this->id         = $this->instanceId;

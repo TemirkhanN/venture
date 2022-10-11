@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Character\Stats;
 
 use TemirkhanN\Venture\Character\Equipment;
-use TemirkhanN\Venture\Character\StatsInterface;
 
 class EquipmentBoostedStats extends AbstractBoostedStats implements StatsInterface
 {

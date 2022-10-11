@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Character\Stats;
 
-use TemirkhanN\Venture\Character\StatsInterface;
-
 abstract class AbstractBoostedStats implements StatsInterface
 {
     protected int $bonusAttack;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Character;
+namespace TemirkhanN\Venture\Character\Stats;
 
 interface StatsInterface
 {

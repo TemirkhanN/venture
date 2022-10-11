@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Character\Stats;
 
-use TemirkhanN\Venture\Character\Stats;
-
 class LevelBoostedStats extends AbstractBoostedStats
 {
     public function __construct(int $lvl, Stats $baseStats)

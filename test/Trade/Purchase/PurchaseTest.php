@@ -6,11 +6,11 @@ namespace TemirkhanN\Venture\Trade\Purchase;
 
 use PHPUnit\Framework\TestCase;
 use TemirkhanN\Venture\Character\CharacterInterface;
-use TemirkhanN\Venture\Character\Stats;
-use TemirkhanN\Venture\Reward\Loot;
+use TemirkhanN\Venture\Character\Stats\Stats;
 use TemirkhanN\Venture\Item\Prototype\Currency;
 use TemirkhanN\Venture\Item\Prototype\Resource;
 use TemirkhanN\Venture\Player\Player;
+use TemirkhanN\Venture\Reward\Loot;
 use TemirkhanN\Venture\Utils\Id;
 
 class PurchaseTest extends TestCase

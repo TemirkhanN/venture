@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Npc;
 
-use TemirkhanN\Venture\Character\Stats;
+use TemirkhanN\Venture\Character\Stats\Stats;
 use TemirkhanN\Venture\Utils\Db\Table;
 use TemirkhanN\Venture\Utils\Id;
 
