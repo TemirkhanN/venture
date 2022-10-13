@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Player;
 
+use TemirkhanN\Generic\Collection\CollectionInterface;
 use TemirkhanN\Venture\Character;
 use TemirkhanN\Venture\Craft\Recipe;
 use TemirkhanN\Venture\Craft\RecipeBook;
 use TemirkhanN\Venture\Player\Inventory;
-use TemirkhanN\Venture\Utils\Generic\ImmutableList;
 use TemirkhanN\Venture\Utils\Id;
 
 class Player implements Character\CharacterInterface
@@ -29,9 +29,9 @@ class Player implements Character\CharacterInterface
     }
 
     /**
-     * @return ImmutableList<Id>
+     * @return CollectionInterface<Id>
      */
-    public function recipeBook(): ImmutableList
+    public function recipeBook(): CollectionInterface
     {
         return $this->recipeBook->listRecipes();
     }

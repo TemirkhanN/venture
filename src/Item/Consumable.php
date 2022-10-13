@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Item;
 
+use TemirkhanN\Generic\Collection\CollectionInterface;
 use TemirkhanN\Venture\Item\Effect\EffectInterface;
 use TemirkhanN\Venture\Item\Prototype\Consumable as ConsumablePrototype;
-use TemirkhanN\Venture\Utils\Generic\ImmutableList;
 use TemirkhanN\Venture\Utils\Id;
 
 class Consumable implements ItemInterface
 {
     use ItemInstanceTrait;
 
-    private readonly ImmutableList $effects;
+    private readonly CollectionInterface $effects;
 
     public function __construct(ConsumablePrototype $consumable)
     {
@@ -25,9 +25,9 @@ class Consumable implements ItemInterface
     }
 
     /**
-     * @return ImmutableList<EffectInterface>
+     * @return CollectionInterface<EffectInterface>
      */
-    public function effects(): ImmutableList
+    public function effects(): CollectionInterface
     {
         return $this->effects;
     }

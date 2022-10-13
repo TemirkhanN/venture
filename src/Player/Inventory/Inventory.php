@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace TemirkhanN\Venture\Player\Inventory;
 
 use IteratorAggregate;
+use TemirkhanN\Generic\Collection\Collection;
+use TemirkhanN\Generic\Collection\CollectionInterface;
+use TemirkhanN\Generic\Result;
+use TemirkhanN\Generic\ResultInterface;
 use TemirkhanN\Venture\Item;
-use TemirkhanN\Venture\Utils\Generic\ImmutableList;
-use TemirkhanN\Venture\Utils\Generic\Result;
 use Traversable;
 
 class Inventory implements IteratorAggregate
@@ -78,7 +80,7 @@ class Inventory implements IteratorAggregate
         return Result::error('Inventory is full');
     }
 
-    public function removeItem(int $slotPosition, ?int $amount): Result
+    public function removeItem(int $slotPosition, ?int $amount): ResultInterface
     {
         $index = $slotPosition - 1;
 
@@ -118,11 +120,11 @@ class Inventory implements IteratorAggregate
     }
 
     /**
-     * @return ImmutableList<Slot>
+     * @return CollectionInterface<Slot>
      */
     public function getIterator(): Traversable
     {
-        return new ImmutableList($this->slots());
+        return new Collection($this->slots());
     }
 
     public function getSlot(int $position): Slot

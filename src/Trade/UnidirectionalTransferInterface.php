@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Trade;
 
+use TemirkhanN\Generic\ResultInterface;
 use TemirkhanN\Venture\Character\CharacterInterface;
-use TemirkhanN\Venture\Utils\Generic\Result;
 
 interface UnidirectionalTransferInterface
 {
@@ -14,7 +14,7 @@ interface UnidirectionalTransferInterface
     /**
      * @param CharacterInterface $by
      *
-     * @return Result<void>
+     * @return ResultInterface<void>
      */
-    public function perform(CharacterInterface $by): Result;
+    public function perform(CharacterInterface $by): ResultInterface;
 }

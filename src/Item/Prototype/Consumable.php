@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Item\Prototype;
 
+use TemirkhanN\Generic\Collection\Collection;
+use TemirkhanN\Generic\Collection\CollectionInterface;
 use TemirkhanN\Venture\Item\Effect\EffectInterface;
 use TemirkhanN\Venture\Item\ItemInterface as ItemInstance;
-use TemirkhanN\Venture\Utils\Generic\ImmutableList;
 use TemirkhanN\Venture\Utils\Id;
 
 class Consumable implements ItemInterface
@@ -38,11 +39,11 @@ class Consumable implements ItemInterface
     }
 
     /**
-     * @return ImmutableList<EffectInterface>
+     * @return CollectionInterface<EffectInterface>
      */
-    public function effects(): ImmutableList
+    public function effects(): CollectionInterface
     {
-        return new ImmutableList($this->effects);
+        return new Collection($this->effects);
     }
 
     public function replicate(): ItemInstance

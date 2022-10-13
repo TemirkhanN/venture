@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Player\Action;
 
+use TemirkhanN\Generic\Result;
+use TemirkhanN\Generic\ResultInterface;
 use TemirkhanN\Venture\Craft\CraftResult;
 use TemirkhanN\Venture\Craft\Recipe;
 use TemirkhanN\Venture\Item\Prototype\ItemRepository;
 use TemirkhanN\Venture\Player\Player;
 use TemirkhanN\Venture\Trade\Purchase\Offer;
 use TemirkhanN\Venture\Trade\Purchase\Purchase;
-use TemirkhanN\Venture\Utils\Generic\Result;
 
 class Craft
 {
@@ -22,9 +23,9 @@ class Craft
     /**
      * @param Recipe $recipe
      *
-     * @return Result<CraftResult>
+     * @return ResultInterface<CraftResult>
      */
-    public function perform(Recipe $recipe): Result
+    public function perform(Recipe $recipe): ResultInterface
     {
         if (!$this->player->knowsRecipe($recipe)) {
             return Result::error('Player can not use recipe that he does not know');

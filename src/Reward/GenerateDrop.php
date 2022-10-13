@@ -25,7 +25,6 @@ class GenerateDrop
     {
         $dropChances = $this->dropChanceRepository->findAllByNpcId((string)$npc->id());
         if ($dropChances->isSuccessful()) {
-            /** @var DropChance $dropChance */
             foreach ($dropChances->getData() as $dropChance) {
                 if (Chance::raw($dropChance->chance)->roll()) {
                     $item = $this->itemRepository->getById((string) $dropChance->item);

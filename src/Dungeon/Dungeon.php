@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Dungeon;
 
+use TemirkhanN\Generic\Result;
+use TemirkhanN\Generic\ResultInterface;
 use TemirkhanN\Venture\Player\Player;
-use TemirkhanN\Venture\Utils\Generic\Result;
 
 class Dungeon
 {
@@ -25,7 +26,7 @@ class Dungeon
         $this->stages = array_values($stages);
     }
 
-    public function enter(Player $player): Result
+    public function enter(Player $player): ResultInterface
     {
         if ($this->player !== null) {
             return Result::error('This dungeon was already visited by player');

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Character\Equipment;
 
-use TemirkhanN\Venture\Utils\Generic\ImmutableList;
+use TemirkhanN\Generic\Collection\Collection;
+use TemirkhanN\Generic\Collection\CollectionInterface;
 
 class Equipment
 {
@@ -14,11 +15,11 @@ class Equipment
     private array $items = [];
 
     /**
-     * @return ImmutableList<EquipmentItem>
+     * @return CollectionInterface<EquipmentItem>
      */
-    public function list(): ImmutableList
+    public function list(): CollectionInterface
     {
-        return new ImmutableList($this->items);
+        return new Collection($this->items);
     }
 
     public function equip(EquipmentItem $item): void

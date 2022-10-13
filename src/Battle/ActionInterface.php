@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Battle;
 
-use TemirkhanN\Venture\Utils\Generic\Result;
+
+use TemirkhanN\Generic\ResultInterface;
 
 interface ActionInterface
 {
-    public function perform(Battle $at): Result;
+    public function perform(Battle $at): ResultInterface;
 }

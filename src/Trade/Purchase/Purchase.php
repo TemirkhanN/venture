@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Trade\Purchase;
 
+use TemirkhanN\Generic\Result;
+use TemirkhanN\Generic\ResultInterface;
 use TemirkhanN\Venture\Character\CharacterInterface;
 use TemirkhanN\Venture\Reward\Loot;
 use TemirkhanN\Venture\Player\Inventory\Slot;
 use TemirkhanN\Venture\Trade\UnidirectionalTransferInterface;
-use TemirkhanN\Venture\Utils\Generic\Result;
 
 class Purchase implements UnidirectionalTransferInterface
 {
@@ -71,7 +72,7 @@ class Purchase implements UnidirectionalTransferInterface
         return $unfulfilledRequirements === [];
     }
 
-    public function perform(CharacterInterface $by): Result
+    public function perform(CharacterInterface $by): ResultInterface
     {
         if (!$this->isAffordable($by)) {
             return Result::error('Character can not afford this purchase');

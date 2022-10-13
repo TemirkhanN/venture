@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Reward;
 
+use TemirkhanN\Generic\Result;
+use TemirkhanN\Generic\ResultInterface;
 use TemirkhanN\Venture\Utils\Db\Table;
-use TemirkhanN\Venture\Utils\Generic\Result;
 use TemirkhanN\Venture\Utils\Id;
 
 class DropChanceRepository
@@ -20,9 +21,9 @@ class DropChanceRepository
     /**
      * @param string $id
      *
-     * @return Result<iterable<DropChance>>
+     * @return ResultInterface<iterable<DropChance>>
      */
-    public function findAllByNpcId(string $id): Result
+    public function findAllByNpcId(string $id): ResultInterface
     {
         $raw = $this->tableGateway->findById($id);
         if ($raw === null) {

@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Character\Action;
 
+use TemirkhanN\Generic\Result;
+use TemirkhanN\Generic\ResultInterface;
 use TemirkhanN\Venture\Battle;
-use TemirkhanN\Venture\Utils\Generic\Result;
 
 class Attack implements Battle\ActionInterface
 {
-    public function perform(Battle\Battle $at): Result
+    public function perform(Battle\Battle $at): ResultInterface
     {
         if ($at->isOver()) {
             return Result::error('Can not perform actions in inactive battle.');

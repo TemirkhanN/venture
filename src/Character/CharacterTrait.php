@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Character;
 
+use TemirkhanN\Generic\Collection\Collection;
+use TemirkhanN\Generic\Collection\CollectionInterface;
+use TemirkhanN\Generic\Result;
+use TemirkhanN\Generic\ResultInterface;
 use TemirkhanN\Venture\Character\Equipment\EquipmentItem;
 use TemirkhanN\Venture\Character\Stats\EquipmentBoostedStats;
 use TemirkhanN\Venture\Character\Stats\LevelBoostedStats;
@@ -12,8 +16,6 @@ use TemirkhanN\Venture\Character\Stats\StatsInterface;
 use TemirkhanN\Venture\Item;
 use TemirkhanN\Venture\Player\Inventory;
 use TemirkhanN\Venture\Reward\Loot;
-use TemirkhanN\Venture\Utils\Generic\ImmutableList;
-use TemirkhanN\Venture\Utils\Generic\Result;
 use TemirkhanN\Venture\Utils\Id;
 
 trait CharacterTrait
@@ -74,11 +76,11 @@ trait CharacterTrait
     }
 
     /**
-     * @return ImmutableList<Inventory\Slot>
+     * @return CollectionInterface<Inventory\Slot>
      */
-    public function showInventory(): ImmutableList
+    public function showInventory(): CollectionInterface
     {
-        return new ImmutableList($this->inventory->slots());
+        return new Collection($this->inventory->slots());
     }
 
     // todo check if it is necessary to expose this
@@ -98,9 +100,9 @@ trait CharacterTrait
     }
 
     /**
-     * @return ImmutableList<Equipment\EquipmentItem>
+     * @return CollectionInterface<Equipment\EquipmentItem>
      */
-    public function equipment(): ImmutableList
+    public function equipment(): CollectionInterface
     {
         return $this->equipment->list();
     }
@@ -119,12 +121,12 @@ trait CharacterTrait
         return false;
     }
 
-    public function discardItem(int $slotPosition, ?int $amount = null): Result
+    public function discardItem(int $slotPosition, ?int $amount = null): ResultInterface
     {
         return $this->inventory->removeItem($slotPosition, $amount);
     }
 
-    public function loot(Loot $loot): Result
+    public function loot(Loot $loot): ResultInterface
     {
         return $this->inventory->putItem($loot->item, $loot->amount);
     }
