@@ -48,6 +48,11 @@
         function cheatRestoreHealth() {
             performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\Cheat\\Heal::ACTION_NAME') }}');
         }
+
+        function exit() {
+            sendPost({exit: true});
+            document.location.reload();
+        }
     </script>
     {% block header %}
     {% endblock %}
@@ -56,6 +61,6 @@
 <div>
     {% block content %}{% endblock %}
 </div>
-<a style="position: absolute; right: 0; top: 0;" href="/?exit">CLOSE APPLICATION</a>
+<a style="position: absolute; right: 0; top: 0;" href="javascript:void(0)" onclick="exit()">EXIT</a>
 </body>
 </html>

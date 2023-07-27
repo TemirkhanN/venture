@@ -64,14 +64,6 @@ class WebLauncher
 
     private function handleRequest(ServerRequestInterface $request): ?Response
     {
-        if (array_key_exists('exit', $request->getQueryParams())) {
-            echo 'Stopping...' . PHP_EOL;
-
-            Loop::addTimer(1, [Loop::class, 'stop']);
-
-            return Response::plaintext('Application stopped');
-        }
-
         $path = $request->getUri()->getPath();
         if (str_starts_with($path, '/assets/images/') ||
             str_starts_with($path, '/favicon.ico')
@@ -80,6 +72,15 @@ class WebLauncher
         }
 
         $input = $this->readInput($request);
+
+        if ($input->get('exit') !== null) {
+            echo 'Stopping...' . PHP_EOL;
+
+            Loop::addTimer(1, [Loop::class, 'stop']);
+
+            return Response::plaintext('Application stopped');
+        }
+
         try {
             $this->app->run($input);
         } catch (Throwable $e) {
