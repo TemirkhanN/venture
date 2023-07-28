@@ -61,6 +61,10 @@ class Battle
 
     /**
      * @return iterable<string>
+     *
+     * @usedBy twig template
+     *
+     * @todo move to observer driven
      */
     public function logs(): iterable
     {

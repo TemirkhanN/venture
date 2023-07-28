@@ -4,27 +4,23 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Game\Action\Battle;
 
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TemirkhanN\Venture\Game\Action\ActionInterface;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
 use TemirkhanN\Venture\Game\Component\Player\Player;
 use TemirkhanN\Venture\Game\Component\Player\PlayerState;
 use TemirkhanN\Venture\Game\Storage\BattleRepository;
-use TemirkhanN\Venture\Game\Storage\GameLogRepository;
-use TemirkhanN\Venture\Player\Action\GetBattleRewards;
-use TemirkhanN\Venture\Reward\ExperienceCalculator;
-use TemirkhanN\Venture\Reward\GenerateDrop;
-use TemirkhanN\Venture\Utils\Iterating;
+use TemirkhanN\Venture\Npc\Event\NpcKilled;
 
-class EndBattle implements PlayerActionHandlerInterface
+readonly class EndBattle implements PlayerActionHandlerInterface
 {
     public const ACTION_NAME = 'EndBattle';
 
     public function __construct(
-        private readonly BattleRepository $battleRepository,
-        private readonly GenerateDrop $dropGenerator,
-        private readonly ExperienceCalculator $experienceCalculator,
-        private readonly GameLogRepository $gameLogRepository
-    ) {
+        private BattleRepository         $battleRepository,
+        private EventDispatcherInterface $eventDispatcher
+    )
+    {
     }
 
     public function handle(Player $player, ActionInterface $action): void
@@ -38,24 +34,17 @@ class EndBattle implements PlayerActionHandlerInterface
             return;
         }
 
-        if ($battle->player()->isAlive() && !$battle->enemy()->isAlive()) {
-            $logsBeforeAction = Iterating::toArray($battle->logs());
-
-            $action = (new GetBattleRewards($player->player, $this->dropGenerator, $this->experienceCalculator));
-            $action->receiveRewards($battle);
-
-            $logsAfter = array_reverse(Iterating::toArray($battle->logs()));
-
-            foreach (array_slice($logsAfter, count($logsBeforeAction)) as $lootLog) {
-                $this->gameLogRepository->addLog($lootLog);
-            }
+        $enemy = $battle->enemy();
+        if ($player->player->isAlive() && !$enemy->isAlive()) {
+            $this->eventDispatcher->dispatch(new NpcKilled($enemy, $player->player));
         }
 
         // Enemy has to restore health to prevent player from using attack=>flee exploit
-        if ($battle->enemy()->isAlive()) {
-            $battle->enemy()->restoreHp();
+        if ($enemy->isAlive()) {
+            $enemy->restoreHp();
         }
 
+        // @todo FSM
         $player->state = PlayerState::InDungeon;
 
         $this->battleRepository->end($battle);

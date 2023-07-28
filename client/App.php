@@ -11,10 +11,13 @@ use TemirkhanN\Venture\Game\Action\ActionInput;
 use TemirkhanN\Venture\Game\Action\PlayerActionHandlerBus;
 use TemirkhanN\Venture\Game\IO\InputInterface;
 use TemirkhanN\Venture\Game\IO\OutputInterface;
+use TemirkhanN\Venture\Game\Storage\GameLogRepository;
 use TemirkhanN\Venture\Game\UI\Event\PerformGUITransition;
 use TemirkhanN\Venture\Game\UI\Event\Transition;
 use TemirkhanN\Venture\Game\UI\SceneInterface;
 use TemirkhanN\Venture\Game\UI\Scene\Main;
+use TemirkhanN\Venture\Kernel;
+use TemirkhanN\Venture\Utils\Networking\SystemMessageBus;
 
 class App
 {
@@ -69,6 +72,11 @@ class App
             return;
         }
         $this->isRunning = true;
+
+        Kernel::load($this->serviceLocator);
+
+        $gameLogger = $this->serviceLocator->get(GameLogRepository::class);
+        SystemMessageBus::addConsumer($gameLogger);
 
         $this->playerActionHandler = $this->serviceLocator->get(PlayerActionHandlerBus::class);
 

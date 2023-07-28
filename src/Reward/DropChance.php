@@ -6,9 +6,9 @@ namespace TemirkhanN\Venture\Reward;
 
 use TemirkhanN\Venture\Utils\Id;
 
-class DropChance
+readonly class DropChance
 {
-    public function __construct(public readonly Id $item, public readonly int $amount, public readonly float $chance)
+    public function __construct(public Id $item, public int $amount, public float $chance)
     {
     }
 }

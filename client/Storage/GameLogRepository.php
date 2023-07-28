@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace TemirkhanN\Venture\Game\Storage;
 
-class GameLogRepository
+use TemirkhanN\Venture\Utils\Networking\ConsumerInterface;
+
+class GameLogRepository implements ConsumerInterface
 {
     private \SplQueue $logs;
 
@@ -26,5 +28,10 @@ class GameLogRepository
         while (!$this->logs->isEmpty()) {
             yield $this->logs->dequeue();
         }
+    }
+
+    public function consume(string $message): void
+    {
+        $this->addLog($message);
     }
 }
