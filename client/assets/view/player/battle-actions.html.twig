@@ -2,15 +2,15 @@
 {% block header %}
     <script>
         function attackEnemy() {
-            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\Battle\\Attack::ACTION_NAME') }}');
+            performAction('{{ constant('GameClient\\Action\\Battle\\Attack::ACTION_NAME') }}');
         }
 
         function nextTurn() {
-            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\Battle\\NextTurn::ACTION_NAME') }}');
+            performAction('{{ constant('GameClient\\Action\\Battle\\NextTurn::ACTION_NAME') }}');
         }
 
         function endBattle() {
-            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\Battle\\EndBattle::ACTION_NAME') }}');
+            performAction('{{ constant('GameClient\\Action\\Battle\\EndBattle::ACTION_NAME') }}');
         }
     </script>
 {% endblock %}

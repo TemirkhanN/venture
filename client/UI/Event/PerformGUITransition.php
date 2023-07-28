@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\UI\Event;
+namespace GameClient\UI\Event;
 
 use League\Event\Listener;
-use TemirkhanN\Venture\Game\App;
+use GameClient\App;
 
 class PerformGUITransition implements Listener
 {

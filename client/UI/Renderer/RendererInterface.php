@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\UI\Renderer;
+namespace GameClient\UI\Renderer;
 
 interface RendererInterface
 {

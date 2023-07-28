@@ -1,11 +1,11 @@
 {% block header %}
     <script>
         function equipItem(inventorySlotPosition) {
-            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\Inventory\\EquipItem::ACTION_NAME') }}', {fromSlot: inventorySlotPosition});
+            performAction('{{ constant('GameClient\\Action\\Inventory\\EquipItem::ACTION_NAME') }}', {fromSlot: inventorySlotPosition});
         }
 
         function useItem(inventorySlotPosition) {
-            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\Inventory\\UseItem::ACTION_NAME') }}', {fromSlot: inventorySlotPosition});
+            performAction('{{ constant('GameClient\\Action\\Inventory\\UseItem::ACTION_NAME') }}', {fromSlot: inventorySlotPosition});
         }
     </script>
     <style>

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use TemirkhanN\Venture\Game\Launcher\WebLauncher;
+use GameClient\Launcher\WebLauncher;
 
 ini_set('memory_limit','10M');
 
@@ -17,7 +17,7 @@ require_once __DIR__ . '/../bootstrap.php';
 
 $di = require __DIR__ .'/di.php';
 
-/** @var \TemirkhanN\Venture\Game\Launcher\WebLauncher $launcher */
+/** @var \GameClient\Launcher\WebLauncher $launcher */
 $launcher = $di->get(WebLauncher::class);
 
 $launcher->run($host . ':8080');

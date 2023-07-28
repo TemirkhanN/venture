@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\Action\Dungeon;
+namespace GameClient\Action\Dungeon;
 
 use TemirkhanN\Venture\Battle\Battle;
-use TemirkhanN\Venture\Game\Action\ActionInterface;
-use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
-use TemirkhanN\Venture\Game\Component\Player\Player;
-use TemirkhanN\Venture\Game\Component\Player\PlayerState;
-use TemirkhanN\Venture\Game\Storage\BattleRepository;
-use TemirkhanN\Venture\Game\Storage\DungeonRepository;
+use GameClient\Action\ActionInterface;
+use GameClient\Action\PlayerActionHandlerInterface;
+use GameClient\Component\Player\Player;
+use GameClient\Component\Player\PlayerState;
+use GameClient\Storage\BattleRepository;
+use GameClient\Storage\DungeonRepository;
 
 class ProceedDungeon implements PlayerActionHandlerInterface
 {

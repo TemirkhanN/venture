@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\Storage;
+namespace GameClient\Storage;
 
 use TemirkhanN\Venture\Dungeon\Dungeon;
-use TemirkhanN\Venture\Game\Component\Player\Player;
+use GameClient\Component\Player\Player;
 
 class DungeonRepository extends AbstractObjectStorage
 {

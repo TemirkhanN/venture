@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\Action\Dungeon;
+namespace GameClient\Action\Dungeon;
 
-use TemirkhanN\Venture\Game\Action\ActionInterface;
-use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
-use TemirkhanN\Venture\Game\Component\Player\Player;
-use TemirkhanN\Venture\Game\Component\Player\PlayerState;
-use TemirkhanN\Venture\Game\Storage\DungeonRepository;
-use TemirkhanN\Venture\Game\Storage\PlayerRepository;
+use GameClient\Action\ActionInterface;
+use GameClient\Action\PlayerActionHandlerInterface;
+use GameClient\Component\Player\Player;
+use GameClient\Component\Player\PlayerState;
+use GameClient\Storage\DungeonRepository;
+use GameClient\Storage\PlayerRepository;
 
 class LeaveDungeon implements PlayerActionHandlerInterface
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\Action;
+namespace GameClient\Action;
 
-use TemirkhanN\Venture\Game\Component\Player\Player;
+use GameClient\Component\Player\Player;
 
 interface PlayerActionHandlerInterface
 {

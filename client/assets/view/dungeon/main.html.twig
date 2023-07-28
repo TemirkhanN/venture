@@ -3,11 +3,11 @@
 {% block header %}
     <script>
         function proceedDungeon() {
-            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\Dungeon\\ProceedDungeon::ACTION_NAME') }}');
+            performAction('{{ constant('GameClient\\Action\\Dungeon\\ProceedDungeon::ACTION_NAME') }}');
         }
 
         function leaveDungeon() {
-            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\Dungeon\\LeaveDungeon::ACTION_NAME') }}');
+            performAction('{{ constant('GameClient\\Action\\Dungeon\\LeaveDungeon::ACTION_NAME') }}');
         }
     </script>
 {% endblock %}

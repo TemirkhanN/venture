@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\Action\Battle;
+namespace GameClient\Action\Battle;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
-use TemirkhanN\Venture\Game\Action\ActionInterface;
-use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
-use TemirkhanN\Venture\Game\Component\Player\Player;
-use TemirkhanN\Venture\Game\Component\Player\PlayerState;
-use TemirkhanN\Venture\Game\Storage\BattleRepository;
+use GameClient\Action\ActionInterface;
+use GameClient\Action\PlayerActionHandlerInterface;
+use GameClient\Component\Player\Player;
+use GameClient\Component\Player\PlayerState;
+use GameClient\Storage\BattleRepository;
 use TemirkhanN\Venture\Npc\Event\NpcKilled;
 
 readonly class EndBattle implements PlayerActionHandlerInterface

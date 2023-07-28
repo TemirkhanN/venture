@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\UI;
+namespace GameClient\UI;
 
-use TemirkhanN\Venture\Game\IO\InputInterface;
-use TemirkhanN\Venture\Game\IO\OutputInterface;
+use GameClient\IO\InputInterface;
+use GameClient\IO\OutputInterface;
 
 interface SceneInterface
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\Action;
+namespace GameClient\Action;
 
-use TemirkhanN\Venture\Game\IO\InputInterface;
+use GameClient\IO\InputInterface;
 
 class ActionInput implements ActionInterface
 {

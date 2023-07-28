@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\Launcher;
+namespace GameClient\Launcher;
 
 use Exception;
 use Psr\Http\Message\ServerRequestInterface;
@@ -10,10 +10,10 @@ use React\EventLoop\Loop;
 use React\Http\HttpServer;
 use React\Http\Message\Response;
 use React\Socket\SocketServer;
-use TemirkhanN\Venture\Game\App;
-use TemirkhanN\Venture\Game\IO\HttpInput;
-use TemirkhanN\Venture\Game\IO\InputInterface;
-use TemirkhanN\Venture\Game\IO\Printer;
+use GameClient\App;
+use GameClient\IO\HttpInput;
+use GameClient\IO\InputInterface;
+use GameClient\IO\Printer;
 use Throwable;
 use const APP_DIR;
 

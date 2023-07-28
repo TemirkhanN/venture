@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\UI\Scene;
+namespace GameClient\UI\Scene;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TemirkhanN\Venture\Character\Stats\Stats;
 use TemirkhanN\Venture\Craft\RecipeRepository;
-use TemirkhanN\Venture\Game\Component\Player\Player;
-use TemirkhanN\Venture\Game\IO\InputInterface;
-use TemirkhanN\Venture\Game\IO\OutputInterface;
-use TemirkhanN\Venture\Game\Storage\PlayerRepository;
-use TemirkhanN\Venture\Game\Storage\Reference\Item;
-use TemirkhanN\Venture\Game\Storage\Reference\Recipe;
-use TemirkhanN\Venture\Game\UI\Event\Transition;
-use TemirkhanN\Venture\Game\UI\Renderer\RendererInterface;
-use TemirkhanN\Venture\Game\UI\SceneInterface;
+use GameClient\Component\Player\Player;
+use GameClient\IO\InputInterface;
+use GameClient\IO\OutputInterface;
+use GameClient\Storage\PlayerRepository;
+use GameClient\Storage\Reference\Item;
+use GameClient\Storage\Reference\Recipe;
+use GameClient\UI\Event\Transition;
+use GameClient\UI\Renderer\RendererInterface;
+use GameClient\UI\SceneInterface;
 use TemirkhanN\Venture\Item\Prototype\ItemRepository;
 use TemirkhanN\Venture\Player\Player as PlayerModel;
 use TemirkhanN\Venture\Reward\Loot;

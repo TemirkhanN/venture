@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\IO;
+namespace GameClient\IO;
 
 interface OutputInterface
 {

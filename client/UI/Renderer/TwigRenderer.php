@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\UI\Renderer;
+namespace GameClient\UI\Renderer;
 
 use Psr\Container\ContainerInterface;
-use TemirkhanN\Venture\Game\UI\Renderer\Extension;
+use GameClient\UI\Renderer\Extension;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 

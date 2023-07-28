@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\Action\Inventory;
+namespace GameClient\Action\Inventory;
 
-use TemirkhanN\Venture\Game\Action\ActionInterface;
-use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
-use TemirkhanN\Venture\Game\Component\Player\Player;
-use TemirkhanN\Venture\Game\Storage\GameLogRepository;
+use GameClient\Action\ActionInterface;
+use GameClient\Action\PlayerActionHandlerInterface;
+use GameClient\Component\Player\Player;
+use GameClient\Storage\GameLogRepository;
 
 class UseItem implements PlayerActionHandlerInterface
 {

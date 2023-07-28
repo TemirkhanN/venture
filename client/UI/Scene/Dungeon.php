@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\UI\Scene;
+namespace GameClient\UI\Scene;
 
-use TemirkhanN\Venture\Game\IO\InputInterface;
-use TemirkhanN\Venture\Game\IO\OutputInterface;
-use TemirkhanN\Venture\Game\Storage\DungeonRepository;
-use TemirkhanN\Venture\Game\Storage\PlayerRepository;
-use TemirkhanN\Venture\Game\UI\SceneInterface;
-use TemirkhanN\Venture\Game\UI\Renderer\RendererInterface;
+use GameClient\IO\InputInterface;
+use GameClient\IO\OutputInterface;
+use GameClient\Storage\DungeonRepository;
+use GameClient\Storage\PlayerRepository;
+use GameClient\UI\SceneInterface;
+use GameClient\UI\Renderer\RendererInterface;
 
 class Dungeon implements SceneInterface
 {

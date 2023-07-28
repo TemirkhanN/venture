@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\UI\Scene;
+namespace GameClient\UI\Scene;
 
 use TemirkhanN\Venture\Craft\Recipe;
 use TemirkhanN\Venture\Craft\RecipeRepository;
-use TemirkhanN\Venture\Game\Component\Player\Player;
-use TemirkhanN\Venture\Game\IO\InputInterface;
-use TemirkhanN\Venture\Game\IO\OutputInterface;
-use TemirkhanN\Venture\Game\Storage\PlayerRepository;
-use TemirkhanN\Venture\Game\UI\Renderer\RendererInterface;
-use TemirkhanN\Venture\Game\UI\SceneInterface;
+use GameClient\Component\Player\Player;
+use GameClient\IO\InputInterface;
+use GameClient\IO\OutputInterface;
+use GameClient\Storage\PlayerRepository;
+use GameClient\UI\Renderer\RendererInterface;
+use GameClient\UI\SceneInterface;
 use TemirkhanN\Venture\Item\Prototype\Resource;
 use TemirkhanN\Venture\Player\Inventory\Slot;
 

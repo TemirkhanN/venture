@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\Action\Inventory;
+namespace GameClient\Action\Inventory;
 
 use TemirkhanN\Venture\Character\Equipment\EquipmentItem;
-use TemirkhanN\Venture\Game\Action\ActionInterface;
-use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
-use TemirkhanN\Venture\Game\Component\Player\Player;
+use GameClient\Action\ActionInterface;
+use GameClient\Action\PlayerActionHandlerInterface;
+use GameClient\Component\Player\Player;
 
 class EquipItem implements PlayerActionHandlerInterface
 {

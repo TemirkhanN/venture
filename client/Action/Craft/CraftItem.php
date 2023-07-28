@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\Action\Craft;
+namespace GameClient\Action\Craft;
 
 use TemirkhanN\Venture\Craft\RecipeRepository;
-use TemirkhanN\Venture\Game\Action\ActionInterface;
-use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
-use TemirkhanN\Venture\Game\Component\Player\Player;
-use TemirkhanN\Venture\Game\Component\Player\PlayerState;
+use GameClient\Action\ActionInterface;
+use GameClient\Action\PlayerActionHandlerInterface;
+use GameClient\Component\Player\Player;
+use GameClient\Component\Player\PlayerState;
 use TemirkhanN\Venture\Item\Prototype\ItemRepositoryInterface;
 use TemirkhanN\Venture\Player\Action\Craft;
 

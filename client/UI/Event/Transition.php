@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\UI\Event;
+namespace GameClient\UI\Event;
 
 use Psr\EventDispatcher\StoppableEventInterface;
-use TemirkhanN\Venture\Game\UI\SceneInterface;
+use GameClient\UI\SceneInterface;
 
 class Transition implements StoppableEventInterface
 {

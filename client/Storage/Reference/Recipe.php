@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\Storage\Reference;
+namespace GameClient\Storage\Reference;
 
 class Recipe
 {

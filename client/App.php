@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game;
+namespace GameClient;
 
 use League\Event\EventDispatcher;
 use Psr\Container\ContainerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use TemirkhanN\Venture\Game\Action\ActionInput;
-use TemirkhanN\Venture\Game\Action\PlayerActionHandlerBus;
-use TemirkhanN\Venture\Game\IO\InputInterface;
-use TemirkhanN\Venture\Game\IO\OutputInterface;
-use TemirkhanN\Venture\Game\Storage\GameLogRepository;
-use TemirkhanN\Venture\Game\UI\Event\PerformGUITransition;
-use TemirkhanN\Venture\Game\UI\Event\Transition;
-use TemirkhanN\Venture\Game\UI\SceneInterface;
-use TemirkhanN\Venture\Game\UI\Scene\Main;
+use GameClient\Action\ActionInput;
+use GameClient\Action\PlayerActionHandlerBus;
+use GameClient\IO\InputInterface;
+use GameClient\IO\OutputInterface;
+use GameClient\Storage\GameLogRepository;
+use GameClient\UI\Event\PerformGUITransition;
+use GameClient\UI\Event\Transition;
+use GameClient\UI\SceneInterface;
+use GameClient\UI\Scene\Main;
 use TemirkhanN\Venture\Kernel;
 use TemirkhanN\Venture\Utils\Networking\SystemMessageBus;
 

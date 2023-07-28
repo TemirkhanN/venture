@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\Storage;
+namespace GameClient\Storage;
 
 use TemirkhanN\Venture\Utils\Networking\ConsumerInterface;
 

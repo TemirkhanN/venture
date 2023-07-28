@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\UI\Renderer\Extension;
+namespace GameClient\UI\Renderer\Extension;
 
 use Psr\Container\ContainerInterface;
 use Twig\Extension\AbstractExtension;

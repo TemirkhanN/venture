@@ -7,9 +7,8 @@ use League\Container\ReflectionContainer;
 use League\Event\EventDispatcher;
 use Psr\Container\ContainerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use TemirkhanN\Venture\Game;
-use TemirkhanN\Venture\Game\UI\Renderer\RendererInterface;
-use TemirkhanN\Venture\Game\UI\Renderer\TwigRenderer;
+use GameClient\UI\Renderer\RendererInterface;
+use GameClient\UI\Renderer\TwigRenderer;
 use TemirkhanN\Venture\Item\Prototype\ItemRepository;
 use TemirkhanN\Venture\Item\Prototype\ItemRepositoryInterface;
 use TemirkhanN\Venture\Utils\Cache;
@@ -26,7 +25,7 @@ return (function () {
 
     $di->add(Cache::class)->addArgument('stable');
 
-    $di->add(Game\IO\OutputInterface::class, Game\IO\Printer::class);
+    $di->add(GameClient\IO\OutputInterface::class, GameClient\IO\Printer::class);
 
     $di->add(EventDispatcherInterface::class, EventDispatcher::class);
 
@@ -34,7 +33,7 @@ return (function () {
 
     $di->add(ContainerInterface::class, $di);
 
-    $di->add(Game\App::class)->addArguments([$di, Game\IO\Printer::class]);
+    $di->add(GameClient\App::class)->addArguments([$di, GameClient\IO\Printer::class]);
 
 return $di;
 })();

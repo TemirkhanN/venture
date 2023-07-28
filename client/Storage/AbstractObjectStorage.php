@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\Storage;
+namespace GameClient\Storage;
 
 use RuntimeException;
 use TemirkhanN\Venture\Utils\Cache;

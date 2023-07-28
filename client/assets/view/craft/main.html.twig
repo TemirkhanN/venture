@@ -11,7 +11,7 @@
     </style>
     <script>
         function stopCrafting() {
-            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\Craft\\ToggleCraftMenu::ACTION_NAME') }}', {status: 'off'});
+            performAction('{{ constant('GameClient\\Action\\Craft\\ToggleCraftMenu::ACTION_NAME') }}', {status: 'off'});
         }
 
         function craftRecipe(recipeId, resultingName) {
@@ -19,7 +19,7 @@
                 return;
             }
 
-            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\Craft\\CraftItem::ACTION_NAME') }}', {recipeId: recipeId});
+            performAction('{{ constant('GameClient\\Action\\Craft\\CraftItem::ACTION_NAME') }}', {recipeId: recipeId});
         }
     </script>
 {% endblock %}

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\Action\Battle;
+namespace GameClient\Action\Battle;
 
 use TemirkhanN\Venture\Character\Action\Attack as AttackAction;
-use TemirkhanN\Venture\Game\Action\ActionInterface;
-use TemirkhanN\Venture\Game\Action\PlayerActionHandlerInterface;
-use TemirkhanN\Venture\Game\Component\Player\Player;
-use TemirkhanN\Venture\Game\Storage\BattleRepository;
+use GameClient\Action\ActionInterface;
+use GameClient\Action\PlayerActionHandlerInterface;
+use GameClient\Component\Player\Player;
+use GameClient\Storage\BattleRepository;
 
 class NextTurn implements PlayerActionHandlerInterface
 {

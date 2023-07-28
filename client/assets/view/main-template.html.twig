@@ -42,11 +42,11 @@
         }
 
         function cheatAddGold(amount) {
-            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\Cheat\\GetGold::ACTION_NAME') }}', {amount: amount});
+            performAction('{{ constant('GameClient\\Action\\Cheat\\GetGold::ACTION_NAME') }}', {amount: amount});
         }
 
         function cheatRestoreHealth() {
-            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\Cheat\\Heal::ACTION_NAME') }}');
+            performAction('{{ constant('GameClient\\Action\\Cheat\\Heal::ACTION_NAME') }}');
         }
 
         function exit() {

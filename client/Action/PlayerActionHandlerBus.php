@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace TemirkhanN\Venture\Game\Action;
+namespace GameClient\Action;
 
 use Psr\Container\ContainerInterface;
-use TemirkhanN\Venture\Game\Action\Battle\Attack;
-use TemirkhanN\Venture\Game\Action\Battle\EndBattle;
-use TemirkhanN\Venture\Game\Action\Battle\NextTurn;
-use TemirkhanN\Venture\Game\Action\Cheat\GetGold;
-use TemirkhanN\Venture\Game\Action\Cheat\Heal;
-use TemirkhanN\Venture\Game\Action\Craft\CraftItem;
-use TemirkhanN\Venture\Game\Action\Craft\ToggleCraftMenu;
-use TemirkhanN\Venture\Game\Action\Dungeon\EnterDungeon;
-use TemirkhanN\Venture\Game\Action\Dungeon\LeaveDungeon;
-use TemirkhanN\Venture\Game\Action\Dungeon\ProceedDungeon;
-use TemirkhanN\Venture\Game\Action\Inventory\EquipItem;
-use TemirkhanN\Venture\Game\Action\Inventory\UseItem;
-use TemirkhanN\Venture\Game\Action\Shop\BuyHealthPotion;
-use TemirkhanN\Venture\Game\Storage\PlayerRepository;
+use GameClient\Action\Battle\Attack;
+use GameClient\Action\Battle\EndBattle;
+use GameClient\Action\Battle\NextTurn;
+use GameClient\Action\Cheat\GetGold;
+use GameClient\Action\Cheat\Heal;
+use GameClient\Action\Craft\CraftItem;
+use GameClient\Action\Craft\ToggleCraftMenu;
+use GameClient\Action\Dungeon\EnterDungeon;
+use GameClient\Action\Dungeon\LeaveDungeon;
+use GameClient\Action\Dungeon\ProceedDungeon;
+use GameClient\Action\Inventory\EquipItem;
+use GameClient\Action\Inventory\UseItem;
+use GameClient\Action\Shop\BuyHealthPotion;
+use GameClient\Storage\PlayerRepository;
 
 class PlayerActionHandlerBus
 {

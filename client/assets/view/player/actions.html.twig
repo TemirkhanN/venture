@@ -1,15 +1,15 @@
 {% block header %}
     <script>
         function buyHealthPotion() {
-            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\Shop\\BuyHealthPotion::ACTION_NAME') }}');
+            performAction('{{ constant('GameClient\\Action\\Shop\\BuyHealthPotion::ACTION_NAME') }}');
         }
 
         function enterDungeon() {
-            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\Dungeon\\EnterDungeon::ACTION_NAME') }}');
+            performAction('{{ constant('GameClient\\Action\\Dungeon\\EnterDungeon::ACTION_NAME') }}');
         }
 
         function startCrafting() {
-            performAction('{{ constant('TemirkhanN\\Venture\\Game\\Action\\Craft\\ToggleCraftMenu::ACTION_NAME') }}', {status: 'on'});
+            performAction('{{ constant('GameClient\\Action\\Craft\\ToggleCraftMenu::ACTION_NAME') }}', {status: 'on'});
         }
     </script>
 {% endblock %}
