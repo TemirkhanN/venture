@@ -1,3 +1,5 @@
+{% set characterStats = character.stats %}
+
 <table>
     <tbody>
     <tr>
@@ -9,15 +11,15 @@
     </tr>
     <tr>
         <td>HP</td>
-        <td>{{ character.stats.currentHealth }}/{{ character.stats.maxHealth }}</td>
+        <td>{% if characterStats.currentHealth == 0 %}DEAD{% else %}{{ characterStats.currentHealth }}/{{ characterStats.maxHealth }}{% endif %}</td>
     </tr>
     <tr>
         <td>Attack</td>
-        <td>{{ character.stats.attack }}</td>
+        <td>{{ characterStats.attack }}</td>
     </tr>
     <tr>
         <td>Defence</td>
-        <td>{{ character.stats.defence }}</td>
+        <td>{{ characterStats.defence }}</td>
     </tr>
     </tbody>
 </table>

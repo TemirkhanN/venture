@@ -31,7 +31,12 @@ abstract class AbstractBoostedStats implements StatsInterface
 
     public function currentHealth(): int
     {
-        return $this->bonusHealth + $this->baseStats->currentHealth();
+        $currentBaseHealth = $this->baseStats->currentHealth();
+        if ($currentBaseHealth === 0) {
+            return 0;
+        }
+
+        return $this->bonusHealth + $currentBaseHealth;
     }
 
     public function loseHealth(int $amount): void
